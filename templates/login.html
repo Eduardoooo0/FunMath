@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style/login.css">
+    <link rel="stylesheet" href="static/login.css">
 </head>
 <body>
     <div class="container">
@@ -18,11 +18,11 @@
                 </div>
             </div>
             <div class="botoes">
-                <button id="home">Home</button>
+                <button id="home"><a class="links" href="{{url_for('Index')}}">Home</a></button>
                 <button id="jogos">Jogos</button>
                 <button id="sobre">Sobre</button>
                 <button id="ajuda">Ajuda</button>
-                <button id="botao-login">Login</button>
+                <button id="botao-login"><a class="links" href="{{url_for('Login')}}">Login</a></button>
             </div>
             <div class="perfil">
                 <img src="static/avatar-perfil.jpg" alt="">
