@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz matemático</title>
+</head>
+<body>
+    <h1>Quiz</h1>
+    
+    <p>{{ pergunta }}</p>
+    
+    <form method="post" action="{{url_for('Quiz')}}">
+        {% for opcao in opcoes %}
+        <input type="radio" name="resposta" value="{{ opcao }}"> {{ opcao }}<br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    
+    {% if mensagem %}
+    <p>{{ mensagem }}</p>
+    {% endif %}
+</body>
+</html>

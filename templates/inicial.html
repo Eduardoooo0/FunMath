@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="static/inicial.css">
+    <link rel="stylesheet" href="static/style/inicial.css">
 </head>
 <body>
     <div class="container">
@@ -46,7 +46,10 @@
                 </div>
                 <div id="quiz">
                     <h2>Quiz matemático</h2>
-                    <img src="static/imgs/jogo-quiz.png" alt="">
+                    <a href="{{url_for('Quiz')}}">
+                        <img src="static/imgs/jogo-quiz.png" alt="">
+                    </a>
+                    
                     <h4>Quiz matemático: Responda o máximo de questões corretamente.</h4>
                 </div>
             </div>
