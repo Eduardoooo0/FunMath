@@ -20,25 +20,48 @@ def Login():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
-    mensagem = ''
-    pergunta_atual = 0
+    # Verificar se a pergunta atual está no cookie
+    pergunta_atual = int(request.cookies.get('pergunta_atual', '0'))
+
     if request.method == 'POST':
         # Obter a resposta do usuário
-        resposta_user = request.form['resposta']
+        resposta_user = request.form.get('resposta')
 
-        # Verificar se a resposta está correta
-        if resposta_user == respostas[pergunta_atual]:
-            # Passar para a próxima questão
-            pergunta_atual += 1
-            if pergunta_atual == len(perguntas):
-                return render_template('tela_final.html')
-            else:
-                mensagem = "Parabéns! Sua resposta está correta."
-                return render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem)
+        if resposta_user is None:
+            # Tratamento de erro caso o usuário não selecione nenhuma opção
+            mensagem = "Por favor, selecione uma resposta."
+            response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem))
+            response.set_cookie('pergunta_atual', str(pergunta_atual))
+            return response
         else:
-            mensagem = f"Desculpe, a resposta correta é {respostas[pergunta_atual]}."
-            return render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem)
+
+            # Verificar se a resposta está correta
+            if resposta_user == respostas[pergunta_atual]:
+                # Passar para a próxima questão
+                pergunta_atual += 1
+                if pergunta_atual < len(perguntas):
+                    mensagem = "Parabéns! Sua resposta está correta."
+                    response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem))
+                    response.set_cookie('pergunta_atual', str(pergunta_atual))
+                    return response
+                else:
+                    return render_template('tela_final.html')
+            else:
+                pergunta_atual += 1
+                if pergunta_atual < len(perguntas):
+                    mensagem = f"Desculpe, a resposta correta era {respostas[pergunta_atual-1]}."
+                    response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem))
+                    response.set_cookie('pergunta_atual', str(pergunta_atual))
+                    return response
+                else:
+                    return render_template('tela_final.html')
     else:
-        # Iniciar o quiz com a primeira questão
+        # Se a página foi atualizada, voltar para a primeira pergunta
         pergunta_atual = 0
-        return render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem='')
+        response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=''))
+        response.set_cookie('pergunta_atual', str(pergunta_atual))
+        return response
+    
+@app.route('/inicial_quiz')
+def Inicial_quiz ():
+    return render_template('inicial_quiz.html')

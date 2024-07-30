@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inicial quiz</title>
+    <link rel="stylesheet" href="static/style/inicial_quiz.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div id="logo1">
+                    <img src="static/imgs/logo.png" alt="">
+                </div>
+                <div id="logo2">
+                    <img src="static/imgs/1.png" alt="">
+                </div>
+            </div>
+            <div class="botoes">
+                <button id="home"><a class="links" href="{{url_for('Index')}}">Home</a></button>
+                <button id="jogos">Jogos</button>
+                <button id="sobre">Sobre</button>
+                <button id="ajuda">Ajuda</button>
+                <button id="botao-login"><a class="links" href="{{url_for('Login')}}">Login</a></button>
+            </div>
+            <div class="perfil">
+                <img src="static/imgs/avatar-perfil.jpg" alt="">
+            </div>
+        </header>
+        <section>
+            <h1>Jogo: QUIZ</h1>
+            <div>
+                <img src="static/imgs/img-jogo-quiz.png" alt="">
+            </div>
+           <div><a href="{{url_for('Quiz')}}">play</a></div>
+
+           <div class="descricao">
+            <h5>Responda corretamente o máximo de questões que conseguir para ganhar pontos.</h5>
+            <ul>
+                <li>Cuidado com o tempo; Este jogo terá um cronometro marcando o seu tempo em cada questão.</ul>
+                <li>Avalie seu conhecimento.</ul>
+            </ul>
+           </div>
+        </section>
+        <footer></footer>
+    </div>
+</body>
+</html>
