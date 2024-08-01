@@ -2,6 +2,8 @@ from flask import Flask, request, make_response, render_template
 
 app = Flask(__name__)
 
+
+
 perguntas = ['Quando Felipe tinha 5 anos, o pai dele tinha 36 anos. Agora Felipe tem a metade da idade do pai. Quantos anos Felipe tem?',
              'Observando a sequência, o número que substitui a interrogação é? 1, 7, 6, – 1, – 7, – 6, 1, 7, 6, ?',
              'Qual é o sucessor do sucessor de 199?']
@@ -26,7 +28,6 @@ def Quiz():
     if request.method == 'POST':
         # Obter a resposta do usuário
         resposta_user = request.form.get('resposta')
-
         if resposta_user is None:
             # Tratamento de erro caso o usuário não selecione nenhuma opção
             mensagem = "Por favor, selecione uma resposta."
@@ -38,6 +39,7 @@ def Quiz():
             # Verificar se a resposta está correta
             if resposta_user == respostas[pergunta_atual]:
                 # Passar para a próxima questão
+                
                 pergunta_atual += 1
                 if pergunta_atual < len(perguntas):
                     mensagem = "Parabéns! Sua resposta está correta."
@@ -65,3 +67,7 @@ def Quiz():
 @app.route('/inicial_quiz')
 def Inicial_quiz ():
     return render_template('inicial_quiz.html')
+
+@app.route('/fases')
+def Fases():
+    return render_template('fases.html')
