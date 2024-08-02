@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fases</title>
+    <title>inicial quiz</title>
+    <link rel="stylesheet" href="static/style/fases.css">
 </head>
 <body>
-    <a href="{{url_for('Quiz')}}">fase 1</a>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div id="logo1">
+                    <img src="static/imgs/logo.png" alt="">
+                </div>
+                <div id="logo2">
+                    <img src="static/imgs/1.png" alt="">
+                </div>
+            </div>
+            <div class="botoes">
+                <button id="home"><a class="links" href="{{url_for('Index')}}">Home</a></button>
+                <button id="jogos">Jogos</button>
+                <button id="sobre">Sobre</button>
+                <button id="ajuda">Ajuda</button>
+                <button id="botao-login"><a class="links" href="{{url_for('Login')}}">Login</a></button>
+            </div>
+            <div class="perfil">
+                <img src="static/imgs/avatar-perfil.jpg" alt="">
+            </div>
+        </header>
+        <section>
+            <div class="fases">
+                <button class="button_fases"><a href="{{url_for('Quiz')}}">1</a></button>
+                <button class="button_fases"><a href="">2</a></button>
+                <button class="button_fases"><a href="">3</a></button>
+                <button class="button_fases"><a href="">4</a></button>
+                <button class="button_fases"><a href="">5</a></button>
+                <button class="button_fases"><a href="">6</a></button>
+                <button class="button_fases"><a href="">7</a></button>
+                <button class="button_fases"><a href="">8</a></button>
+                <button class="button_fases"><a href="">9</a></button>
+            </div>
+            
+        </section>
+        <footer></footer>
+    </div>
 </body>
 </html>
