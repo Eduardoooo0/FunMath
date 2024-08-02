@@ -136,17 +136,70 @@ section{
     width: 100%;
     height: 900px;
     overflow-y: auto;
-    background-color: gray;
+    background-image: linear-gradient(rgb(255, 184, 51), rgb(255, 221, 158)) ;
     padding: 15px;
 }
-section img{
-    width: 60%;
-    height: 90%;
-}
-/* footer{ 
+.box{
+    position: relative;
     display: flex;
     flex-direction: row;
-    border-top: 1px solid rgb(124, 124, 124);
+    height: 100%;
+    width: 90%;
+}
+#titulo-jogo{
+    padding: 15px;
+    margin-left: 25%;
+}
+#quad1{
+    width: 110%;
+    height: 90%;
+    margin-left: 50px;
+    background-color: aqua;
+}
+#img_quiz{
     width: 100%;
-    height: 10%;
-} */
+    height: 100%;
+}
+#div_quiz{
+    width: 100%;
+    background-color: gainsboro;
+}
+
+#quad2{
+    position: relative;
+    margin-left: 50px;
+    flex-direction: column;
+    height: 100%;
+    width: 110%;
+    background-color: white;
+}
+#desc_text{
+    padding: 15px;
+}
+#jogar{
+    position: relative;
+    background-color: gainsboro;
+    width: 30%;
+    height: 50px;
+    margin-left: 35%;
+    text-decoration: none;
+    margin-bottom: 10%;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+#desc{
+    padding: 15px;
+    margin-left: 25%;
+}
+.descricao{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 82.5%;
+}
+#div_quiz2{
+    width: 100%;
+    background-color: gainsboro;
+}

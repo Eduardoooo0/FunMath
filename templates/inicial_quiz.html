@@ -29,19 +29,41 @@
             </div>
         </header>
         <section>
-            <h1>Jogo: QUIZ</h1>
             <div>
-                <img src="static/imgs/img-jogo-quiz.png" alt="">
-            </div>
-           <div><a href="{{url_for('Fases')}}">play</a></div>
+                
+                
+            
+                <div class="box">
+                    <div id="quad1">
+                        <div id="div_quiz">
+                            <h1 id="titulo-jogo">QUIZ MATEMÁTICO</h1>
+                        </div>
+                        <div id="play-jogo">
+                            <img id="img_quiz" src="static/imgs/img-jogo-quiz.png" alt="">
+                        </div>
+                    </div>
+                    <div id="quad2">
+                        <div id="div_quiz2">
+                            <h1 id="desc">DESCRIÇÃO</h1>
+                        </div>
+                        <div class="descricao">
+                            <div>
+                                <h4 id="desc_text">Responda corretamente o máximo de questões que conseguir para ganhar pontos.</h4>
+                                <ul>
+                                    <li><p>Cuidado com o tempo; Este jogo terá um cronometro marcando o seu tempo em cada questão.</p></li>
+                                    <li><p>Avalie seu conhecimento.</p></li>
+                                </ul>
+                            </div>
+                            
+                            <button id="jogar"><a href="{{url_for('Fases')}}"><h1>Jogar</h1></a></button>
+                        </div>
+                    </div>
 
-           <div class="descricao">
-            <h5>Responda corretamente o máximo de questões que conseguir para ganhar pontos.</h5>
-            <ul>
-                <li>Cuidado com o tempo; Este jogo terá um cronometro marcando o seu tempo em cada questão.</ul>
-                <li>Avalie seu conhecimento.</ul>
-            </ul>
-           </div>
+                    
+                </div>
+            </div>
+            
+            
         </section>
         <footer></footer>
     </div>
