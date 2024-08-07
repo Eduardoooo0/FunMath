@@ -102,4 +102,6 @@ def Pegar_tempo_restante():
 @app.route('/tempo_restante')
 def Tempo_restante():
     tempo_restante_em_segundos = Pegar_tempo_restante()
+    if tempo_restante_em_segundos == 0:
+        tempo_restante_em_segundos = app.config['tempo_de_expiracao']
     return jsonify({'tempo_restante_em_segundos': tempo_restante_em_segundos})
