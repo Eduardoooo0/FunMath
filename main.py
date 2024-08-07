@@ -1,8 +1,11 @@
-from flask import Flask, request, make_response, render_template
+from flask import Flask, request, make_response, render_template,jsonify
+from datetime import timedelta, datetime
 
 app = Flask(__name__)
 
+app.config['tempo_de_expiracao'] = datetime.now() + timedelta(minutes=10)
 
+tempo_restante = app.config['tempo_de_expiracao'] - datetime.now()
 
 perguntas = ['Quando Felipe tinha 5 anos, o pai dele tinha 36 anos. Agora Felipe tem a metade da idade do pai. Quantos anos Felipe tem?',
              'Observando a sequência, o número que substitui a interrogação é? 1, 7, 6, – 1, – 7, – 6, 1, 7, 6, ?',
@@ -90,3 +93,13 @@ def Inicial_quiz ():
 @app.route('/fases')
 def Fases():
     return render_template('fases.html')
+
+def Pegar_tempo_restante():
+    tempo_restante = app.config['tempo_de_expiracao'] - datetime.now()
+    tempo_restante_em_segundos = tempo_restante.total_seconds()
+    return tempo_restante_em_segundos
+
+@app.route('/tempo_restante')
+def Tempo_restante():
+    tempo_restante_em_segundos = Pegar_tempo_restante()
+    return jsonify({'tempo_restante_em_segundos': tempo_restante_em_segundos})

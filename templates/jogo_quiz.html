@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Quiz</h1>
-    
+    <p><span id="Tempo_restante"></span></p>
     <p>{{ pergunta }}</p>
     
     <form method="post" action="{{url_for('Quiz')}}">
@@ -21,5 +21,24 @@
     {% if mensagem %}
     <p>{{ mensagem }}</p>
     {% endif %}
+
+    <script>
+        function Atualizar_tempo(){
+            fetch('/tempo_restante')
+            .then(response => response.json())
+            .then(data => {
+                let minutos = Math.floor(data.tempo_restante_em_segundos / 60);
+                let segundos = Math.floor(data.tempo_restante_em_segundos % 60);
+                if (segundos < 10 && segundos >= 0){
+                    segundos = '0' + segundos;
+                };
+                let tempo_restante_elemento = document.getElementById('Tempo_restante');
+                tempo_restante_elemento.innerHTML = `${minutos}:${segundos}`;
+                document.getElementById('Tempo_restante').innerText = minutos + ':' + segundos; 
+            })
+        };
+        setInterval(Atualizar_tempo, 1000);
+        
+    </script>
 </body>
 </html>
