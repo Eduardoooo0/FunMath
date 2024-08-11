@@ -94,6 +94,11 @@ def Inicial_quiz ():
 def Fases():
     return render_template('fases.html')
 
+@app.before_request
+def update_time():
+    if request.path == '/quiz':
+        app.config['tempo_de_expiracao'] = datetime.now() + timedelta(minutes=10)
+
 def Pegar_tempo_restante():
     tempo_restante = app.config['tempo_de_expiracao'] - datetime.now()
     tempo_restante_em_segundos = tempo_restante.total_seconds()
