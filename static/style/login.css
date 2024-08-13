@@ -42,17 +42,6 @@ header{
     height: 180px;
     margin-top: -40px;
 }
-
-.botoes{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 40%;
-    height: 35px;
-    margin-left: 30%;
-    font-size: 18px;
-}
-
 .links{
     text-decoration: none;
     color: black;
@@ -63,11 +52,10 @@ header{
     justify-content: center;
     width: 90px;
     height: 100%;
-    margin: 10px;
     cursor: pointer;
     color: orange;
 }
-#home:hover{
+#home a:hover{
     color: orange;
 }
 #jogos{
@@ -76,7 +64,6 @@ header{
     justify-content: center;
     width: 90px;
     height: 100%;
-    margin: 10px;
     cursor: pointer;
 }
 #jogos:hover{
@@ -88,7 +75,6 @@ header{
     justify-content: center;
     width: 90px;
     height: 100%;
-    margin: 10px;
     cursor: pointer;
 }
 #sobre:hover{
@@ -100,7 +86,6 @@ header{
     justify-content: center;
     width: 90px;
     height: 100%;
-    margin: 10px;
     cursor: pointer;
 }
 #ajuda:hover{
@@ -112,7 +97,6 @@ header{
     justify-content: center;
     width: 90px;
     height: 100%;
-    margin-left: 70px;
     cursor: pointer;
     background-color: orange;
     color: white;
@@ -121,11 +105,11 @@ header{
     background-color: rgb(146, 145, 145);
     color: white;
 }
+
 .perfil img{
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    margin-left: 40px;
 }
 section{
     display: flex;
@@ -256,4 +240,67 @@ footer{
     border-top: 1px solid rgb(124, 124, 124);
     width: 100%;
     height: 10%;
+}
+.botoes{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 50%;
+    height: 50px;
+    margin-left: 20%;
+    font-size: 18px;
+    padding: 1rem;
+    
+}
+
+.menu-items{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+}
+@media (max-width: 768px) {
+    header{
+        height: 12%;
+    }
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav .menu-items {
+        flex-direction: column;
+        margin-top: 1rem;
+    }
+    .menu-items button{
+        height: 5px;
+    }
+
+    nav ul li {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-icon::before {
+        content: "\2630";
+        font-size: 1.5rem;
+    }
+
+    .menu-items {
+        display: none;
+    }
+
+    .menu-items.show {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
 }

@@ -1,11 +1,10 @@
-from flask import Flask, request, make_response, render_template,jsonify
-from datetime import timedelta, datetime
+from flask import Flask, request, make_response, render_template, jsonify
+from datetime import datetime
 
 app = Flask(__name__)
 
-app.config['tempo_de_expiracao'] = datetime.now() + timedelta(minutes=10)
-
-tempo_restante = app.config['tempo_de_expiracao'] - datetime.now()
+app.config['tempo_de_expiracao_quiz'] = 62  # 1 minute
+app.config['pergunta_atual'] = 0
 
 perguntas = ['Quando Felipe tinha 5 anos, o pai dele tinha 36 anos. Agora Felipe tem a metade da idade do pai. Quantos anos Felipe tem?',
              'Observando a sequência, o número que substitui a interrogação é? 1, 7, 6, – 1, – 7, – 6, 1, 7, 6, ?',
@@ -29,7 +28,6 @@ opcoes = [['18 anos', '24 anos', '31 anos', '36 anos'],
           ['28','36','42','48'],
           ['100','101','110','111'],
           ['4','5','6','7']
-
           ]
 
 respostas = ['31 anos', '-1', '201','45','20','300','202','42','101','6']
@@ -44,69 +42,66 @@ def Login():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
-    # Verificar se a pergunta atual está no cookie
-    pergunta_atual = int(request.cookies.get('pergunta_atual', '0'))
-
     if request.method == 'POST':
+        pergunta_atual = app.config['pergunta_atual']
         # Obter a resposta do usuário
         resposta_user = request.form.get('resposta')
         if resposta_user is None:
-            # Tratamento de erro caso o usuário não selecione nenhuma opção
+            # Error handling if the user doesn't select any option
             mensagem = "Por favor, selecione uma resposta."
             response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem))
             response.set_cookie('pergunta_atual', str(pergunta_atual))
             return response
         else:
-
             # Verificar se a resposta está correta
             if resposta_user == respostas[pergunta_atual]:
                 # Passar para a próxima questão
-                
                 pergunta_atual += 1
+                app.config['pergunta_atual'] = pergunta_atual
                 if pergunta_atual < len(perguntas):
                     mensagem = "Parabéns! Sua resposta está correta."
                     response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem))
                     response.set_cookie('pergunta_atual', str(pergunta_atual))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
                     return response
                 else:
                     return render_template('tela_final.html')
             else:
                 pergunta_atual += 1
+                app.config['pergunta_atual'] = pergunta_atual
                 if pergunta_atual < len(perguntas):
                     mensagem = f"Desculpe, a resposta correta era {respostas[pergunta_atual-1]}."
                     response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=mensagem))
                     response.set_cookie('pergunta_atual', str(pergunta_atual))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
                     return response
                 else:
                     return render_template('tela_final.html')
     else:
         # Se a página foi atualizada, voltar para a primeira pergunta
         pergunta_atual = 0
+        app.config['pergunta_atual'] = pergunta_atual
         response = make_response(render_template('jogo_quiz.html', pergunta=perguntas[pergunta_atual], opcoes=opcoes[pergunta_atual], mensagem=''))
         response.set_cookie('pergunta_atual', str(pergunta_atual))
+        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
         return response
     
 @app.route('/inicial_quiz')
-def Inicial_quiz ():
+def Inicial_quiz():
     return render_template('inicial_quiz.html')
 
 @app.route('/fases')
 def Fases():
     return render_template('fases.html')
 
-@app.before_request
-def update_time():
-    if request.path == '/quiz':
-        app.config['tempo_de_expiracao'] = datetime.now() + timedelta(minutes=10)
-
-def Pegar_tempo_restante():
-    tempo_restante = app.config['tempo_de_expiracao'] - datetime.now()
-    tempo_restante_em_segundos = tempo_restante.total_seconds()
-    return tempo_restante_em_segundos
-
 @app.route('/tempo_restante')
 def Tempo_restante():
-    tempo_restante_em_segundos = Pegar_tempo_restante()
-    if tempo_restante_em_segundos == 0:
-        tempo_restante_em_segundos = app.config['tempo_de_expiracao']
-    return jsonify({'tempo_restante_em_segundos': tempo_restante_em_segundos})
+    tempo_de_inicio = request.cookies.get('tempo_de_inicio_quiz')
+    if tempo_de_inicio is not None:
+        tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
+        tempo_restante = app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds()
+        if tempo_restante <= 0:
+            tempo_restante = 0
+        return jsonify({'tempo_restante_em_segundos': int(tempo_restante)})
+    else:
+        return jsonify({'tempo_restante_em_segundos': app.config['tempo_de_expiracao_quiz']})
