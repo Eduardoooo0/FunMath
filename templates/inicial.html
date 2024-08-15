@@ -46,7 +46,7 @@
                 <div id="quebra-cabeca">
                     <h2>Quebra-cabeça</h2>
                     <img class="imagens" src="static/imgs/jogo-quebra-c.png" alt="">
-                    <h4>Quebra-Cabeça: Resolva problemas matemáticos para desbloquear imagens</h4>
+                    <h4>Quebra-Cabeça: Resolva problemas matemáticos para<br>desbloquear imagens</h4>
                 </div>
                 <div id="quiz">
                     <h2>Quiz matemático</h2>
@@ -67,18 +67,9 @@
         var header = document.querySelector('header');
         const menuIcon = document.querySelector('.menu-icon');
         const menuItems = document.querySelector('.menu-items');
-        var header_tam = '12%';
         menuIcon.addEventListener('click', () => {
           menuItems.classList.toggle('show');
           
-          if (header_tam === '45%'){
-            header_tam = '12%';
-            header.style.height = header_tam
-          }
-          else{
-            header_tam = '45%';
-            header.style.height = header_tam
-          };
         });
     </script>
 </body>

@@ -277,6 +277,8 @@ footer{
 
     .menu-items.show {
         display: flex;
+        position: absolute;
+        margin-right: 20px;
         flex-direction: column;
         align-items: flex-end;
     }
@@ -308,5 +310,98 @@ footer{
         justify-content: space-between;
         width: 100%;
         height: 40%;
+    }
+}
+/* responsivo para celular*/
+@media (max-width: 400px) {
+    #logo2{
+        display: none;
+    }
+    header{
+        justify-content: space-around;
+        height: 10%;
+    }
+    nav {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    nav .menu-items {
+        flex-direction: column;
+        margin-top: 1rem;
+    }
+    .menu-items button{
+        height: 5px;
+    }
+
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-icon::before {
+        content: "\2630";
+        font-size: 1.5rem;
+    }
+
+    .menu-items {
+        display: none;
+    }
+
+    .menu-items.show {
+        display: flex;
+        position: absolute;
+        margin-right: 20px;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    aside{
+        height: 10%;
+    }
+    section{
+        height: 75%;
+    }
+    .jogos{
+        margin: 0px;
+        padding: 0px;
+        align-items: flex-start;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-around;
+
+    }
+    #trilha{
+        width: 100%;
+        height: 20%;
+    }
+    #trilha img{
+        width: 100px;
+        height: 100px;
+    }
+    #quebra-cabeca{
+        width: 100%;
+        height: 20%;
+    }
+    #quebra-cabeca img{
+        width: 100px;
+        height: 100px;
+    }
+    #quiz{
+        width: 100%;
+        height: 20%;
+    }
+    #quiz img{
+        width: 100px;
+        height: 100px;
+    }
+    .jogos h2{
+        font-size: 20px;
+    }
+    .jogos h4{
+        font-size: 10px;
+        margin-bottom: 1px;
+    }
+    footer{
+        height: 3%;
     }
 }
