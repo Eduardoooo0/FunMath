@@ -1,76 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+{% extends 'template_base.html' %}
+
+    {% block style %}
     <link rel="stylesheet" href="static/style/inicial.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <div id="logo1">
-                    <img src="static/imgs/logo.png" alt="">
-                </div>
-                <div id="logo2">
-                    <img src="static/imgs/1.png" alt="">
-                </div>
-            </div>
-            <nav class="botoes">
-                <div class="menu-icon"></div>
-                <div class="menu-items">
-                    <button id="home"><a class="links" href="{{url_for('Index')}}">Home</a></button>
-                    <button id="jogos">Jogos</button>
-                    <button id="sobre">Sobre</button>
-                    <button id="ajuda">Ajuda</button>
-                    <button id="botao-login"><a class="links" href="{{url_for('Login')}}">Login</a></button>
-                </div>
-            </nav>
-                
-            <div class="perfil">
-                <img src="static/imgs/avatar-perfil.jpg" alt="">
-            </div>
-        </header>
+    {% endblock %}
+
+    {% block conteudo %}
         <aside>
-            
+            <!-- contêiner para a introdução -->
         </aside>
-        <section>
-           <div class="jogos">
+        
+        <section id="section_inicial">
+            <!-- Seção principal para exibir os jogos disponíveis -->
+            <div class="jogos">
+                <!-- Primeiro jogo: Trilha da raposa -->
                 <div id="trilha">
-                    <h2>Trilha da raposa</h2>
-                    <img class="imagens" src="static/imgs/jogo-trilha.png" alt="">
-                    <h4>Trilha: Ajude Nikki a chegar nas suas amigas galinhas.</h4>
+                    <h2>Trilha da raposa</h2> <!-- Título do jogo -->
+                    <img src="static/imgs/jogo-trilha.png" alt=""> <!-- Imagem do jogo -->
+                    <h4>Trilha: Ajude Nikki a chegar nas suas amigas galinhas.</h4> <!-- Descrição do jogo -->
                 </div>
+        
+                <!-- Segundo jogo: Quebra-cabeça -->
                 <div id="quebra-cabeca">
-                    <h2>Quebra-cabeça</h2>
-                    <img class="imagens" src="static/imgs/jogo-quebra-c.png" alt="">
-                    <h4>Quebra-Cabeça: Resolva problemas matemáticos para<br>desbloquear imagens</h4>
+                    <h2>Quebra-cabeça</h2> <!-- Título do jogo -->
+                    <img src="static/imgs/jogo-quebra-c.png" alt=""> <!-- Imagem do jogo -->
+                    <h4>Quebra-Cabeça: Resolva problemas matemáticos para desbloquear imagens</h4> <!-- Descrição do jogo -->
                 </div>
+        
+                <!-- Terceiro jogo: Quiz matemático -->
                 <div id="quiz">
-                    <h2>Quiz matemático</h2>
-                    <a href="{{url_for('Inicial_quiz')}}">
-                        <img class="imagens" src="static/imgs/jogo-quiz.png" alt="">
+                    <h2>Quiz matemático</h2> <!-- Título do jogo -->
+                    <a href="{{url_for('Inicial_quiz')}}"> <!-- Link para a página do quiz -->
+                        <img src="static/imgs/jogo-quiz.png" alt=""> <!-- Imagem do jogo -->
                     </a>
-                    
-                    <h4>Quiz matemático: Responda o máximo de questões corretamente.</h4>
+                    <h4>Quiz matemático: Responda o máximo de questões corretamente.</h4> <!-- Descrição do jogo -->
                 </div>
             </div>
         </section>
+        
         <footer>
+            <!--  rodapé -->
         </footer>
     </div>
 
-
-    <script>
-        var header = document.querySelector('header');
-        const menuIcon = document.querySelector('.menu-icon');
-        const menuItems = document.querySelector('.menu-items');
-        menuIcon.addEventListener('click', () => {
-          menuItems.classList.toggle('show');
-          
-        });
-    </script>
-</body>
-</html>
+    {% endblock %}

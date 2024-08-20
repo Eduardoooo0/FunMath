@@ -1,44 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz matemático</title>
-</head>
-<body>
-    <h1>Quiz</h1>
-    <p><span id="Tempo_restante"></span></p>
-    <p>{{ pergunta }}</p>
-    
-    <form method="post" action="{{url_for('Quiz')}}">
-        {% for opcao in opcoes %}
-        <input type="radio" name="resposta" value="{{ opcao }}"> {{ opcao }}<br>
-        {% endfor %}
-        <br>
-        <input type="submit" value="Confirmar">
-    </form>
-    
-    {% if mensagem %}
-    <p>{{ mensagem }}</p>
-    {% endif %}
+{% extends 'template_base.html' %}
 
+    {% block style %}
+    <link rel="stylesheet" href="static/style/jogo_quiz.css">
+    {% endblock %}
+
+    {% block conteudo %}
+        <!-- Seção principal do conteúdo -->
+        <section id="section_quiz">
+            <div>
+                <!-- Caixa principal de conteúdo -->
+                <div class="box">
+                    <!-- Div para o quiz -->
+                    <div id="div_quiz">
+                        <h1 id="titulo-jogo">QUIZ MATEMÁTICO</h1> <!-- Título do quiz -->
+                    </div>
+                    <!-- Primeira caixa de conteúdo do quiz -->
+                    <div id="bloco1">
+                        <p><span id="Tempo_restante"></span></p> <!-- Espaço para exibir o tempo restante -->
+                        <p id="pergunta">{{ pergunta }}</p> <!-- Pergunta do quiz -->
+                        <!-- Contêiner para as opções de resposta -->
+                        <div class="questao">
+                            <form method="post" action="{{url_for('Quiz')}}">
+                                <!-- Laço para criar botões de resposta para cada opção -->
+                                {% for opcao in opcoes %}
+                                <input class="inputs" type="submit" name="resposta" value="{{ opcao }}" id=""> <!-- Botão de opção -->
+                                {% endfor %}
+                            </form>
+                        </div>
+                        <!-- Div para exibir mensagens relacionadas à resposta -->
+                        <div id="resposta">
+                            {% if mensagem %}
+                            <p>{{ mensagem }}</p> <!-- Mensagem exibida -->
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- Segunda caixa de conteúdo com informações adicionais -->
+                    <div id="bloco2">
+                        <div class="descricao">
+                            <div>
+                                <h4 id="desc_text">Responda corretamente o máximo de questões que conseguir para ganhar pontos.</h4> <!-- Texto de descrição -->
+                                <ul>
+                                    <!-- Lista de instruções e dicas -->
+                                    <li><p>Cuidado com o tempo; Este jogo terá um cronometro marcando o seu tempo em cada questão.</p></li>
+                                    <li><p>Avalie seu conhecimento.</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </section>
+    </div>
+    <!-- Script para atualizar o tempo restante -->
+    {% endblock %}
+
+    {% block js %}
+    <!-- Script para atualizar o tempo restante -->
     <script>
+        let num= document.querySelectorAll('.inputs').length
+        document.querySelectorAll('.inputs').forEach((input, index)=>{
+            input.id=`input-${index + 1}`;
+        });
         function Atualizar_tempo(){
-            fetch('/tempo_restante')
-            .then(response => response.json())
+            fetch('/tempo_restante')  // Faz uma requisição para obter o tempo restante
+            .then(response => response.json())  // Converte a resposta para JSON
             .then(data => {
+                // Calcula minutos e segundos a partir do tempo restante em segundos
                 let minutos = Math.floor(data.tempo_restante_em_segundos / 60);
                 let segundos = Math.floor(data.tempo_restante_em_segundos % 60);
+                // Adiciona um zero à esquerda se os segundos forem menores que 10
                 if (segundos < 10 && segundos >= 0){
                     segundos = '0' + segundos;
                 };
+                // Atualiza o conteúdo do elemento com o tempo restante
                 let tempo_restante_elemento = document.getElementById('Tempo_restante');
                 tempo_restante_elemento.innerHTML = `${minutos}:${segundos}`;
                 document.getElementById('Tempo_restante').innerText = minutos + ':' + segundos; 
             })
         };
+        // Atualiza o tempo restante a cada segundo
         setInterval(Atualizar_tempo, 1000);
-        
     </script>
-</body>
-</html>
+    
+    {% endblock %}

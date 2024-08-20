@@ -1,266 +1,163 @@
-* {
-    border: 0;
-    margin: 0;
-    box-sizing: border-box;
+
+/* Estiliza a seção principal da página */
+#section_inicial_quiz {
+    display: flex;  /* Define o layout da seção como flexbox */
+    flex-direction: column;  /* Organiza os itens da seção em uma coluna */
+    width: 100%;  /* Define a largura da seção como 100% da largura do elemento pai */
+    flex: 1;  /* Permite que a seção cresça para preencher o espaço disponível */
+    overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
+    background-color: rgb(117, 193, 255);  /* Define a cor de fundo da seção como um azul claro */
+    padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels à seção */
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-}
-
-header{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: white;
-    border-bottom: 1px solid rgb(124, 124, 124);
-    font-family: Arial, Helvetica, sans-serif;
-    width: 100%;
-    height: 12%;
-}
-.logo{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 20%;
-}
-#logo1 img{
-    width: 80px;
-    height: 80px;
-    margin-left: 30px;
-}
-#logo2 img{
-    width: 180px;
-    height: 180px;
-    margin-top: -40px;
-}
-.links{
-    text-decoration: none;
-    color: black;
-}
-#home{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 100%;
-    cursor: pointer;
-    color: orange;
-}
-#home a:hover{
-    color: orange;
-}
-#jogos{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 100%;
-    cursor: pointer;
-}
-#jogos:hover{
-    color: orange;
-}
-#sobre{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 100%;
-    cursor: pointer;
-}
-#sobre:hover{
-    color: orange;
-}
-#ajuda{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 100%;
-    cursor: pointer;
-}
-#ajuda:hover{
-    color: orange;
-}
-#botao-login{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 90px;
-    height: 100%;
-    cursor: pointer;
-    background-color: orange;
-    color: white;
-}
-#botao-login:hover{
-    background-color: rgb(146, 145, 145);
-    color: white;
-}
-
-.perfil img{
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-}
-section {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    flex: 1;
-    overflow-y: auto;
-    background-image: linear-gradient(rgb(255, 184, 51), rgb(255, 221, 158));
-    padding: 15px;
-}
-
+/* Estiliza a caixa que contém o conteúdo principal */
 .box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 85%;
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: white;
+    display: flex;  /* Define o layout da caixa como flexbox */
+    flex-direction: column;  /* Organiza os itens da caixa em uma coluna */
+    align-items: center;  /* Alinha os itens da caixa horizontalmente ao centro */
+    width: 85%;  /* Define a largura da caixa como 85% da largura do seu elemento pai */
+    max-width: 1000px;  /* Define a largura máxima da caixa como 1000 pixels */
+    margin: 0 auto;  /* Centraliza a caixa horizontalmente */
+    background-color: white;  /* Define a cor de fundo da caixa como branca */
 }
 
+/* Estiliza o título do jogo */
 #titulo-jogo {
-    padding: 15px;
-    text-align: center;
+    padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels ao título do jogo */
+    text-align: center;  /* Centraliza o texto do título do jogo */
 }
 
+/* Estiliza o quadrado do jogo com imagem de fundo */
 #quad1 {
-    width: 95%;
-    height: 400px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url('../imgs/img-jogo-quiz.png');
-    background-size: cover;
-    background-position: center;
-    margin: 10px;
-    border: 1px solid rgb(173, 173, 173);
-
+    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+    position: relative;  /* Define a posição do quadrado como relativa */
+    display: flex;  /* Define o layout do quadrado como flexbox */
+    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
+    background-image: url('../imgs/img-jogo-quiz.png');  /* Define a imagem de fundo do quadrado */
+    background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
+    background-position: center;  /* Centraliza a imagem de fundo */
+    margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
 }
 
+/* Estiliza a imagem do quiz dentro do quadrado */
 #img_quiz {
-    width: 100%;
-    height: auto; 
-    max-height: 500px;
-    object-fit: cover;
+    width: 100%;  /* Define a largura da imagem como 100% da largura do seu elemento pai */
+    height: auto;  /* Define a altura da imagem como automática para manter a proporção */
+    max-height: 500px;  /* Define a altura máxima da imagem como 500 pixels */
+    object-fit: cover;  /* Faz com que a imagem cubra a área disponível sem distorcer */
 }
 
-
+/* Estiliza a divisão do quiz */
 #div_quiz {
-    width: 100%;
-    background-color: gainsboro;
+    width: 100%;  /* Define a largura da divisão do quiz como 100% da largura do seu elemento pai */
+    background-color: gainsboro;  /* Define a cor de fundo da divisão do quiz como cinza claro */
 }
+
+/* Estiliza o botão "jogar" */
 #jogar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    background-position: center;
-    width: 150px;
-    height: 150px;
-    margin: 20px;
-    cursor: pointer;
-    border-radius: 150px;
-    background-image: url('../imgs/botao-play.png');
+    display: flex;  /* Define o layout do botão jogar como flexbox */
+    align-items: center;  /* Alinha o conteúdo do botão jogar verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conteúdo do botão jogar horizontalmente */
+    background-size: cover;  /* Faz com que a imagem de fundo do botão jogar cubra toda a área */
+    background-position: center;  /* Centraliza a imagem de fundo do botão jogar */
+    width: 150px;  /* Define a largura do botão jogar como 150 pixels */
+    height: 150px;  /* Define a altura do botão jogar como 150 pixels */
+    margin: 20px;  /* Adiciona uma margem de 20 pixels ao redor do botão jogar */
+    cursor: pointer;  /* Define o cursor como ponteiro quando sobre o botão jogar */
+    border-radius: 150px;  /* Define bordas arredondadas no botão jogar para criar um formato circular */
+    background-image: url('../imgs/botao-play.png');  /* Define a imagem de fundo do botão jogar */
 }
 
+/* Estiliza o segundo quadrado */
 #quad2 {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    margin-top: 20px;
-    margin-right: 60px;
-    padding-bottom: 30px;
-    background-color: white;
+    display: flex;  /* Define o layout do segundo quadrado como flexbox */
+    flex-direction: column;  /* Organiza os itens do segundo quadrado em uma coluna */
+    width: 90%;  /* Define a largura do segundo quadrado como 90% da largura do seu elemento pai */
+    margin-top: 20px;  /* Adiciona uma margem superior de 20 pixels ao segundo quadrado */
+    margin-right: 60px;  /* Adiciona uma margem direita de 60 pixels ao segundo quadrado */
+    padding-bottom: 30px;  /* Adiciona um preenchimento inferior de 30 pixels ao segundo quadrado */
+    background-color: white;  /* Define a cor de fundo do segundo quadrado como branca */
 }
 
+/* Estiliza o texto da descrição */
 #desc_text {
-    padding: 15px;
+    padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels ao texto da descrição */
 }
 
-
+/* Estiliza a descrição em geral */
 .descricao {
-    display: flex;
-    flex-direction: column;
-}
-.botoes{
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    width: 50%;
-    height: 50px;
-    margin-left: 20%;
-    font-size: 18px;
-    padding: 1rem;
-    
+    display: flex;  /* Define o layout da descrição como flexbox */
+    flex-direction: column;  /* Organiza os itens da descrição em uma coluna */
 }
 
-.menu-items{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 40px;
-    font-size: 18px;
+/* Estiliza o container de botões em uma parte da página */
+.botoes {
+    display: flex;  /* Define o layout dos botões como flexbox */
+    flex-direction: row-reverse;  /* Organiza os botões em uma linha, com a ordem invertida */
+    align-items: center;  /* Alinha os botões verticalmente ao centro */
+    width: 50%;  /* Define a largura dos botões como 50% da largura do seu elemento pai */
+    height: 50px;  /* Define a altura dos botões como 50 pixels */
+    margin-left: 20%;  /* Adiciona uma margem esquerda de 20% da largura do seu elemento pai */
+    font-size: 18px;  /* Define o tamanho da fonte dos botões como 18 pixels */
+    padding: 1rem;  /* Adiciona um preenchimento interno de 1 rem aos botões */
 }
+
+/* Estiliza os itens do menu */
+.menu-items {
+    display: flex;  /* Define o layout dos itens do menu como flexbox */
+    flex-direction: row;  /* Organiza os itens do menu em uma linha */
+    align-items: center;  /* Alinha os itens do menu verticalmente ao centro */
+    justify-content: space-between;  /* Distribui os itens do menu com espaço igual entre eles */
+    width: 100%;  /* Define a largura dos itens do menu como 100% da largura do seu elemento pai */
+    height: 40px;  /* Define a altura dos itens do menu como 40 pixels */
+    font-size: 18px;  /* Define o tamanho da fonte dos itens do menu como 18 pixels */
+}
+
+/* Regras específicas para dispositivos com largura máxima de 768 pixels (telas menores) */
 @media (max-width: 768px) {
-    header{
-        height: 12%;
+    header {
+        height: 12%;  /* Mantém a altura do cabeçalho em 12% da altura da viewport em dispositivos menores */
     }
+
     nav {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: column;  /* Organiza os itens de navegação em uma coluna */
+        align-items: flex-start;  /* Alinha os itens de navegação ao início da linha */
     }
 
     nav .menu-items {
-        flex-direction: column;
-        margin-top: 1rem;
+        flex-direction: column;  /* Organiza os itens do menu em uma coluna */
+        margin-top: 1rem;  /* Adiciona uma margem superior de 1 rem aos itens do menu */
     }
-    .menu-items button{
-        height: 5px;
+
+    .menu-items button {
+        height: 5px;  /* Define a altura dos botões no menu como 5 pixels (ajustar conforme necessário) */
     }
 
     nav ul li {
-        margin-left: 0;
-        margin-top: 0.5rem;
+        margin-left: 0;  /* Remove a margem esquerda dos itens da lista de navegação */
+        margin-top: 0.5rem;  /* Adiciona uma margem superior de 0.5 rem aos itens da lista de navegação */
     }
 
     .menu-icon {
-        display: block;
-        cursor: pointer;
+        display: block;  /* Torna o ícone do menu visível em dispositivos menores */
+        cursor: pointer;  /* Define o cursor como ponteiro quando sobre o ícone do menu */
     }
 
     .menu-icon::before {
-        content: "\2630";
-        font-size: 1.5rem;
+        content: "\2630";  /* Adiciona o símbolo de menu (três linhas horizontais) ao ícone */
+        font-size: 1.5rem;  /* Define o tamanho da fonte do ícone do menu como 1.5 rem */
     }
 
     .menu-items {
-        display: none;
+        display: none;  /* Oculta os itens do menu por padrão em dispositivos menores */
     }
 
     .menu-items.show {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+        display: flex;  /* Exibe os itens do menu quando a classe 'show' é adicionada */
+        flex-direction: column;  /* Organiza os itens do menu em uma coluna */
+        align-items: flex-end;  /* Alinha os itens do menu ao final da linha */
     }
 }

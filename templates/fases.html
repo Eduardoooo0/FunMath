@@ -1,34 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inicial quiz</title>
-    <link rel="stylesheet" href="static/style/fases.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <div id="logo1">
-                    <img src="static/imgs/logo.png" alt="">
-                </div>
-                <div id="logo2">
-                    <img src="static/imgs/1.png" alt="">
-                </div>
-            </div>
-            <div class="botoes">
-                <button id="home"><a class="links" href="{{url_for('Index')}}">Home</a></button>
-                <button id="jogos">Jogos</button>
-                <button id="sobre">Sobre</button>
-                <button id="ajuda">Ajuda</button>
-                <button id="botao-login"><a class="links" href="{{url_for('Login')}}">Login</a></button>
-            </div>
-            <div class="perfil">
-                <img src="static/imgs/avatar-perfil.jpg" alt="">
-            </div>
-        </header>
-        <section>
+{% extends 'template_base.html' %}
+    {% block style %}
+        <link rel="stylesheet" href="static/style/fases.css">
+    {% endblock %}
+
+    {% block conteudo %}
+        <section id="section_fases">
             <div class="fases">
                 <a class="button_fases" href="{{url_for('Quiz')}}">1</a>
                 <a class="button_fases" href="">2</a>
@@ -44,5 +20,6 @@
         </section>
         <footer></footer>
     </div>
-</body>
-</html>
+
+
+    {% endblock %}
