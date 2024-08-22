@@ -40,6 +40,24 @@ questoes = [
                 ]
             }
         ]
+    },
+    {2:[
+            {'perguntas':[
+                '1+1?'
+                ]
+
+            },
+            {'opcoes':[
+                ['1','2','3','4']
+            ]
+
+            },
+            {'respostas':[
+                '2'
+            ]
+
+            }
+        ]
     }
 ]
 
@@ -53,10 +71,13 @@ def Index():
 def Login():
     return render_template('login.html')
 
+
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
-    fase_atual = app.config['fase_atual']
+   
     if request.method == 'POST':
+        fase_atual = int(request.form.get('fase', 1))
+        app.config['fase_atual']
         pergunta_atual = app.config['pergunta_atual']
         # Obter a resposta do usuário
         resposta_user = request.form.get('resposta')
@@ -80,10 +101,12 @@ def Quiz():
                 else:
                     return render_template('tela_final.html')
             else:
+                fase_atual = int(request.args.get('fase', 1))
+                app.config['fase_atual'] = fase_atual
                 pergunta_atual += 1
                 app.config['pergunta_atual'] = pergunta_atual
-                if pergunta_atual < len(questoes[fase_atual-1]['1'][0]['perguntas']):
-                    mensagem = f"Desculpe, a resposta correta era {questoes[fase_atual][2]['respostas'][pergunta_atual - 1]}."
+                if pergunta_atual < len(questoes[fase_atual-1][1][0]['perguntas']):
+                    mensagem = f"Desculpe, a resposta correta era {questoes[fase_atual-1][fase_atual][2]['respostas'][pergunta_atual - 1]}."
                     response = make_response(render_template('jogo_quiz.html',  pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual], mensagem=mensagem))
                     response.set_cookie('pergunta_atual', str(pergunta_atual))
                     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
@@ -92,6 +115,8 @@ def Quiz():
                     return render_template('tela_final.html')
     else:
         # Se a página foi atualizada, voltar para a primeira pergunta
+        fase_atual = int(request.args.get('fase', 1))
+        app.config['fase_atual'] = fase_atual
         pergunta_atual = 0
         app.config['pergunta_atual'] = pergunta_atual
         response = make_response(render_template('jogo_quiz.html',  pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual]))

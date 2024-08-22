@@ -5,17 +5,17 @@
 
     {% block conteudo %}
         <section id="section_fases">
-            <div class="fases">
-                <a class="button_fases" href="{{url_for('Quiz')}}">1</a>
-                <a class="button_fases" href="">2</a>
-                <a class="button_fases" href="">3</a>
-                <a class="button_fases" href="">4</a>
-                <a class="button_fases" href="">5</a>
-                <a class="button_fases" href="">6</a>
-                <a class="button_fases" href="">7</a>
-                <a class="button_fases" href="">8</a>
-                <a class="button_fases" href="">9</a>
-            </div>
+            <form class="fases" action="{{url_for('Quiz')}}">
+                <input class="button_fases" name="fase"  value="1" type="submit">
+                <input class="button_fases" name="fase"  value="2" type="submit">
+                <input class="button_fases" name="fase"  value="3" type="submit">
+                <input class="button_fases" name="fase"  value="4" type="submit">
+                <input class="button_fases" name="fase"  value="5" type="submit">
+                <input class="button_fases" name="fase"  value="6" type="submit">
+                <input class="button_fases" name="fase"  value="7" type="submit">
+                <input class="button_fases" name="fase"  value="8" type="submit">
+                <input class="button_fases" name="fase"  value="9" type="submit">
+            </form>
             
         </section>
         <footer></footer>
