@@ -1,11 +1,13 @@
-from flask import Flask, request, make_response, render_template, jsonify
+from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for
 from datetime import datetime
 
 app = Flask(__name__)
 
 app.config['tempo_de_expiracao_quiz'] = 62  # 1 minute
 app.config['pergunta_atual'] = 0
+app.config['fase_desbloqueada'] = 1
 app.config['fase_atual'] = 1
+app.config['pontuacao'] = 0
 
 questoes = [
     {1: [
@@ -43,17 +45,19 @@ questoes = [
     },
     {2:[
             {'perguntas':[
-                '1+1?'
+                '1+1?',
+                '1+2?'
                 ]
 
             },
             {'opcoes':[
-                ['1','2','3','4']
+                ['1','2','3','4'],
+                ['1','3','2','5']
             ]
 
             },
             {'respostas':[
-                '2'
+                '2','3'
             ]
 
             }
@@ -74,56 +78,86 @@ def Login():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
-   
-    if request.method == 'POST':
-        fase_atual = int(request.form.get('fase', 1))
-        app.config['fase_atual']
-        pergunta_atual = app.config['pergunta_atual']
-        # Obter a resposta do usuário
-        resposta_user = request.form.get('resposta')
-        if resposta_user is None:
-            mensagem = "Por favor, selecione uma resposta."
-            response = make_response(render_template('jogo_quiz.html',   pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual], mensagem=mensagem))
-            response.set_cookie('pergunta_atual', str(pergunta_atual))
-            return response
-        else:
-            # Verificar se a resposta está correta
-            if resposta_user == questoes[fase_atual-1][fase_atual][2]['respostas'][pergunta_atual]:
-                # Passar para a próxima questão
-                pergunta_atual += 1
-                app.config['pergunta_atual'] = pergunta_atual
-                if pergunta_atual < len(questoes[fase_atual-1][fase_atual][0]['perguntas']):
-                    mensagem = "Parabéns! Sua resposta está correta."
-                    response = make_response(render_template('jogo_quiz.html',   pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual], mensagem=mensagem))
-                    response.set_cookie('pergunta_atual', str(pergunta_atual))
-                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
-                    return response
-                else:
-                    return render_template('tela_final.html')
+    fase_desbloqueada = app.config['fase_desbloqueada']
+    pontuacao = app.config['pontuacao']
+    fase_atual = int(request.form.get('fase', app.config['fase_atual']))
+    pergunta_atual = app.config['pergunta_atual']
+    if fase_atual <= fase_desbloqueada: 
+        if request.method == 'POST':
+            # Obter a resposta do usuário
+            resposta_user = request.form.get('resposta')
+            if resposta_user is None:
+                mensagem = "Por favor, selecione uma resposta."
+                response = make_response(render_template('jogo_quiz.html',   pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual], mensagem=mensagem))
+                response.set_cookie('pergunta_atual', str(pergunta_atual))
+                return response
             else:
-                fase_atual = int(request.args.get('fase', 1))
-                app.config['fase_atual'] = fase_atual
-                pergunta_atual += 1
-                app.config['pergunta_atual'] = pergunta_atual
-                if pergunta_atual < len(questoes[fase_atual-1][1][0]['perguntas']):
-                    mensagem = f"Desculpe, a resposta correta era {questoes[fase_atual-1][fase_atual][2]['respostas'][pergunta_atual - 1]}."
-                    response = make_response(render_template('jogo_quiz.html',  pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual], mensagem=mensagem))
-                    response.set_cookie('pergunta_atual', str(pergunta_atual))
-                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
-                    return response
+                # Verificar se a resposta está correta
+                if resposta_user == questoes[fase_atual-1][fase_atual][2]['respostas'][pergunta_atual]:
+                    # Passar para a próxima questão
+                    pontuacao += 1
+                    app.config['pontuacao'] = pontuacao
+                    pergunta_atual += 1
+                    app.config['pergunta_atual'] = pergunta_atual
+                    if pergunta_atual < len(questoes[fase_atual-1][fase_atual][0]['perguntas']):
+                        mensagem = "Parabéns! Sua resposta está correta."
+                        response = make_response(render_template('jogo_quiz.html',   pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual], mensagem=mensagem))
+                        response.set_cookie('pergunta_atual', str(pergunta_atual))
+                        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                        return response
+                    else:
+                        if pontuacao >= 7:
+                            message = f"Parabéns sua pontuação foi {pontuacao}/{len(questoes[fase_atual-1][fase_atual][0]['perguntas'])}. Pode avançar de fase."
+                            pontuacao = 0
+                            app.config['pontuacao'] = pontuacao
+                            pergunta_atual = 0
+                            app.config['pergunta_atual'] = pergunta_atual
+                            fase_desbloqueada += 1
+                            app.config['fase_desbloqueada'] = fase_desbloqueada
+                            fase_atual += 1
+                            app.config['fase_atual'] = fase_atual
+                            return render_template('tela_final.html',mensagem=message)
+                        else:
+                            message = f"Sua pontuação foi {pontuacao}/{len(questoes[fase_atual-1][fase_atual][0]['perguntas'])}. Tente fazer uma melhor pontuação para avançar a fase."
+                            pontuacao = 0
+                            app.config['pontuacao'] = pontuacao
+                            return render_template('tela_final.html',mensagem=message)
                 else:
-                    return render_template('tela_final.html')
+                    pergunta_atual += 1
+                    app.config['pergunta_atual'] = pergunta_atual
+                    if pergunta_atual < len(questoes[fase_atual-1][1][0]['perguntas']):
+                        mensagem = f"Desculpe, a resposta correta era {questoes[fase_atual-1][fase_atual][2]['respostas'][pergunta_atual - 1]}."
+                        response = make_response(render_template('jogo_quiz.html',  pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual], mensagem=mensagem))
+                        response.set_cookie('pergunta_atual', str(pergunta_atual))
+                        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                        return response
+                    else:
+                        if pontuacao >= 7:
+                            message = f"Parabéns sua pontuação foi {pontuacao}/{len(questoes[fase_atual-1][fase_atual][0]['perguntas'])}. Pode avançar de fase."
+                            pontuacao = 0
+                            app.config['pontuacao'] = pontuacao
+                            pergunta_atual = 0
+                            app.config['pergunta_atual'] = pergunta_atual
+                            fase_desbloqueada += 1
+                            app.config['fase_desbloqueada'] = fase_desbloqueada
+                            fase_atual += 1
+                            app.config['fase_atual'] = fase_atual
+                            return render_template('tela_final.html',mensagem=message)
+                        else:
+                            message = f"Sua pontuação foi {pontuacao}/{len(questoes[fase_atual-1][fase_atual][0]['perguntas'])}. Tente fazer uma melhor pontuação para avançar a fase."
+                            pontuacao = 0
+                            app.config['pontuacao'] = pontuacao
+                            return render_template('tela_final.html',mensagem=message)
+        else:               
+            # Se a página foi atualizada, voltar para a primeira pergunta
+            pergunta_atual = 0
+            app.config['pergunta_atual'] = pergunta_atual
+            response = make_response(render_template('jogo_quiz.html',  pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual]))
+            response.set_cookie('pergunta_atual', str(pergunta_atual))
+            response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+            return response
     else:
-        # Se a página foi atualizada, voltar para a primeira pergunta
-        fase_atual = int(request.args.get('fase', 1))
-        app.config['fase_atual'] = fase_atual
-        pergunta_atual = 0
-        app.config['pergunta_atual'] = pergunta_atual
-        response = make_response(render_template('jogo_quiz.html',  pergunta=questoes[fase_atual-1][fase_atual][0]['perguntas'][pergunta_atual], opcoes=questoes[fase_atual-1][fase_atual][1]['opcoes'][pergunta_atual]))
-        response.set_cookie('pergunta_atual', str(pergunta_atual))
-        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
-        return response
-    
+        return redirect(url_for('Fases'))
 @app.route('/inicial_quiz')
 def Inicial_quiz():
     return render_template('inicial_quiz.html')
