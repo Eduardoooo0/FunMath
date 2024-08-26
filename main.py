@@ -3,7 +3,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-app.config['tempo_de_expiracao_quiz'] = 62  # 1 minute
+app.config['tempo_de_expiracao_quiz'] = 62  # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['fase_desbloqueada'] = 1
 app.config['fase_atual'] = 1
@@ -46,27 +46,76 @@ questoes = [
     {2:[
             {'perguntas':[
                 '1+1?',
-                '1+2?'
+                '1+2?',
+                '1+3?',
+                '1+4?',
+                '1+5?',
+                '1+6?',
+                '1+7?',
+                '1+8?',
+                '1+9?',
+                '1+10?'
                 ]
 
             },
             {'opcoes':[
                 ['1','2','3','4'],
-                ['1','3','2','5']
+                ['1','3','2','5'],
+                ['1','3','4','5'],
+                ['1','3','2','5'],
+                ['1','6','2','5'],
+                ['7','3','2','5'],
+                ['1','8','2','5'],
+                ['1','3','2','9'],
+                ['1','3','10','5'],
+                ['11','3','2','5']
             ]
 
             },
             {'respostas':[
-                '2','3'
+                '2','3','4','5','6','7','8','9','10','11'
+            ]
+
+            }
+        ]
+    },
+    {3:[
+            {'perguntas':[
+                '1+2?',
+                '1+1?',
+                '1+3?',
+                '1+4?',
+                '1+5?',
+                '1+6?',
+                '1+7?',
+                '1+8?',
+                '1+9?',
+                '1+10?'
+                ]
+
+            },
+            {'opcoes':[
+                ['1','2','3','4'],
+                ['1','3','2','5'],
+                ['1','3','4','5'],
+                ['1','3','2','5'],
+                ['1','6','2','5'],
+                ['7','3','2','5'],
+                ['1','8','2','5'],
+                ['1','3','2','9'],
+                ['1','3','10','5'],
+                ['11','3','2','5']
+            ]
+
+            },
+            {'respostas':[
+                '3','2','4','5','6','7','8','9','10','11'
             ]
 
             }
         ]
     }
 ]
-
-             
-
 @app.route('/')
 def Index():
     return render_template('inicial.html')
@@ -80,11 +129,11 @@ def Login():
 def Quiz():
     fase_desbloqueada = app.config['fase_desbloqueada']
     pontuacao = app.config['pontuacao']
-    fase_atual = int(request.form.get('fase', app.config['fase_atual']))
     pergunta_atual = app.config['pergunta_atual']
-    if fase_atual <= fase_desbloqueada: 
-        if request.method == 'POST':
-            # Obter a resposta do usuário
+    if request.method == 'POST':
+        fase_atual = app.config['fase_atual']
+        if fase_atual <= fase_desbloqueada:
+        # Obter a resposta do usuário
             resposta_user = request.form.get('resposta')
             if resposta_user is None:
                 mensagem = "Por favor, selecione uma resposta."
@@ -114,8 +163,6 @@ def Quiz():
                             app.config['pergunta_atual'] = pergunta_atual
                             fase_desbloqueada += 1
                             app.config['fase_desbloqueada'] = fase_desbloqueada
-                            fase_atual += 1
-                            app.config['fase_atual'] = fase_atual
                             return render_template('tela_final.html',mensagem=message)
                         else:
                             message = f"Sua pontuação foi {pontuacao}/{len(questoes[fase_atual-1][fase_atual][0]['perguntas'])}. Tente fazer uma melhor pontuação para avançar a fase."
@@ -140,15 +187,18 @@ def Quiz():
                             app.config['pergunta_atual'] = pergunta_atual
                             fase_desbloqueada += 1
                             app.config['fase_desbloqueada'] = fase_desbloqueada
-                            fase_atual += 1
-                            app.config['fase_atual'] = fase_atual
                             return render_template('tela_final.html',mensagem=message)
                         else:
                             message = f"Sua pontuação foi {pontuacao}/{len(questoes[fase_atual-1][fase_atual][0]['perguntas'])}. Tente fazer uma melhor pontuação para avançar a fase."
                             pontuacao = 0
                             app.config['pontuacao'] = pontuacao
                             return render_template('tela_final.html',mensagem=message)
-        else:               
+        else:
+            return redirect(url_for('Fases'))
+    else:
+        fase_atual = int(request.args.get('fase', 1))
+        app.config['fase_atual'] = fase_atual
+        if fase_atual <= fase_desbloqueada:               
             # Se a página foi atualizada, voltar para a primeira pergunta
             pergunta_atual = 0
             app.config['pergunta_atual'] = pergunta_atual
@@ -156,8 +206,8 @@ def Quiz():
             response.set_cookie('pergunta_atual', str(pergunta_atual))
             response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
             return response
-    else:
-        return redirect(url_for('Fases'))
+        else:
+            return redirect(url_for('Fases'))
 @app.route('/inicial_quiz')
 def Inicial_quiz():
     return render_template('inicial_quiz.html')
