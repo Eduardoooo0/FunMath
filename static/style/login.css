@@ -95,22 +95,25 @@ input[type="button"] {
     font-size: 12px;                 /* Define o tamanho da fonte do texto na opção */
 }
 
-/* Estilo da opção de cadastro */
 .cadastrar {
     display: flex;                    /* Define o layout da opção como flexbox */
-    flex-direction: row;              /* Organiza os itens da opção em uma linha */
+    flex-direction: row;
+    justify-content: flex-start;              /* Organiza os itens da opção em uma linha */
     position: relative;              /* Define o posicionamento relativo para a opção */
-    bottom: 145px;                   /* Define a distância da parte inferior da página */
+    bottom: 145px;
+    width: 290px;                   /* Define a distância da parte inferior da página */
     right: 2px;                      /* Define a distância da borda direita da página */
     font-family: Arial;              /* Define a fonte do texto na opção */
     font-size: 12px;                 /* Define o tamanho da fonte do texto na opção */
 }
-.cadastrar button {
+
+.cadastrar #link-cadastro{
     background-color: white;         /* Define a cor de fundo do botão de cadastro como branca */
-    color: orange;                   /* Define a cor do texto do botão de cadastro como laranja */
+    color: orange;
+    text-decoration: none;            /* Define a cor do texto do botão de cadastro como laranja */
     padding: 5px;                    /* Adiciona preenchimento interno ao botão de cadastro */
     border-radius: 20px;             /* Adiciona bordas arredondadas ao botão de cadastro */
-    margin-left: 50px;               /* Adiciona uma margem esquerda ao botão de cadastro */
+    margin-left: 20px;               /* Adiciona uma margem esquerda ao botão de cadastro */
     margin-top: -5px;                /* Adiciona uma margem superior negativa ao botão de cadastro */
     border: 1px solid orange;        /* Adiciona uma borda laranja ao botão de cadastro */
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre o botão */

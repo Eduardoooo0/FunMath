@@ -1,13 +1,16 @@
-from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for
+from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for, session, flash
 from datetime import datetime
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'Supersenha'
 app.config['tempo_de_expiracao_quiz'] = 62  # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['fase_desbloqueada'] = 1
 app.config['fase_atual'] = 1
 app.config['pontuacao'] = 0
+
+bancodados = {}
 
 questoes = [
     {1: [
@@ -118,12 +121,59 @@ questoes = [
 ]
 @app.route('/')
 def Index():
-    return render_template('inicial.html')
+    if 'user' in session:
+        bemv = f'Bem vindo ao FunMath {session["user"]}'
+        return render_template('inicial.html',bemvindo=bemv)
+    else:
+        return render_template('inicial.html',bemvindo=bancodados)
 
-@app.route('/login')
+@app.route('/login', methods = ['POST', 'GET'])
 def Login():
-    return render_template('login.html')
+    #se tiver logado
+    if 'user' in session:
+        return redirect(url_for('Perfil')) #vai pra index
+    if request.method == 'GET':
+        return render_template('login.html')
+    else:
+        email = request.form['email']
+        senha = request.form['senha']
+        if email in bancodados and bancodados[email] == senha:
+            session['user'] = email
+            return redirect(url_for('Index'))
+        else:
+            flash('Senha ou email errado')
+            return redirect(url_for('Login')) 
 
+@app.route('/cadastro', methods = ['POST','GET'])
+def Cadastro():
+    # se já tá logado
+    if 'user' in session:
+        return redirect (url_for('Index')) #vai pra index
+    
+    if request.method == 'GET':
+        return render_template('cadastro.html')
+    else:
+        
+        email = request.form['email']
+        senha = request.form['senha']
+
+        if email not in bancodados:
+            bancodados[email] = senha
+        else:
+            flash('Já existe um usuario com esse email')
+            return redirect(url_for('Cadastro')) 
+
+        return redirect(url_for('Login'))
+
+@app.route('/logout', methods=['POST'])
+def Logout():
+    if 'user' in session:
+        session.pop('user', None)
+        return redirect(url_for('Index'))
+
+@app.route('/perfil')
+def Perfil():
+    return render_template('perfil.html')
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
