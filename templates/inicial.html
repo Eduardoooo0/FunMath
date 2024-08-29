@@ -7,7 +7,6 @@
     {% block conteudo %}
         <aside>
             <!-- contêiner para a introdução -->
-            <h1>{{bemvindo}}</h1>
         </aside>
         
         <section id="section_inicial">
@@ -23,7 +22,9 @@
                 <!-- Segundo jogo: Quebra-cabeça -->
                 <div id="quebra-cabeca">
                     <h2>Quebra-cabeça</h2> <!-- Título do jogo -->
-                    <img src="static/imgs/jogo-quebra-c.png" alt=""> <!-- Imagem do jogo -->
+                    <a href="{{url_for('Quebra_cabeca')}}">
+                        <img src="static/imgs/jogo-quebra-c.png" alt=""> <!-- Imagem do jogo -->
+                    </a>
                     <h4>Quebra-Cabeça: Resolva problemas matemáticos para desbloquear imagens</h4> <!-- Descrição do jogo -->
                 </div>
         

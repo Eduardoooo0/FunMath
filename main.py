@@ -121,11 +121,7 @@ questoes = [
 ]
 @app.route('/')
 def Index():
-    if 'user' in session:
-        bemv = f'Bem vindo ao FunMath {session["user"]}'
-        return render_template('inicial.html',bemvindo=bemv)
-    else:
-        return render_template('inicial.html',bemvindo=bancodados)
+    return render_template('inicial.html')
 
 @app.route('/login', methods = ['POST', 'GET'])
 def Login():
@@ -258,6 +254,11 @@ def Quiz():
             return response
         else:
             return redirect(url_for('Fases'))
+        
+@app.route('/quebra-cabeca')
+def Quebra_cabeca():
+    return render_template('quebra-cabeca.html')
+
 @app.route('/inicial_quiz')
 def Inicial_quiz():
     return render_template('inicial_quiz.html')
