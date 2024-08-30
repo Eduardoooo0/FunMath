@@ -11,6 +11,7 @@
     padding: 15px; /* Espaçamento interno da seção */
 }
 
+
 /* Estilo para a caixa central de conteúdo */
 .box {
     display: flex; /* Utiliza flexbox para layout */

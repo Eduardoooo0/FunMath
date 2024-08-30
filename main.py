@@ -119,6 +119,7 @@ questoes = [
         ]
     }
 ]
+
 @app.route('/')
 def Index():
     return render_template('inicial.html')
