@@ -36,7 +36,6 @@
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     background-color: white; /* Cor de fundo branca */
-    margin-left: 10px; /* Espaço à esquerda do bloco de conteúdo */
     border: 1px solid rgb(173, 173, 173); /* Borda cinza clara ao redor do bloco */
     padding: 20px; /* Espaçamento interno ao redor do conteúdo */
 }

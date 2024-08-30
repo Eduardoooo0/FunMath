@@ -240,7 +240,7 @@ def Quiz():
                             app.config['pontuacao'] = pontuacao
                             return render_template('tela_final.html',mensagem=message)
         else:
-            return redirect(url_for('Fases'))
+            return redirect(url_for('Fases_quiz'))
     else:
         fase_atual = int(request.args.get('fase', 1))
         app.config['fase_atual'] = fase_atual
@@ -253,19 +253,23 @@ def Quiz():
             response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
             return response
         else:
-            return redirect(url_for('Fases'))
+            return redirect(url_for('Fases_quiz'))
         
 @app.route('/quebra-cabeca')
 def Quebra_cabeca():
     return render_template('quebra-cabeca.html')
 
+@app.route('/fases_qcbc')
+def Fases_qcbc():
+    return render_template('fases_qcbc.html')
+
 @app.route('/inicial_quiz')
 def Inicial_quiz():
     return render_template('inicial_quiz.html')
 
-@app.route('/fases')
-def Fases():
-    return render_template('fases.html')
+@app.route('/fases_quiz')
+def Fases_quiz():
+    return render_template('fases_quiz.html')
 
 @app.route('/tempo_restante')
 def Tempo_restante():
