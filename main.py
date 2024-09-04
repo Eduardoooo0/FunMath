@@ -4,10 +4,8 @@ from datetime import datetime
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'Supersenha'
-app.config['tempo_de_expiracao_quiz'] = 62  # 1 minuto
+app.config['tempo_de_expiracao_quiz'] = 62 # 1 minuto
 app.config['pergunta_atual'] = 0
-app.config['fase_desbloqueada'] = 1
-app.config['fase_atual'] = 1
 app.config['pontuacao'] = 0
 
 bancodados = {}
@@ -173,90 +171,153 @@ def Perfil():
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
-    fase_desbloqueada = app.config.get('fase_desbloqueada', 1)
+    pergunta_atual = app.config.get('pergunta_atual', 0)
     pontuacao = app.config.get('pontuacao', 0)
-    pergunta_atual = int(request.cookies.get('pergunta_atual', 0))
-
     if request.method == 'POST':
+        fase_desbloqueada = int(request.cookies.get('fase_desbloqueada',1))
         fase_atual = int(request.cookies.get('fase_atual', 1))
-        if fase_atual <= fase_desbloqueada:
-            resposta_user = request.form.get('resposta')
-            if resposta_user is None:
-                mensagem = "Por favor, selecione uma resposta."
-                response = make_response(render_template('jogo_quiz.html', pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],    opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],    mensagem=mensagem))
-                response.set_cookie('pergunta_atual', str(pergunta_atual))
-                response.set_cookie('fase_atual', str(fase_atual))
-                response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
-                return response
-            else:
-                if resposta_user == fases[fase_atual-1][pergunta_atual]['resposta']:
-                    pontuacao += 1
-                    app.config['pontuacao'] = pontuacao
-                    pergunta_atual += 1
-                    if pergunta_atual < len(fases[fase_atual-1]):
-                        mensagem = "Parabéns! Sua resposta está correta."
-                        response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
-                        response.set_cookie('pergunta_atual', str(pergunta_atual))
-                        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
-                        return response
-                    else:
-                        if pontuacao >= 7:
-                            message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
-                            pontuacao = 0
-                            app.config['pontuacao'] = pontuacao
-                            pergunta_atual = 0
-                            fase_desbloqueada += 1
-                            app.config['fase_desbloqueada'] = fase_desbloqueada
-                            response = make_response(render_template('tela_final.html', mensagem=message))
-                            response.set_cookie('fase_atual', str(fase_atual + 1))
-                            return response
-                        else:
-                            message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Tente fazer uma melhor pontuação para avançar a fase."
-                            pontuacao = 0
-                            app.config['pontuacao'] = pontuacao
-                            response = make_response(render_template('tela_final.html', mensagem=message))
-                            response.set_cookie('fase_atual', str(fase_atual))
-                            return response
-                else:
-                    pergunta_atual += 1
-                    if pergunta_atual < len(fases[fase_atual-1]):
-                        mensagem = f"Desculpe, a resposta correta era {fases[fase_atual-1][pergunta_atual]['resposta']}."
-                        response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
-                        response.set_cookie('pergunta_atual', str(pergunta_atual))
-                        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
-                        return response
-                    else:
-                        if pontuacao >= 7:
-                            message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
-                            pontuacao = 0
-                            app.config['pontuacao'] = pontuacao
-                            pergunta_atual = 0
-                            fase_desbloqueada += 1
-                            app.config['fase_desbloqueada'] = fase_desbloqueada
-                            response = make_response(render_template('tela_final.html', mensagem=message))
-                            response.set_cookie('fase_atual', str(fase_atual + 1))
-                            return response
-                        else:
-                            message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Tente fazer uma melhor pontuação para avançar a fase."
-                            pontuacao = 0
-                            app.config['pontuacao'] = pontuacao
-                            response = make_response(render_template('tela_final.html', mensagem=message))
-                            response.set_cookie('fase_atual', str(fase_atual))
-                            return response
-        else:
-            return redirect(url_for('Fases_quiz'))
-    else:
-        fase_atual = int(request.cookies.get('fase_atual', 1))
-        if fase_atual <= fase_desbloqueada:
-            pergunta_atual = 0
-            response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
-            response.set_cookie('pergunta_atual', str(pergunta_atual))
+        resposta_user = request.form.get('resposta')
+        if resposta_user is None:
+            mensagem = "Por favor, selecione uma resposta."
+            response = make_response(render_template('jogo_quiz.html', pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],    opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],    mensagem=mensagem))
             response.set_cookie('fase_atual', str(fase_atual))
             response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
             return response
         else:
-            return redirect(url_for('Fases_quiz'))
+            if resposta_user == fases[fase_atual-1][pergunta_atual]['resposta']:
+                pontuacao += 1
+                app.config['pontuacao'] = pontuacao
+                pergunta_atual += 1
+                app.config['pergunta_atual'] = pergunta_atual
+                if pergunta_atual < len(fases[fase_atual-1]):
+                    mensagem = "Parabéns! Sua resposta está correta."
+                    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
+                    response.set_cookie('fase_atual', str(fase_atual))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                    return response
+                else:
+                    if pontuacao >= 7:
+                        message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                        pontuacao = 0
+                        app.config['pontuacao'] = pontuacao
+                        pergunta_atual = 0
+                        app.config['pergunta_atual'] = pergunta_atual
+                        response = make_response(render_template('tela_final.html', mensagem=message))
+                        response.set_cookie('fase_atual', str(fase_atual + 1))
+                        response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+                        return response
+                    else:
+                        message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Tente fazer uma melhor pontuação para avançar a fase."
+                        pontuacao = 0
+                        app.config['pontuacao'] = pontuacao
+                        pergunta_atual = 0
+                        app.config['pergunta_atual'] = pergunta_atual
+                        response = make_response(render_template('tela_final.html', mensagem=message))
+                        response.set_cookie('fase_atual', str(fase_atual))
+                        response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
+                        return response
+            else:
+                pergunta_atual += 1
+                app.config['pergunta_atual'] = pergunta_atual
+                if pergunta_atual < len(fases[fase_atual-1]):
+                    mensagem = f"Desculpe, a resposta correta era {fases[fase_atual-1][pergunta_atual]['resposta']}."
+                    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
+                    response.set_cookie('fase_atual', str(fase_atual))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                    return response
+                else:
+                    if pontuacao >= 7:
+                        message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                        pontuacao = 0
+                        app.config['pontuacao'] = pontuacao
+                        pergunta_atual = 0
+                        app.config['pergunta_atual'] = pergunta_atual
+                        response = make_response(render_template('tela_final.html', mensagem=message))
+                        response.set_cookie('fase_atual', str(fase_atual + 1))
+                        response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+                        return response
+                    else:
+                        message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Tente fazer uma melhor pontuação para avançar a fase."
+                        pontuacao = 0
+                        app.config['pontuacao'] = pontuacao
+                        pergunta_atual = 0
+                        app.config['pergunta_atual'] = pergunta_atual
+                        response = make_response(render_template('tela_final.html', mensagem=message))
+                        response.set_cookie('fase_atual', str(fase_atual))
+                        response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
+                        return response
+    else:
+        fase_atual = request.args.get('fase')
+        if fase_atual is None:
+            fase_atual = int(request.cookies.get('fase_atual',1))
+        else:
+            fase_atual = int(request.args.get('fase'))
+            #define o cookie fase_desbloqueada
+            if fase_atual == 1:
+                if request.cookies.get('fase_desbloqueada') is None:
+                    pergunta_atual = 0
+                    app.config['pergunta_atual'] = pergunta_atual
+                    fase_desbloqueada = 1
+                    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
+                    response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                    response.set_cookie('fase_atual', str(fase_atual))
+                    return response
+                else:
+                    pergunta_atual = 0
+                    app.config['pergunta_atual'] = pergunta_atual
+                    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
+                    response.set_cookie('fase_atual', str(fase_atual))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                    return response
+            #se já tiver criado, pega o valor
+            else:
+                fase_desbloqueada = int(request.cookies.get('fase_desbloqueada', 1))
+                if fase_atual <= fase_desbloqueada:
+                    pergunta_atual = 0
+                    app.config['pergunta_atual'] = pergunta_atual
+                    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
+                    response.set_cookie('fase_atual', str(fase_atual))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                    return response
+                else:
+                    return redirect(url_for('Fases_quiz'))
+        tempo_de_inicio = request.cookies.get('tempo_de_inicio_quiz')
+        if tempo_de_inicio is not None:
+            tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
+            tempo_restante = int(app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds())
+            if tempo_restante <= 0:
+                pergunta_atual += 1
+                app.config['pergunta_atual'] = pergunta_atual
+                if pergunta_atual < len(fases[fase_atual-1]):
+                    mensagem = "TEMPO ESGOTADO!!!!!!!"
+                    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
+                    response.set_cookie('fase_atual', str(fase_atual))
+                    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+                    return response
+                else:
+                    if pontuacao >= 7:
+                        message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                        pontuacao = 0
+                        app.config['pontuacao'] = pontuacao
+                        pergunta_atual = 0
+                        app.config['pergunta_atual'] = pergunta_atual
+                        response = make_response(render_template('tela_final.html', mensagem=message))
+                        response.set_cookie('fase_atual', str(fase_atual + 1))
+                        response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+                        return response
+                    else:
+                        message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Tente fazer uma melhor pontuação para avançar a fase."
+                        pontuacao = 0
+                        app.config['pontuacao'] = pontuacao
+                        pergunta_atual = 0
+                        app.config['pergunta_atual'] = pergunta_atual
+                        response = make_response(render_template('tela_final.html', mensagem=message))
+                        response.set_cookie('fase_atual', str(fase_atual))
+                        response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
+                        return response
         
+            
 @app.route('/quebra-cabeca')
 def Quebra_cabeca():
     return render_template('quebra-cabeca.html')

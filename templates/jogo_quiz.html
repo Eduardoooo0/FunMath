@@ -55,30 +55,8 @@
 
     {% block js %}
     <!-- Script para atualizar o tempo restante -->
-    <script>
-        let num= document.querySelectorAll('.inputs').length
-        document.querySelectorAll('.inputs').forEach((input, index)=>{
-            input.id=`input-${index + 1}`;
-        });
-        function Atualizar_tempo(){
-            fetch('/tempo_restante')  // Faz uma requisição para obter o tempo restante
-            .then(response => response.json())  // Converte a resposta para JSON
-            .then(data => {
-                // Calcula minutos e segundos a partir do tempo restante em segundos
-                let minutos = Math.floor(data.tempo_restante_em_segundos / 60);
-                let segundos = Math.floor(data.tempo_restante_em_segundos % 60);
-                // Adiciona um zero à esquerda se os segundos forem menores que 10
-                if (segundos < 10 && segundos >= 0){
-                    segundos = '0' + segundos;
-                };
-                // Atualiza o conteúdo do elemento com o tempo restante
-                let tempo_restante_elemento = document.getElementById('Tempo_restante');
-                tempo_restante_elemento.innerHTML = `${minutos}:${segundos}`;
-                document.getElementById('Tempo_restante').innerText = minutos + ':' + segundos; 
-            })
-        };
-        // Atualiza o tempo restante a cada segundo
-        setInterval(Atualizar_tempo, 1000);
+    <script src="static/scripts/jogo_quiz.js">
+
     </script>
     
     {% endblock %}
