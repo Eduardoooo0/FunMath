@@ -49,12 +49,24 @@
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
 }
 
-#img {
+.quest_qcbc {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+}
+
+.button_quest {
+    width: 33%;
+    height: 33%;
+    border: 1px solid black;
+}
+
+/* #img {
     width: 33%;
     height: 33%;
     border: 1px solid black;
 
-}
+} */
 
 /* Estilo para o segundo bloco de conteúdo */
 #quad2 {
