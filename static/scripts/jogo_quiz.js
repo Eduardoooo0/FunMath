@@ -7,7 +7,11 @@ function Atualizar_tempo() {
     .then(response => response.json())  // Converte a resposta para JSON
     .then(data => {
         // Verifica se o tempo chegou a zero
-        
+        if (data.tempo_restante_em_segundos <= 0) {
+            // Redireciona para a próxima pergunta
+            return window.location.href = '/quiz'; // Sai da função
+        }
+
         // Calcula minutos e segundos a partir do tempo restante em segundos
         let minutos = Math.floor(data.tempo_restante_em_segundos / 60);
         let segundos = Math.floor(data.tempo_restante_em_segundos % 60);
@@ -16,21 +20,22 @@ function Atualizar_tempo() {
         if (segundos < 10 && segundos >= 0) {
             segundos = '0' + segundos;
         }
-        if (data.tempo_restante_em_segundos <= 0) {
-            // Redireciona para a próxima pergunta
-            // Substitua pela rota correta
-            return window.location.href = '/quiz'; // Sai da função
-        }
 
         // Atualiza o conteúdo do elemento com o tempo restante
         let tempo_restante_elemento = document.getElementById('Tempo_restante');
         tempo_restante_elemento.innerHTML = `${minutos}:${segundos}`;
         tempo_restante_elemento.innerText = minutos + ':' + segundos; 
+
+        // Chama a função novamente após 1 segundo
+        setTimeout(Atualizar_tempo, 1000);
+    })
+    .catch(error => {
+        console.error('Erro ao buscar o tempo restante:', error);
     });
 }
 
-// Atualiza o tempo restante a cada segundo
-setInterval(Atualizar_tempo, 1000);
+// Inicia a atualização do tempo
+Atualizar_tempo();
 
 // Intercepta a navegação para voltar à página anterior
 // Verifica se o usuário está navegando para trás

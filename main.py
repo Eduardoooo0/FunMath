@@ -4,7 +4,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'Supersenha'
-app.config['tempo_de_expiracao_quiz'] = 50 # 1 minuto
+app.config['tempo_de_expiracao_quiz'] = 60 # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['pontuacao'] = 0
 
@@ -217,10 +217,10 @@ def Quiz():
                         response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
                         return response
             else:
+                mensagem = f"Desculpe, a resposta correta era {fases[fase_atual-1][pergunta_atual]['resposta']}."
                 pergunta_atual += 1
                 app.config['pergunta_atual'] = pergunta_atual
                 if pergunta_atual < len(fases[fase_atual-1]):
-                    mensagem = f"Desculpe, a resposta correta era {fases[fase_atual-1][pergunta_atual]['resposta']}."
                     response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
                     response.set_cookie('fase_atual', str(fase_atual))
                     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
@@ -259,7 +259,7 @@ def Quiz():
                     pergunta_atual += 1
                     app.config['pergunta_atual'] = pergunta_atual
                     if pergunta_atual < len(fases[fase_atual-1]):
-                        mensagem = fase_atual
+                        mensagem = 'TEMPO ESGOTADO!!!'
                         response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
                         response.set_cookie('fase_atual', str(fase_atual))
                         response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
@@ -286,7 +286,10 @@ def Quiz():
                             response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
                             return response
                 else:
-                    return redirect(url_for('Index'))
+                    tempo_restante = int(app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds())
+                    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
+                    response.set_cookie('fase_atual', str(fase_atual))
+                    return response
         else:
             fase_atual = int(request.args.get('fase'))
             #define o cookie fase_desbloqueada
