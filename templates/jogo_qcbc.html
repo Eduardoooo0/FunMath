@@ -1,0 +1,48 @@
+{% extends 'template_base.html' %}
+
+    {% block style %}
+    <link rel="stylesheet" href="static/style/jogo_qcbc.css">
+    {% endblock %}
+
+    {% block conteudo %}
+        <!-- Seção principal do conteúdo -->
+    <section id="section_qcbc">
+        <div>
+            <!-- Caixa principal de conteúdo -->
+            <div class="box">
+                <!-- Div para o quiz -->
+                <div id="div_quebra_cbc">
+                    <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1> <!-- Título do quiz -->
+                </div>
+                <!-- Primeira caixa de conteúdo do quiz -->
+                <div id="quad1">
+                    <div id="img" style="background-color: blueviolet;">
+                        <a href="{{url_for('questoes_qcbc')}}">questao</a>
+                    </div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    <div id="img" style="background-color: rgb(155, 154, 156);"></div>
+                    
+                    
+                </div>
+                <div id="quad2">
+                    <div class="descricao">
+                        <div>
+                            <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
+                            <ul>
+                                <li><p>Responda corretamente as questões para desbloquear cada peça do quebra-cabeça.</p></li>
+                                <li><p>você ganhará pontos por cada quebra-cabeça montado.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </section>
+</div>
+    {% endblock %}

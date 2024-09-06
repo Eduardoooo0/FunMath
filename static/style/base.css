@@ -76,7 +76,7 @@ header {
 }
 
 /* Estilo dos itens de navegação com hover */
-#home:hover, #jogos:hover, #sobre:hover, #ajuda:hover {
+.links:hover {
     color: orange;                   /* Muda a cor do texto para laranja ao passar o mouse */
 }
 /* Estiliza o botão de login */
@@ -93,8 +93,7 @@ header {
 
 /* Estiliza o efeito de hover no botão de login */
 #botao-login:hover {
-    background-color: rgb(146, 145, 145); /* Altera a cor de fundo para um cinza claro quando sobreposto */
-    color: white;               /* Mantém a cor do texto como branca */
+    background-color: rgb(51, 50, 50); /* Altera a cor de fundo para um cinza claro quando sobreposto */
 }
 
 /* Estiliza as imagens de perfil */

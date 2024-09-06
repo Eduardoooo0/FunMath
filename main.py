@@ -321,11 +321,19 @@ def Quiz():
                     return redirect(url_for('Fases_quiz'))
 @app.route('/quebra-cabeca')
 def Quebra_cabeca():
-    return render_template('quebra-cabeca.html')
+    return render_template('inicial_qcbc.html')
 
 @app.route('/fases_qcbc')
 def Fases_qcbc():
     return render_template('fases_qcbc.html')
+
+@app.route('/jogo_qcbc')
+def Jogo_qcbc():
+    return render_template('jogo_qcbc.html')
+
+@app.route('/questoes_qcbc')
+def questoes_qcbc():
+    return render_template('questoes_qcbc.html')
 
 @app.route('/inicial_quiz')
 def Inicial_quiz():
@@ -346,3 +354,15 @@ def Tempo_restante():
         return jsonify({'tempo_restante_em_segundos': int(tempo_restante)})
     else:
         return jsonify({'tempo_restante_em_segundos': app.config['tempo_de_expiracao_quiz']})
+
+@app.route('/ajuda')
+def Ajuda():
+    return render_template ('ajuda.html')
+
+@app.route('/sobre')
+def Sobre():
+    return render_template ('sobre.html')
+
+@app.route('/jogos')
+def Jogos():
+    return render_template ('jogos.html')
