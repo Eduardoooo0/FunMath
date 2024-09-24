@@ -1,5 +1,3 @@
-
-
 /* Estilo para a seção principal do conteúdo */
 #section_quiz {
     display: flex; /* Utiliza flexbox para layout */
@@ -38,6 +36,7 @@
     background-color: white; /* Cor de fundo branca */
     border: 1px solid rgb(173, 173, 173); /* Borda cinza clara ao redor do bloco */
     padding: 20px; /* Espaçamento interno ao redor do conteúdo */
+    margin-top: 20px; /* Espaço acima da área de resposta */
 }
 
 /* Estilo para o temporizador */
@@ -115,7 +114,17 @@
 
 /* Estilo para a área de resposta */
 #resposta {
+    width: 95%; /* Largura do bloco de conteúdo */
+    height: 400px; /* Altura do bloco de conteúdo */
+    position: relative; /* Permite o posicionamento relativo dos filhos */
+    display: none; /* Utiliza flexbox para layout */
+    text-align: center;
+    background-color: white; /* Cor de fundo branca */
+    padding: 90px; /* Espaçamento interno ao redor do conteúdo */
+    border: 1px solid rgb(173, 173, 173); /* Borda cinza clara ao redor do bloco */
     margin-top: 20px; /* Espaço acima da área de resposta */
+    color: red;
+    font-size: 40px;
 }
 
 /* Estilo para o contêiner do quiz */
@@ -144,7 +153,6 @@
 .descricao {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
-}
 
 /* Estilo para a seção de botões */
 .botoes {
