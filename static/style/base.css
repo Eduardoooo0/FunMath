@@ -64,6 +64,9 @@ header {
     text-decoration: none;           /* Remove a decoração de texto (sublinhado) dos links */
     color: black;                    /* Define a cor do texto dos links como preto */
 }
+.links:hover {
+    color: orange;
+}
 
 /* Estilo dos itens de navegação */
 #home, #jogos, #sobre, #ajuda {
@@ -75,12 +78,8 @@ header {
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre os itens */
 }
 
-/* Estilo dos itens de navegação com hover */
-.links:hover {
-    color: orange;                   /* Muda a cor do texto para laranja ao passar o mouse */
-}
 /* Estiliza o botão de login */
-#botao-login {
+#botao-login{
     display: flex;              /* Define o layout do botão como flexbox */
     align-items: center;        /* Alinha o conteúdo do botão verticalmente ao centro */
     justify-content: center;    /* Centraliza o conteúdo do botão horizontalmente */
@@ -88,7 +87,6 @@ header {
     height: 100%;               /* Define a altura do botão como 100% da altura do cabeçalho */
     cursor: pointer;            /* Define o cursor como ponteiro quando sobre o botão */
     background-color: orange;   /* Define a cor de fundo do botão como laranja */
-    color: white;               /* Define a cor do texto do botão como branca */
 }
 
 /* Estiliza o efeito de hover no botão de login */
