@@ -27,12 +27,31 @@
                                 {% endfor %}
                             </form>
                         </div>
-                        <!-- Div para exibir mensagens relacionadas à resposta -->
-                        <div id="resposta">
-                            {% if mensagem %}
-                            <p>{{ mensagem }}</p> <!-- Mensagem exibida -->
-                            {% endif %}
-                        </div>
+                    </div>
+                    <!-- Div para exibir mensagens relacionadas à resposta -->
+                    <div id="resposta">
+                        {% if mensagem %}
+                        <p>{{ mensagem }}</p> <!-- Mensagem exibida -->
+                        <script>
+                            // Oculta o contêiner do quiz
+                            document.getElementById('bloco1').style.display = 'none';
+                            
+                            // Exibe o contêiner da resposta
+                            document.getElementById('resposta').style.display = 'block';
+                            
+                            // Espera 5 segundos
+                            setTimeout(function() {
+                                // Oculta o contêiner da resposta
+                                document.getElementById('resposta').style.display = 'none';
+                                
+                                // Exibe novamente o contêiner do quiz
+                                document.getElementById('bloco1').style.display = 'block';
+                                
+                                // Redireciona para a próxima pergunta, se necessário
+                                window.location.href = "{{ url_for('Quiz') }}"; // Redireciona para a próxima pergunta
+                            }, 5000);
+                        </script>
+                        {% endif %}
                     </div>
                     <!-- Segunda caixa de conteúdo com informações adicionais -->
                     <div id="bloco2">
@@ -56,7 +75,7 @@
     {% block js %}
     <!-- Script para atualizar o tempo restante -->
     <script src="static/scripts/jogo_quiz.js">
-
+        
     </script>
     
     {% endblock %}
