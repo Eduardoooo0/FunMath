@@ -28,19 +28,85 @@
 
 /* Estiliza o quadrado do jogo */
 #quad1 {
-    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 400px;  /* Define a altura do quadrado como 400 pixels */
-    position: relative;  /* Define a posição do quadrado como relativa */
-    display: flex;  /* Define o layout do quadrado como flexbox */
-    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
-    justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
-    background-color: white;  /* Define a cor de fundo do quadrado */
-    background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
-    background-position: center;  /* Centraliza a imagem de fundo */
-    margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
-    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+    width: 95%; /* Largura do bloco de conteúdo */
+    height: 400px; /* Altura do bloco de conteúdo */
+    position: relative; /* Permite o posicionamento relativo dos filhos */
+    display: flex; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    background-color: white; /* Cor de fundo branca */
+    border: 1px solid rgb(173, 173, 173); /* Borda cinza clara ao redor do bloco */
+    padding: 20px; /* Espaçamento interno ao redor do conteúdo */
 }
 
+/* Estilo para a pergunta */
+#pergunta {
+    margin-top: 40px; /* Espaço acima da pergunta */
+    font-weight: bold; /* Deixa o texto em negrito */
+    font-size: 17px; /* Define o tamanho da fonte */
+}
+
+/* Estilo para o contêiner das questões */
+.questao {
+    display: flex; /* Utiliza flexbox para layout */
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha se necessário */
+    justify-content: center; /* Alinha os itens horizontalmente ao centro */
+    gap: 10px; /* Espaço entre os itens */
+    width: 70%; /* Largura do contêiner das questões */
+    padding: 10px; /* Espaçamento interno ao redor do conteúdo */
+    margin-left: 15%; /* Espaço à esquerda do contêiner das questões */
+    margin-top: 40px; /* Espaço acima do contêiner das questões */
+}
+
+/* Estilo para as opções de resposta */
+#input-1{
+    flex: 1 1 250px; /* Permite que as opções cresçam e encolham conforme necessário */
+    width: 275px; /* Largura das opções de resposta */
+    height: 60px; /* Altura das opções de resposta */
+    margin: 10px; /* Espaço ao redor de cada opção */
+    margin-left: 15px; /* Espaço à esquerda de cada opção */
+    background-color: red; /* Cor de fundo */
+    color: white; /* Cor do texto branca */
+    font-size: 17px; /* Tamanho da fonte */
+    border: 1px solid gray; /* borda */
+}
+#input-2{
+    flex: 1 1 250px; /* Permite que as opções cresçam e encolham conforme necessário */
+    width: 275px; /* Largura das opções de resposta */
+    height: 60px; /* Altura das opções de resposta */
+    margin: 10px; /* Espaço ao redor de cada opção */
+    margin-left: 15px; /* Espaço à esquerda de cada opção */
+    background-color: green; /* Cor de fundo */
+    color: white; /* Cor do texto branca */
+    font-size: 17px; /* Tamanho da fonte */
+    border: 1px solid gray; /* borda */
+}
+#input-3{
+    flex: 1 1 250px; /* Permite que as opções cresçam e encolham conforme necessário */
+    width: 275px; /* Largura das opções de resposta */
+    height: 60px; /* Altura das opções de resposta */
+    margin: 10px; /* Espaço ao redor de cada opção */
+    margin-left: 15px; /* Espaço à esquerda de cada opção */
+    background-color:rgb(255, 186, 58); /* Cor de fundo */
+    color: white; /* Cor do texto branca */
+    font-size: 17px; /* Tamanho da fonte */
+    border: 1px solid gray; /* borda */
+}
+#input-4{
+    flex: 1 1 250px; /* Permite que as opções cresçam e encolham conforme necessário */
+    width: 275px; /* Largura das opções de resposta */
+    height: 60px; /* Altura das opções de resposta */
+    margin: 10px; /* Espaço ao redor de cada opção */
+    margin-left: 15px; /* Espaço à esquerda de cada opção */
+    background-color: blue; /* Cor de fundo */
+    color: white; /* Cor do texto branca */ 
+    font-size: 17px; /* Tamanho da fonte */
+    border: 1px solid gray; /* borda*/
+}
+
+/* Estilo para a área de resposta */
+#resposta {
+    margin-top: 20px; /* Espaço acima da área de resposta */
+}
 
 /* Estilo para o contêiner da pergunta */
 #div_quebra_cbc {
