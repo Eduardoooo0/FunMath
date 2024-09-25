@@ -17,10 +17,10 @@
                 <!-- Primeira caixa de conteúdo do quiz -->
                 <div id="quad1">
 
-                   <p id="pergunta">{{ pergunta }}</p> <!-- Pergunta do quiz -->
+                <p id="pergunta">{{ pergunta }}</p> <!-- Pergunta do quiz -->
                         <!-- Contêiner para as opções de resposta -->
                     <div class="questao">
-                        <form method="post" action="{{url_for('Jogo_qcbc')}}">
+                        <form method="post" action="{{url_for('Questoes_qcbc')}}">
                             <!-- Laço para criar botões de resposta para cada opção -->
                             {% for opcao in opcoes %}
                             <input class="inputs" type="submit" name="resposta" value="{{ opcao }}" id=""> <!-- Botão de opção -->

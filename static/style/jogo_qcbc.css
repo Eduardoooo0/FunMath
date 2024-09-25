@@ -56,47 +56,47 @@
     cursor: pointer;
 }
 
-#bt1 {
+.bt1 {
     background-image: url('../imgs/img1_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt2 {
+.bt2 {
     background-image: url('../imgs/img2_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt3 {
+.bt3 {
     background-image: url('../imgs/img3_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt4 {
+.bt4 {
     background-image: url('../imgs/img4_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt5 {
+.bt5 {
     background-image: url('../imgs/img5_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt6 {
+.bt6 {
     background-image: url('../imgs/img6_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt7 {
+.bt7 {
     background-image: url('../imgs/img7_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt8 {
+.bt8 {
     background-image: url('../imgs/img8_qcbc.png');
     background-size: cover;
     background-position: center;
 }
-#bt9 {
+.bt9 {
     background-image: url('../imgs/img9_qcbc.png');
     background-size: cover;
     background-position: center;
@@ -145,4 +145,10 @@
     width: 100%; /* Largura do contêiner do menu */
     height: 40px; /* Altura do contêiner do menu */
     font-size: 18px; /* Tamanho da fonte dos itens do menu */
+}
+#bt-1_1{
+    background-image: url('../imgs/avatar-perfil.jpg');
+}
+#bt-2_2{
+    background-image: url('../imgs/BOX1.jpg');
 }

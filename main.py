@@ -417,12 +417,8 @@ def Fases_qcbc():
 @app.route('/jogo_qcbc',methods=['POST', 'GET'])
 def Jogo_qcbc():
     if request.method == 'GET':
-        return render_template('jogo_qcbc.html')
+        return render_template('jogo_qcbc.html',nome='')
     
-    else:
-        return render_template('jogo_qcbc.html')
-
-
 @app.route('/questoes_qcbc',methods=['POST', 'GET'])
 def Questoes_qcbc():
     if request.method == 'GET':
@@ -435,7 +431,7 @@ def Questoes_qcbc():
         resposta = request.form.get('resposta')
         questao = int(request.cookies.get('questao_atual'))
         if resposta == fases[questao-1][questao-1]['resposta']:
-            response = make_response(render_template('jogo_qcbc.html',cores=lista_cores))
+            response = make_response(render_template('jogo_qcbc.html',nome=questao))
             response.set_cookie('questao_atual',str(questao))
             return response
         

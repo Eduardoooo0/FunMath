@@ -6,42 +6,34 @@
 
     {% block conteudo %}
         <!-- Seção principal do conteúdo -->
-    <section id="section_qcbc">
-        <div>
-            <!-- Caixa principal de conteúdo -->
-            <div class="box">
-                <!-- Div para o quiz -->
-                <div id="div_quebra_cbc">
-                    <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1> <!-- Título do quiz -->
-                </div>
-                <!-- Primeira caixa de conteúdo do quiz -->
-                <div id="quad1">
-                    <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get">
-                        <input class="button_quest" name="questao"  value="1" type="submit" id="bt1">
-                        <input class="button_quest" name="questao"  value="2" type="submit" id="bt2">
-                        <input class="button_quest" name="questao"  value="3" type="submit" id="bt3">
-                        <input class="button_quest" name="questao"  value="4" type="submit" id="bt4">
-                        <input class="button_quest" name="questao"  value="5" type="submit" id="bt5">
-                        <input class="button_quest" name="questao"  value="6" type="submit" id="bt6">
-                        <input class="button_quest" name="questao"  value="7" type="submit" id="bt7">
-                        <input class="button_quest" name="questao"  value="8" type="submit" id="bt8">
-                        <input class="button_quest" name="questao"  value="9" type="submit" id="bt9">
-                    </form>
-                </div>
-                <div id="quad2">
-                    <div class="descricao">
-                        <div>
-                            <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
-                            <ul>
-                                <li><p>Responda corretamente as questões para desbloquear cada peça do quebra-cabeça.</p></li>
-                                <li><p>você ganhará pontos por cada quebra-cabeça montado.</p></li>
-                            </ul>
+        <section id="section_qcbc">
+            <div>
+                <!-- Caixa principal de conteúdo -->
+                <div class="box">
+                    <!-- Div para o quiz -->
+                    <div id="div_quebra_cbc">
+                        <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1> <!-- Título do quiz -->
+                    </div>
+                    <!-- Primeira caixa de conteúdo do quiz -->
+                    <div id="quad1">
+                        <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get">
+                            {% for i in range(1,10)%}
+                                <input class="button_quest bt{{i}}" name="questao"  value="{{i}}" type="submit" id="bt-{{i}}_{{nome}}">
+                            {% endfor %}
+                        </form>
+                    </div>
+                    <div id="quad2">
+                        <div class="descricao">
+                            <div>
+                                <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
+                                <ul>
+                                    <li><p>Responda corretamente as questões para desbloquear cada peça do quebra-cabeça.</p></li>
+                                    <li><p>você ganhará pontos por cada quebra-cabeça montado.</p></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>  
-    </section>
-</div>
+            </div>  
+        </section>
     {% endblock %}
-    
