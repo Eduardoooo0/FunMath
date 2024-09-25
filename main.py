@@ -438,6 +438,7 @@ def Questoes_qcbc():
             response = make_response(render_template('jogo_qcbc.html',cores=lista_cores))
             response.set_cookie('questao_atual',str(questao))
             return response
+        
 @app.route('/inicial_quiz')
 def Inicial_quiz():
     return render_template('inicial_quiz.html')

@@ -40,11 +40,6 @@
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
     height: 400px;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
-    display: flex;  /* Define o layout do quadrado como flexbox */
-    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
-    justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
-    background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
-    background-position: center;  /* Centraliza a imagem de fundo */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
 }
@@ -52,21 +47,61 @@
 .quest_qcbc {
     width: 100%;
     height: 100%;
-    padding: 0px;
 }
 
 .button_quest {
     width: 33%;
-    height: 33%;
+    height: 33.4%;
     border: 1px solid black;
+    cursor: pointer;
 }
 
-/* #img {
-    width: 33%;
-    height: 33%;
-    border: 1px solid black;
+#bt1 {
+    background-image: url('../imgs/img1_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt2 {
+    background-image: url('../imgs/img2_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt3 {
+    background-image: url('../imgs/img3_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt4 {
+    background-image: url('../imgs/img4_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt5 {
+    background-image: url('../imgs/img5_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt6 {
+    background-image: url('../imgs/img6_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt7 {
+    background-image: url('../imgs/img7_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt8 {
+    background-image: url('../imgs/img8_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt9 {
+    background-image: url('../imgs/img9_qcbc.png');
+    background-size: cover;
+    background-position: center;
+}
 
-} */
 
 /* Estilo para o segundo bloco de conteúdo */
 #quad2 {
