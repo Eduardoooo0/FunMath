@@ -146,9 +146,3 @@
     height: 40px; /* Altura do contêiner do menu */
     font-size: 18px; /* Tamanho da fonte dos itens do menu */
 }
-#bt-1_1{
-    background-image: url('../imgs/avatar-perfil.jpg');
-}
-#bt-2_2{
-    background-image: url('../imgs/BOX1.jpg');
-}

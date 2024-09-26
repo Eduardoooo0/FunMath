@@ -18,7 +18,7 @@
                     <div id="quad1">
                         <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get">
                             {% for i in range(1,10)%}
-                                <input class="button_quest bt{{i}}" name="questao"  value="{{i}}" type="submit" id="bt-{{i}}_{{nome}}">
+                                <input class="button_quest bt{{i}}" name="questao"  value="{{i}}" type="submit" id="bt-{{i}}-{{valor}}">
                             {% endfor %}
                         </form>
                     </div>
@@ -36,4 +36,31 @@
                 </div>
             </div>  
         </section>
+    {% endblock %}
+    {% block js %}
+    <script>
+        let lista_imagens = [
+            "{{ url_for('static', filename='imgs/BOX1.jpg') }}",
+            "{{ url_for('static', filename='imgs/1.png') }}"
+        ];
+        
+        function Salvar_imagem(valor) {
+            localStorage.setItem(`imagem-${valor}`, lista_imagens[valor - 1]);
+        }
+        let lista = []
+        function atualizarImagens(valor) {
+            for (let index = 0; index < lista_imagens.length; index++) {
+                let imagemArmazenada = localStorage.getItem(`imagem-${valor}`);
+                let input = document.getElementById(`bt-${valor}-${valor}`);
+                if (imagemArmazenada && input) {
+                    input.style.backgroundImage = `url('${imagemArmazenada}')`;
+                }
+            }
+        }
+        
+        for (let i = 1; i <= lista_imagens.length; i++) {
+            Salvar_imagem(i);
+            atualizarImagens(i);
+        }
+    </script>
     {% endblock %}
