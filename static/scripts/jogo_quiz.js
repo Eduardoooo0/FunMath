@@ -39,14 +39,23 @@ Atualizar_tempo();
 
 // Intercepta a navegação para voltar à página anterior
 // Verifica se o usuário está navegando para trás
+// Adiciona um estado inicial à história
 window.history.pushState(null, document.title, window.location.href);
+
+// Escuta mudanças no histórico (navegação)
 window.addEventListener('popstate', function (event) {
     const abandonQuiz = confirm('Você deseja realmente abandonar o quiz?');
     if (abandonQuiz) {
-        // Se o usuário confirmar, permita que ele saia
+        // Se o usuário confirmar, redirecione
         window.location.href = '/fases_quiz'; // Redirecione para a página de fases
     } else {
         // Caso contrário, reverte a navegação
+        // Adiciona novamente o estado à história para evitar sair da página
         window.history.pushState(null, document.title, window.location.href);
     }
+});
+
+// Para garantir que o estado inicial permaneça ao recarregar a página
+window.addEventListener('load', function() {
+    window.history.replaceState(null, document.title, window.location.href);
 });

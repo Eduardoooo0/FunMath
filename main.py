@@ -7,10 +7,7 @@ app.config['SECRET_KEY'] = 'Supersenha'
 app.config['tempo_de_expiracao_quiz'] = 62 # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['pontuacao'] = 0
-
 bancodados = {}
-
-lista_cores = ['red','green','yellow','blue','pink','purple','orange','gray','white']
 
 fases = [
             [
@@ -417,23 +414,34 @@ def Fases_qcbc():
 @app.route('/jogo_qcbc',methods=['POST', 'GET'])
 def Jogo_qcbc():
     if request.method == 'GET':
-        return render_template('jogo_qcbc.html',valor=None)
+        fase = request.args.get('fase')
+        response = make_response(render_template('jogo_qcbc.html',valor=None))
+        response.set_cookie('fase_atual',fase)
+        return response
     
 @app.route('/questoes_qcbc',methods=['POST', 'GET'])
 def Questoes_qcbc():
+    fase = int(request.cookies.get('fase_atual'))
     if request.method == 'GET':
         questao = int(request.args.get('questao'))
-        response = make_response(render_template('questoes_qcbc.html',pergunta=fases[questao-1][questao-1]['pergunta'],opcoes=fases[questao-1][questao-1]['opcoes'],mensagem=''))
+        response = make_response(render_template('questoes_qcbc.html',pergunta=fases[fase][questao-1]['pergunta'],opcoes=fases[fase][questao-1]['opcoes'],mensagem=''))
         response.set_cookie('questao_atual', str(questao))
         return response
         
     else:
         resposta = request.form.get('resposta')
         questao = int(request.cookies.get('questao_atual'))
-        if resposta == fases[questao-1][questao-1]['resposta']:
-            response = make_response(render_template('jogo_qcbc.html',valor=questao))
+        if resposta == fases[fase][questao-1]['resposta']:
+            correct = True
+            response = make_response(render_template('jogo_qcbc.html',valor=questao,resposta=correct))
             response.set_cookie('questao_atual',str(questao))
             return response
+        else:
+            false = False
+            response = make_response(render_template('jogo_qcbc.html',valor=questao,resposta=false))
+            response.set_cookie('questao_atual',str(questao))
+            return response
+
         
 @app.route('/inicial_quiz')
 def Inicial_quiz():
