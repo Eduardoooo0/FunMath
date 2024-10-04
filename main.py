@@ -298,7 +298,7 @@ def Quiz():
                             response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
                             return response
     else:
-        fase_atual = request.args.get('fase')
+        fase_atual = request.args.get('fase',1)
         if fase_atual is None:
             fase_atual = int(request.cookies.get('fase_atual',1))
             fase_desbloqueada = int(request.cookies.get('fase_desbloqueada',1))
@@ -367,11 +367,10 @@ def Quiz():
         else:
             pontuacao = 0
             app.config['pontuacao'] = pontuacao
-            fase_atual = int(request.args.get('fase'))
-                
+            fase_atual = int(request.args.get('fase',1))
             #define o cookie fase_desbloqueada
             if fase_atual == 1:
-                if request.cookies.get('fase_desbloqueada') is None:
+                if request.cookies.get('fase_desbloqueada',1) is None:
                     pergunta_atual = 0
                     app.config['pergunta_atual'] = pergunta_atual
                     fase_desbloqueada = 1
@@ -414,31 +413,31 @@ def Fases_qcbc():
 @app.route('/jogo_qcbc',methods=['POST', 'GET'])
 def Jogo_qcbc():
     if request.method == 'GET':
-        fase = request.args.get('fase')
-        response = make_response(render_template('jogo_qcbc.html',valor=None))
-        response.set_cookie('fase_atual',fase)
+        fase = request.args.get('fase',1)
+        response = make_response(render_template('jogo_qcbc.html',valor=None,fase=fase))
+        response.set_cookie('fase_atual',str(fase))
         return response
     
 @app.route('/questoes_qcbc',methods=['POST', 'GET'])
 def Questoes_qcbc():
-    fase = int(request.cookies.get('fase_atual'))
+    fase = int(request.cookies.get('fase_atual',1))
     if request.method == 'GET':
         questao = int(request.args.get('questao'))
-        response = make_response(render_template('questoes_qcbc.html',pergunta=fases[fase][questao-1]['pergunta'],opcoes=fases[fase][questao-1]['opcoes'],mensagem=''))
+        response = make_response(render_template('questoes_qcbc.html',pergunta=fases[fase-1][questao-1]['pergunta'],opcoes=fases[fase-1][questao-1]['opcoes'],mensagem=''))
         response.set_cookie('questao_atual', str(questao))
         return response
         
     else:
         resposta = request.form.get('resposta')
-        questao = int(request.cookies.get('questao_atual'))
-        if resposta == fases[fase][questao-1]['resposta']:
+        questao = int(request.cookies.get('questao_atual',1))
+        if resposta == fases[fase-1][questao-1]['resposta']:
             correct = True
-            response = make_response(render_template('jogo_qcbc.html',valor=questao,resposta=correct))
+            response = make_response(render_template('jogo_qcbc.html',valor=questao,resposta=correct,fase=fase))
             response.set_cookie('questao_atual',str(questao))
             return response
         else:
             false = False
-            response = make_response(render_template('jogo_qcbc.html',valor=questao,resposta=false))
+            response = make_response(render_template('jogo_qcbc.html',valor=questao,resposta=false,fase=fase))
             response.set_cookie('questao_atual',str(questao))
             return response
 
