@@ -33,22 +33,30 @@
                 <!-- Itens de navegação do menu -->
                 <div class="menu-items">
                     <!-- Botão para a página inicial -->
-                    <button id="home">
-                        <a class="links" href="{{url_for('Index')}}">Home</a> <!-- Link para a página inicial -->
-                    </button>
+                        <a class="links"  href="{{url_for('Index')}}">
+                            <button class="links-button" id="home">Home</button>
+                        </a> <!-- Link para a página inicial -->
+                    
                     <!-- Botão para a seção de jogos -->
-                    <button id="jogos">
-                        <a class="links" href="{{url_for('Jogos')}}">Jogos</a></button>
+                        <a class="links" href="{{url_for('Jogos')}}">
+                            <button class="links-button" id="jogos">Jogos</button>
+                        </a>
                     <!-- Botão para a seção sobre -->
-                    <button id="sobre">
-                        <a class="links" href="{{url_for('Sobre')}}">Sobre</a></button>
+                    
+                        <a class="links"  href="{{url_for('Sobre')}}">
+                            <button class="links-button" id="sobre">Sobre</button>
+                        </a>
                     <!-- Botão para a seção de ajuda -->
-                    <button id="ajuda">
-                        <a class="links" href="{{url_for('Ajuda')}}">Ajuda</a></button>
+                    
+                        <a class="links"  href="{{url_for('Ajuda')}}">
+                            <button class="links-button" id="ajuda">Ajuda</button>
+                        </a>
                     <!-- Botão para o login -->
-                    <button id="botao-login">
-                        <a class="links" href="{{url_for('Login')}}" style="color: white;">Login</a> <!-- Link para a página de login -->
-                    </button>
+                    
+                        <a class="links"  href="{{url_for('Login')}}">
+                            <button class="links-button" id="botao-login">Login</button>
+                        </a> <!-- Link para a página de login -->
+                    
                 </div>
             </nav>
             <!-- Seção de perfil com a imagem de perfil -->

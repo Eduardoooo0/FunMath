@@ -413,10 +413,13 @@ def Fases_qcbc():
 @app.route('/jogo_qcbc',methods=['POST', 'GET'])
 def Jogo_qcbc():
     if request.method == 'GET':
-        fase = request.args.get('fase',1)
-        response = make_response(render_template('jogo_qcbc.html',valor=None,fase=fase))
-        response.set_cookie('fase_atual',str(fase))
-        return response
+        fase = request.args.get('fase')
+        if fase is None:
+            return redirect(url_for('Fases_qcbc'))
+        else:
+            response = make_response(render_template('jogo_qcbc.html',valor=None,fase=fase))
+            response.set_cookie('fase_atual_qcbc',str(fase))
+            return response
     
 @app.route('/questoes_qcbc',methods=['POST', 'GET'])
 def Questoes_qcbc():
