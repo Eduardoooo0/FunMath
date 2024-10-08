@@ -298,11 +298,11 @@ def Quiz():
                             response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
                             return response
     else:
-        fase_atual = request.args.get('fase',1)
+        fase_atual = request.args.get('fase')
         if fase_atual is None:
             fase_atual = int(request.cookies.get('fase_atual',1))
             fase_desbloqueada = int(request.cookies.get('fase_desbloqueada',1))
-            tempo_de_inicio = request.cookies.get('tempo_de_inicio_quiz')
+            tempo_de_inicio = request.cookies.get('tempo_de_inicio_quiz',str(datetime.now()))
             if tempo_de_inicio is not None:
                 tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
                 tempo_restante = int(app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds())

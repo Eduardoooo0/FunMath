@@ -34,12 +34,18 @@
                         <p>{{ mensagem }}</p> <!-- Mensagem exibida -->
                         <script>
                             // Oculta o contêiner do quiz
+                            let resp = '{{mensagem}}'
+                            
                             document.getElementById('bloco1').style.display = 'none';
                             
                             // Exibe o contêiner da resposta
                             document.getElementById('resposta').style.display = 'block';
-                            
-                            // Espera 5 segundos
+                            if (resp === "Parabéns! Sua resposta está correta."){
+                                document.getElementById('resposta').style.color = 'green'
+                            }else{
+                                document.getElementById('resposta').style.color = 'red'
+                            }
+                            // Espera 2 segundos
                             setTimeout(function() {
                                 // Oculta o contêiner da resposta
                                 document.getElementById('resposta').style.display = 'none';
@@ -49,7 +55,7 @@
                                 
                                 // Redireciona para a próxima pergunta, se necessário
                                 
-                            }, 5000);
+                            }, 2000);
                         </script>
                         {% endif %}
                     </div>
