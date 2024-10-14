@@ -2,6 +2,7 @@
 #section_quebra_cbc{
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    justify-content: center;
     width: 100%; /* Largura da seção é 100% da largura disponível */
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
