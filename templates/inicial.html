@@ -15,7 +15,9 @@
                 <!-- Primeiro jogo: Trilha da raposa -->
                 <div id="trilha">
                     <h2>Trilha da raposa</h2> <!-- Título do jogo -->
-                    <img src="static/imgs/jogo-trilha.png" alt=""> <!-- Imagem do jogo -->
+                    <a href="{{url_for('Trilha')}}">
+                        <img src="static/imgs/jogo-trilha.png" alt=""> <!-- Imagem do jogo -->
+                    </a>
                     <h4>Trilha: Ajude Nikki a chegar nas suas amigas galinhas.</h4> <!-- Descrição do jogo -->
                 </div>
         
@@ -38,6 +40,5 @@
                 </div>
             </div>
         </section>
-    </div>
 
     {% endblock %}
