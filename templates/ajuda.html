@@ -2,8 +2,27 @@
 
     {% block style %}
     <link rel="stylesheet" href="static/style/inicial.css">
+    <link rel="stylesheet" href="static/style/ajuda.css">
     {% endblock %}
 
     {% block conteudo %}
-
+        <aside>
+            <h2>introducão</h2>
+        </aside>
+        <section>
+            <br>
+            <h1>Algum problema?</h1>
+            <h4>Relate aqui o seu problema. Entraremos em contato assim que possivel</h4>
+            <div class="box">
+                <form action="">
+                    <h4>Nome:</h4>
+                    <input type="text" name="nome" placeholder="Insira seu nome">
+                    <h4>Email:</h4>
+                    <input type="email" name="email" placeholder="Insira um email válido">
+                    <h4>Mensagem:</h4>
+                    <input id="mensagem" type="text" name="mensagem" placeholder="Insira sua mensagem">
+                    <button id="enviar">Enviar</button> 
+                </form>
+            </div>
+        </section>
     {% endblock %}
