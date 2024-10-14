@@ -6,7 +6,7 @@
     width: 100%;  /* Define a largura da seção como 100% da largura do elemento pai */
     flex: 1;  /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
-    background-color: rgb(117, 193, 255);  /* Define a cor de fundo da seção como um azul claro */
+    background-color: skyblue; /* Cor de fundo azul claro */
     padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels à seção */
 }
 
