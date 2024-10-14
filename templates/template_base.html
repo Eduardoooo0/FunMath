@@ -38,9 +38,16 @@
                         </a> <!-- Link para a página inicial -->
                     
                     <!-- Botão para a seção de jogos -->
-                        <a class="links" href="{{url_for('Jogos')}}">
+                        <div class="botao-jogo">
                             <button class="links-button" id="jogos">Jogos</button>
-                        </a>
+
+                            <div class="botoes-jogos"  style="display: none;">
+                                <button id="botoes-jogos">Trilha</button>
+                                <button id="botoes-jogos">Quebra-Cabeça</button>
+                                <button id="botoes-jogos">Quiz</button>
+                            </div>
+                        </div>
+                            
                     <!-- Botão para a seção sobre -->
                     
                         <a class="links"  href="{{url_for('Sobre')}}">
@@ -51,12 +58,7 @@
                         <a class="links"  href="{{url_for('Ajuda')}}">
                             <button class="links-button" id="ajuda">Ajuda</button>
                         </a>
-                    <!-- Botão para o login -->
-                    
-                        <a class="links"  href="{{url_for('Login')}}">
-                            <button class="links-button" id="botao-login">Login</button>
-                        </a> <!-- Link para a página de login -->
-                    
+        
                 </div>
             </nav>
             <!-- Seção de perfil com a imagem de perfil -->
@@ -92,6 +94,19 @@
                     header.style.height = header_tam;
                 }
             });
+            // Seleciona os elementos
+            const jogosButton = document.getElementById('jogos');
+            const botoesJogos = document.querySelector('.botoes-jogos');
+
+            // Variável para rastrear o estado de visibilidade
+            let isVisible = false;
+
+            // Adiciona um event listener para o clique
+            jogosButton.addEventListener('click', () => {
+                isVisible = !isVisible; // Alterna o estado de visibilidade
+                botoesJogos.style.display = isVisible ? 'flex' : 'none'; // Mostra ou esconde os botões
+            });
+
         </script>
         {% endblock%}
 </body>
