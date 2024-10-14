@@ -48,14 +48,13 @@ header {
     width: 110px;               /* Define a largura do primeiro logotipo */
     height: 100px;              /* Define a altura do primeiro logotipo */
     margin-left: 20px;          /* Adiciona uma margem esquerda ao logotipo */
-    margin-top: -15px;          /* Adiciona uma margem superior negativa ao logotipo */
 }
 
 /* Estiliza o segundo logotipo */
 #logo2 img {
     width: 180px;               /* Define a largura do segundo logotipo */
     height: 180px;              /* Define a altura do segundo logotipo */
-    margin-top: -40px;          /* Adiciona uma margem superior negativa ao logotipo */
+    margin-top: -30px;          /* Adiciona uma margem superior negativa ao logotipo */
     margin-left: -15px;         /* Adiciona uma margem esquerda negativa ao logotipo */
 }
 
@@ -68,30 +67,29 @@ header {
     color: black;                   /* Define a cor do texto dos links como preto */
 }
 
-
 /* Estilo dos itens de navegação */
 #home, #jogos, #sobre, #ajuda {
     width: 90px;                     /* Define a largura dos itens de navegação */
+    margin-right: 100px;
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre os itens */
 }
+
 .links-button:hover {
     color: orange;
 }
-/* Estiliza o botão de login */
-#botao-login{
-    display: flex;              /* Define o layout do botão como flexbox */
-    align-items: center;        /* Alinha o conteúdo do botão verticalmente ao centro */
-    justify-content: center;    /* Centraliza o conteúdo do botão horizontalmente */
-    width: 90px;                /* Define a largura do botão como 90 pixels */
-    height: 100%;               /* Define a altura do botão como 100% da altura do cabeçalho */
-    cursor: pointer;             /* Define o cursor como ponteiro quando sobre o botão */
-    background-color: orange;   /* Define a cor de fundo do botão como laranja */
-    color: white;
+.links-button {
+    height: 100%;
+}
+.botao-jogo {
+    display: flex;
+    flex-direction: column;
+    height: 40px;
 }
 
-/* Estiliza o efeito de hover no botão de login */
-#botao-login:hover {
-    background-color: rgb(51, 50, 50); /* Altera a cor de fundo para um cinza claro quando sobreposto */
+.botoes-jogos {
+    display: flex;
+    flex-direction: column;
+    background-color: palegoldenrod;
 }
 
 /* Estiliza as imagens de perfil */
@@ -99,4 +97,27 @@ header {
     width: 40px;                /* Define a largura da imagem do perfil */
     height: 40px;               /* Define a altura da imagem do perfil */
     border-radius: 20px;        /* Arredonda as bordas da imagem para criar um formato circular */
+}
+
+/* Estiliza o container de botões em uma parte da página */
+.botoes {
+    display: flex;  /* Define o layout dos botões como flexbox */
+    flex-direction: row;  /* Organiza os botões em uma linha */
+    align-items: center;  /* Alinha os botões verticalmente ao centro */
+    width: 40%;  /* Define a largura dos botões como 40% da largura do seu elemento pai */
+    height: 50px;  /* Define a altura dos botões como 50 pixels */
+    margin-left: 20%;  /* Adiciona uma margem esquerda de 20% da largura do seu elemento pai */
+    font-size: 18px;  /* Define o tamanho da fonte dos botões como 18 pixels */
+    padding: 1rem;  /* Adiciona um preenchimento interno de 1 rem aos botões */
+}
+
+/* Estiliza os itens do menu */
+.menu-items {
+    display: flex;  /* Define o layout dos itens do menu como flexbox */
+    flex-direction: row;  /* Organiza os itens do menu em uma linha */
+    align-items: center;  /* Alinha os itens do menu verticalmente ao centro */
+    justify-content: space-between;  /* Distribui os itens do menu com espaço igual entre eles */
+    width: 50%;  /* Define a largura dos itens do menu como 100% da largura do seu elemento pai */
+    height: 40px;  /* Define a altura dos itens do menu como 40 pixels */
+    font-size: 18px;  /* Define o tamanho da fonte dos itens do menu como 18 pixels */
 }
