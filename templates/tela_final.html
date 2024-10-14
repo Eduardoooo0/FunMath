@@ -1,23 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        div{
-            width: 25%;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <a href="{{url_for('Fases_quiz')}}">continuar</a>
-    </div>
-    <div>
-        <a href="{{url_for('Index')}}">voltar para pagina inicial</a>
-    </div>    
-    <h1>{{mensagem}}</h1>
+{% extends 'template_base.html' %}
+
+    {% block style %}
+    <link rel="stylesheet" href="static/style/tela_final.css">
+    {% endblock %}
+
+    {% block conteudo %}
+    <section id="section_final">
+        <div>
+            <div class="box">
+                <div id="div_quiz">
+                    <h1 id="titulo-jogo">QUIZ MATEMÁTICO</h1>
+                </div>
+                <div id="quad1">
+                    <div>
+                        <a href="{{url_for('Fases_quiz')}}">continuar</a>
+                    </div>
+                    <div>
+                        <a href="{{url_for('Index')}}">voltar para pagina inicial</a>
+                    </div>    
+                    <h1>{{mensagem}}</h1>
+                </div>
+                <div id="quad2">
+                    <div class="descricao">
+                        <div>
+                            <h4 id="desc_text">Responda corretamente o máximo de questões que conseguir para ganhar pontos.</h4>
+                            <ul>
+                                <li><p>Cuidado com o tempo; Este jogo terá um cronometro marcando o seu tempo em cada questão.</p></li>
+                                <li><p>Avalie seu conhecimento.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </section>
     
-</body>
-</html>
+    {% endblock %}
