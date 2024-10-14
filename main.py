@@ -128,50 +128,6 @@ fases = [
 def Index():
     return render_template('inicial.html')
 
-@app.route('/login', methods = ['POST', 'GET'])
-def Login():
-    #se tiver logado
-    if 'user' in session:
-        return redirect(url_for('Perfil')) #vai pra index
-    if request.method == 'GET':
-        return render_template('login.html')
-    else:
-        email = request.form['email']
-        senha = request.form['senha']
-        if email in bancodados and bancodados[email] == senha:
-            session['user'] = email
-            return redirect(url_for('Index'))
-        else:
-            flash('Senha ou email errado')
-            return redirect(url_for('Login')) 
-
-@app.route('/cadastro', methods = ['POST','GET'])
-def Cadastro():
-    # se já tá logado
-    if 'user' in session:
-        return redirect (url_for('Index')) #vai pra index
-    
-    if request.method == 'GET':
-        return render_template('cadastro.html')
-    else:
-        
-        email = request.form['email']
-        senha = request.form['senha']
-
-        if email not in bancodados:
-            bancodados[email] = senha
-        else:
-            flash('Já existe um usuario com esse email')
-            return redirect(url_for('Cadastro')) 
-
-        return redirect(url_for('Login'))
-
-@app.route('/logout', methods=['POST'])
-def Logout():
-    if 'user' in session:
-        session.pop('user', None)
-        return redirect(url_for('Index'))
-
 @app.route('/perfil')
 def Perfil():
     return render_template('perfil.html')
@@ -468,6 +424,10 @@ def Tempo_restante():
         return jsonify({'tempo_restante_em_segundos': int(tempo_restante)})
     else:
         return jsonify({'tempo_restante_em_segundos': app.config['tempo_de_expiracao_quiz']})
+
+@app.route('/trilha')
+def Trilha():
+    return render_template ('inicial_trilha.html')
 
 @app.route('/ajuda')
 def Ajuda():
