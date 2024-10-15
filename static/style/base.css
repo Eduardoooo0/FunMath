@@ -84,12 +84,36 @@ header {
     display: flex;
     flex-direction: column;
     height: 40px;
+    position: sticky;
 }
 
+.bt_jogo {
+    position:relative;
+    width: 90px;
+    height: 40px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+    border-top: 1px solid rgb(197, 197, 197);
+
+}
+
+.bt_jogo a {
+    text-decoration: none;
+    color: black;
+}
+
+.bt_jogo a:hover {
+    color: orange;
+}
 .botoes-jogos {
+    width: 90px;
+    height: 120px;
     display: flex;
+    margin-top: 40px;
+    position: absolute;
     flex-direction: column;
     background-color: palegoldenrod;
+    
+    
 }
 
 /* Estiliza as imagens de perfil */
