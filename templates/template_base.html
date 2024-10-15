@@ -41,10 +41,11 @@
                         <div class="botao-jogo">
                             <button class="links-button" id="jogos">Jogos</button>
 
+                            
                             <div class="botoes-jogos"  style="display: none;">
-                                <button id="botoes-jogos">Trilha</button>
-                                <button id="botoes-jogos">Quebra-Cabeça</button>
-                                <button id="botoes-jogos">Quiz</button>
+                                <button id="botoes-jogos" class="bt_jogo"><a href="{{ url_for('Trilha') }}">Trilha</a></button>
+                                <button id="botoes-jogos" class="bt_jogo"><a href="{{ url_for('Quebra_cabeca') }}">Quebra-Cabeça</a></button>
+                                <button id="botoes-jogos" class="bt_jogo"><a href="{{ url_for('Inicial_quiz') }}">Quiz</a></button>
                             </div>
                         </div>
                             
