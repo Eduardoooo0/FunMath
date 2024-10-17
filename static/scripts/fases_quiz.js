@@ -9,3 +9,17 @@ window.addEventListener('popstate', function (event) {
         window.history.pushState(null, document.title, window.location.href);
     }
 });
+
+
+// Seleciona os elementos
+const jogosButton = document.getElementById('jogos');
+const botoesJogos = document.querySelector('.botoes-jogos');
+
+// Variável para rastrear o estado de visibilidade
+let isVisible = false;
+
+// Adiciona um event listener para o clique
+jogosButton.addEventListener('click', () => {
+    isVisible = !isVisible; // Alterna o estado de visibilidade
+    botoesJogos.style.display = isVisible ? 'flex' : 'none'; // Mostra ou esconde os botões
+});
