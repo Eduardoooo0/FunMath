@@ -3,7 +3,7 @@
 /* Estiliza a seção principal da página */
 #section_fases {
     display: flex;  /* Define o layout da seção como flexbox */
-    position: relative;  /* Define a posição da seção como relativa */
+    /* position: relative;  /* Define a posição da seção como relativa */
     flex-direction: column;  /* Organiza os itens da seção em uma coluna */
     width: 100%;  /* Define a largura da seção como 100% da largura da viewport */
     height: 900px;  /* Define a altura da seção como 900 pixels */
