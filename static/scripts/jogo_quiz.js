@@ -55,6 +55,22 @@ window.addEventListener('popstate', function (event) {
     }
 });
 
+
+
+
+// Seleciona os elementos
+const jogosButton = document.getElementById('jogos');
+const botoesJogos = document.querySelector('.botoes-jogos');
+
+// Variável para rastrear o estado de visibilidade
+let isVisible = false;
+
+// Adiciona um event listener para o clique
+jogosButton.addEventListener('click', () => {
+    isVisible = !isVisible; // Alterna o estado de visibilidade
+    botoesJogos.style.display = isVisible ? 'flex' : 'none'; // Mostra ou esconde os botões
+});
+
 // Para garantir que o estado inicial permaneça ao recarregar a página
 window.addEventListener('load', function() {
     window.history.replaceState(null, document.title, window.location.href);
