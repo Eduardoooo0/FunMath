@@ -19,6 +19,11 @@
                         <a href="{{url_for('Index')}}">voltar para pagina inicial</a>
                     </div>    
                     <h1>{{mensagem}}</h1>
+                    {% if trofeu: %}
+                        <h4>{{msg_trofeu}}</h4>
+                        <img src={{ trofeu }} alt="">  <!-- mesmo com isso vermelho da certo -->
+                        
+                    {% endif %}
                 </div>
                 <div id="quad2">
                     <div class="descricao">
