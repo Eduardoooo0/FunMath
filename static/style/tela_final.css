@@ -64,3 +64,14 @@
     display: flex;  /* Define o layout da descrição como flexbox */
     flex-direction: column;  /* Organiza os itens da descrição em uma coluna */
 }
+
+#quad1 h4 {
+    margin-top: 5px;
+    padding: 5px;
+}
+#quad1 img {
+    margin: 5px;
+    width: 250px;
+    height: 150px;
+}
+
