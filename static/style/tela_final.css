@@ -1,0 +1,66 @@
+#section_final {
+    display: flex;  /* Define o layout da seção como flexbox */
+    flex-direction: column;  /* Organiza os itens da seção em uma coluna */
+    justify-content: center;
+    width: 100%;  /* Define a largura da seção como 100% da largura do elemento pai */
+    height: 100%;
+    flex: 1;  /* Permite que a seção cresça para preencher o espaço disponível */
+    overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
+    background-color: skyblue;  /* Define a cor de fundo da seção como um azul claro */
+    padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels à seção */
+}
+
+/* Estiliza a caixa que contém o conteúdo principal */
+.box {
+    display: flex;  /* Define o layout da caixa como flexbox */
+    flex-direction: column;  /* Organiza os itens da caixa em uma coluna */
+    align-items: center;  /* Alinha os itens da caixa horizontalmente ao centro */
+    width: 85%;  /* Define a largura da caixa como 85% da largura do seu elemento pai */
+    max-width: 1000px;  /* Define a largura máxima da caixa como 1000 pixels */
+    margin: 0 auto;  /* Centraliza a caixa horizontalmente */
+    background-color: white;  /* Define a cor de fundo da caixa como branca */
+}
+
+/* Estiliza o título do jogo */
+#titulo-jogo {
+    padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels ao título do jogo */
+    text-align: center;  /* Centraliza o texto do título do jogo */
+}
+
+/* Estiliza o quadrado do jogo com imagem de fundo */
+#quad1 {
+    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+    position: relative;  /* Define a posição do quadrado como relativa */
+    display: flex;  /* Define o layout do quadrado como flexbox */
+    flex-direction: column;
+    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
+    background-color: white;  /* Define a imagem de fundo do quadrado */
+    background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
+    background-position: center;  /* Centraliza a imagem de fundo */
+    margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+}
+
+/* Estiliza o segundo quadrado */
+#quad2 {
+    display: flex;  /* Define o layout do segundo quadrado como flexbox */
+    flex-direction: column;  /* Organiza os itens do segundo quadrado em uma coluna */
+    width: 90%;  /* Define a largura do segundo quadrado como 90% da largura do seu elemento pai */
+    margin-top: 20px;  /* Adiciona uma margem superior de 20 pixels ao segundo quadrado */
+    margin-right: 60px;  /* Adiciona uma margem direita de 60 pixels ao segundo quadrado */
+    padding-bottom: 30px;  /* Adiciona um preenchimento inferior de 30 pixels ao segundo quadrado */
+    background-color: white;  /* Define a cor de fundo do segundo quadrado como branca */
+}
+
+/* Estiliza o texto da descrição */
+#desc_text {
+    padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels ao texto da descrição */
+}
+
+/* Estiliza a descrição em geral */
+.descricao {
+    display: flex;  /* Define o layout da descrição como flexbox */
+    flex-direction: column;  /* Organiza os itens da descrição em uma coluna */
+}
