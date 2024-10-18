@@ -7,6 +7,8 @@ app.config['SECRET_KEY'] = 'Supersenha'
 app.config['tempo_de_expiracao_quiz'] = 62 # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['pontuacao'] = 0
+app.config['trofeu_quiz'] = 0
+
 bancodados = {}
 
 fases = [
@@ -136,9 +138,13 @@ def Perfil():
 def Quiz():
     pergunta_atual = app.config.get('pergunta_atual', 0)
     pontuacao = app.config.get('pontuacao', 0)
+    trofeu_quiz = app.config.get('trofeu_quiz', 0)
+            
     if request.method == 'POST':
         fase_desbloqueada = int(request.cookies.get('fase_desbloqueada',1))
         fase_atual = int(request.cookies.get('fase_atual', 1))
+        trofeu_quiz = int(request.cookies.get('trofeu_quiz', 0))
+                
         resposta_user = request.form.get('resposta')
         if resposta_user is None:
             mensagem = "Por favor, selecione uma resposta."
@@ -171,15 +177,43 @@ def Quiz():
                             response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
                             return response
                         else:
-                            message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
-                            pontuacao = 0
-                            app.config['pontuacao'] = pontuacao
-                            pergunta_atual = 0
-                            app.config['pergunta_atual'] = pergunta_atual
-                            response = make_response(render_template('tela_final.html', mensagem=message))
-                            response.set_cookie('fase_atual', str(fase_atual + 1))
-                            response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
-                            return response
+                            if (fase_atual) in (1,2,3):  # ganhou um trófeu
+
+                                message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+
+                                if fase_atual == 1:    
+                                    trofeu = "/static/imgs/Trofeu1.png"
+                                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                elif fase_atual == 2:
+                                    trofeu = "/static/imgs/Trofeu2.png"
+                                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                else:
+                                    trofeu = "/static/imgs/Trofeu3.png"
+                                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                
+                                pontuacao = 0
+                                app.config['pontuacao'] = pontuacao
+                                pergunta_atual = 0
+                                app.config['pergunta_atual'] = pergunta_atual
+                                response = make_response(render_template('tela_final.html', mensagem=message, msg_trofeu = msg_trofeu, trofeu = trofeu))
+                                response.set_cookie('fase_atual', str(fase_atual + 1))
+                                response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+        
+                                response.set_cookie('trofeu_quiz', str(trofeu_quiz + 1))
+                                return response
+                            
+                            else:
+
+                                message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                                pontuacao = 0
+                                app.config['pontuacao'] = pontuacao
+                                pergunta_atual = 0
+                                app.config['pergunta_atual'] = pergunta_atual
+                                response = make_response(render_template('tela_final.html', mensagem=message))
+                                response.set_cookie('fase_atual', str(fase_atual + 1))
+                                response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+                                return response
+                            
                     else:
                         if fase_atual < fase_desbloqueada:
                             message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}"                            
@@ -223,15 +257,45 @@ def Quiz():
                             response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
                             return response
                         else:
-                            message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
-                            pontuacao = 0
-                            app.config['pontuacao'] = pontuacao
-                            pergunta_atual = 0
-                            app.config['pergunta_atual'] = pergunta_atual
-                            response = make_response(render_template('tela_final.html', mensagem=message))
-                            response.set_cookie('fase_atual', str(fase_atual))
-                            response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
-                            return response
+                            if (fase_atual) in (1,2,3):  # ganhou um trófeu
+
+                                message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                                
+                                if fase_atual == 1:    
+                                    trofeu = "/static/imgs/Trofeu1.png"
+                                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                elif fase_atual == 2:
+                                    trofeu = "/static/imgs/Trofeu2.png"
+                                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                else:
+                                    trofeu = "/static/imgs/Trofeu3.png"
+                                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                
+                               
+                                pontuacao = 0
+                                app.config['pontuacao'] = pontuacao
+                                pergunta_atual = 0
+                                app.config['pergunta_atual'] = pergunta_atual
+                                response = make_response(render_template('tela_final.html', mensagem=message, msg_trofeu = msg_trofeu, trofeu = trofeu))
+                                response.set_cookie('fase_atual', str(fase_atual))
+                                response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+        
+                                response.set_cookie('trofeu_quiz', str(trofeu_quiz + 1))
+                                return response
+                            
+                            else:
+
+                                message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                                pontuacao = 0
+                                app.config['pontuacao'] = pontuacao
+                                pergunta_atual = 0
+                                app.config['pergunta_atual'] = pergunta_atual
+                                response = make_response(render_template('tela_final.html', mensagem=message))
+                                response.set_cookie('fase_atual', str(fase_atual))
+                                response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+                                return response
+                            
+            
                     else:
                         if fase_atual < fase_desbloqueada:
                             message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}"                            
@@ -284,15 +348,42 @@ def Quiz():
                                 response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
                                 return response
                             else:
-                                message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
-                                pontuacao = 0
-                                app.config['pontuacao'] = pontuacao
-                                pergunta_atual = 0
-                                app.config['pergunta_atual'] = pergunta_atual
-                                response = make_response(render_template('tela_final.html', mensagem=message))
-                                response.set_cookie('fase_atual', str(fase_atual))
-                                response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
-                                return response
+                                if (fase_atual) in (1,2,3):  # ganhou um trófeu
+
+                                    message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                                        
+                                    if fase_atual == 1:    
+                                        trofeu = "/static/imgs/Trofeu1.png"
+                                        msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                    elif fase_atual == 2:
+                                        trofeu = "/static/imgs/Trofeu2.png"
+                                        msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                                    else:
+                                        trofeu = "/static/imgs/Trofeu3.png"
+                                        msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
+                       
+                                    pontuacao = 0
+                                    app.config['pontuacao'] = pontuacao
+                                    pergunta_atual = 0
+                                    app.config['pergunta_atual'] = pergunta_atual
+                                    response = make_response(render_template('tela_final.html', mensagem=message, msg_trofeu = msg_trofeu, trofeu = trofeu))
+                                    response.set_cookie('fase_atual', str(fase_atual))
+                                    response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+            
+                                    response.set_cookie('trofeu_quiz', str(trofeu_quiz + 1))
+                                    return response
+                                
+                                else:
+
+                                    message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
+                                    pontuacao = 0
+                                    app.config['pontuacao'] = pontuacao
+                                    pergunta_atual = 0
+                                    app.config['pergunta_atual'] = pergunta_atual
+                                    response = make_response(render_template('tela_final.html', mensagem=message))
+                                    response.set_cookie('fase_atual', str(fase_atual))
+                                    response.set_cookie('fase_desbloqueada', str(fase_desbloqueada + 1))
+                                    return response
                         else:
                             if fase_atual < fase_desbloqueada:
                                 message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}"                            
