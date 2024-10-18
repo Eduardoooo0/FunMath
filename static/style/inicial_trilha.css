@@ -35,7 +35,7 @@
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
     justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
-    background-image: url('../imgs/img_inicial_qbc.png');  /* Define a imagem de fundo do quadrado */
+    background-image: url('../imgs/img_inicial_trilha.png');  /* Define a imagem de fundo do quadrado */
     background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
     background-position: center;  /* Centraliza a imagem de fundo */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
