@@ -182,13 +182,13 @@ def Quiz():
                                 message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
 
                                 if fase_atual == 1:    
-                                    trofeu = "/static/imgs/Trofeu1.png"
+                                    trofeu = "/static/imgs/trofeu1.png"
                                     msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                 elif fase_atual == 2:
-                                    trofeu = "/static/imgs/Trofeu2.png"
+                                    trofeu = "/static/imgs/trofeu2.png"
                                     msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                 else:
-                                    trofeu = "/static/imgs/Trofeu3.png"
+                                    trofeu = "/static/imgs/trofeu3.png"
                                     msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                 
                                 pontuacao = 0
@@ -262,13 +262,13 @@ def Quiz():
                                 message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
                                 
                                 if fase_atual == 1:    
-                                    trofeu = "/static/imgs/Trofeu1.png"
+                                    trofeu = "/static/imgs/trofeu1.png"
                                     msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                 elif fase_atual == 2:
-                                    trofeu = "/static/imgs/Trofeu2.png"
+                                    trofeu = "/static/imgs/trofeu2.png"
                                     msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                 else:
-                                    trofeu = "/static/imgs/Trofeu3.png"
+                                    trofeu = "/static/imgs/trofeu3.png"
                                     msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                 
                                
@@ -353,13 +353,13 @@ def Quiz():
                                     message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
                                         
                                     if fase_atual == 1:    
-                                        trofeu = "/static/imgs/Trofeu1.png"
+                                        trofeu = "/static/imgs/trofeu1.png"
                                         msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                     elif fase_atual == 2:
-                                        trofeu = "/static/imgs/Trofeu2.png"
+                                        trofeu = "/static/imgs/trofeu2.png"
                                         msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                                     else:
-                                        trofeu = "/static/imgs/Trofeu3.png"
+                                        trofeu = "/static/imgs/trofeu3.png"
                                         msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase_atual}! Você tem {1+trofeu_quiz} trofeus do quiz!"
                        
                                     pontuacao = 0
