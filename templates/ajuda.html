@@ -1,28 +1,29 @@
 {% extends 'template_base.html' %}
 
     {% block style %}
-    <link rel="stylesheet" href="static/style/inicial.css">
-    <link rel="stylesheet" href="static/style/ajuda.css">
+    <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
     {% block conteudo %}
-        <aside>
-            <h2>introducão</h2>
+        <aside class="aside_ajuda">
+            
         </aside>
-        <section>
+        <section class="section_ajuda">
             <br>
             <h1>Algum problema?</h1>
             <h4>Relate aqui o seu problema. Entraremos em contato assim que possivel</h4>
-            <div class="box">
-                <form action="">
+            <br>
+            <div class="box_ajuda">
+                <form class="form_ajuda" action="">
                     <h4>Nome:</h4>
-                    <input type="text" name="nome" placeholder="Insira seu nome">
+                    <input id="input_ajuda" type="text" name="nome" placeholder="Insira seu nome">
                     <h4>Email:</h4>
-                    <input type="email" name="email" placeholder="Insira um email válido">
+                    <input id="input_ajuda" type="email" name="email" placeholder="Insira um email válido">
                     <h4>Mensagem:</h4>
-                    <input id="mensagem" type="text" name="mensagem" placeholder="Insira sua mensagem">
-                    <button id="enviar">Enviar</button> 
+                    <input id="mensagem_ajuda" type="text" name="mensagem" placeholder="Insira sua mensagem">
+                    <button id="enviar_ajuda">Enviar</button> 
                 </form>
+                <img src="../static/imgs/img_ajuda.png" alt="">
             </div>
         </section>
     {% endblock %}
