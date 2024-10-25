@@ -1,26 +1,26 @@
 {% extends 'template_base.html' %}
     {% block style %}
-    <link rel="stylesheet" href="static/style/inicial_trilha.css">
+    <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
     {% block conteudo %}
         <!-- Seção principal do conteúdo -->
-        <section id="section_trilha">
+        <section id="section_inicial_jg">
             <div>
                 <!-- Caixa principal de conteúdo -->
-                <div class="box">
+                <div class="box_inicial_jg">
                     <!-- Div para o quiz -->
-                    <div id="div_trilha">
+                    <div id="div_inicial_jg">
                         <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1> <!-- Título do quiz -->
                     </div>
                     <!-- Primeira caixa de conteúdo do quiz -->
-                    <div id="quad1">
+                    <div id="quad1_inicial_trilha">
                         <div id="play-jogo">
                             <a id="jogar" href="{{url_for('Fases_qcbc')}}"></a>
                         </div>
                     </div>
-                    <div id="quad2">
-                        <div class="descricao">
+                    <div id="quad2_inicial_jg">
+                        <div class="descricao_inicial_jg">
                             <div>
                                 <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
                                 <ul>
