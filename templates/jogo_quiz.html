@@ -1,21 +1,21 @@
 {% extends 'template_base.html' %}
 
     {% block style %}
-    <link rel="stylesheet" href="static/style/jogo_quiz.css">
+    <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
     {% block conteudo %}
         <!-- Seção principal do conteúdo -->
-        <section id="section_quiz">
+        <section id="section_inicial_jg">
             <div>
                 <!-- Caixa principal de conteúdo -->
-                <div class="box">
+                <div class="box_inicial_jg">
                     <!-- Div para o quiz -->
-                    <div id="div_quiz">
+                    <div id="div_inicial_jg">
                         <h1 id="titulo-jogo">QUIZ MATEMÁTICO</h1> <!-- Título do quiz -->
                     </div>
                     <!-- Primeira caixa de conteúdo do quiz -->
-                    <div id="bloco1">
+                    <div id="quad1_quiz">
                         <p><span id="Tempo_restante"></span></p> <!-- Espaço para exibir o tempo restante -->
                         <p id="pergunta">{{ pergunta }}</p> <!-- Pergunta do quiz -->
                         <!-- Contêiner para as opções de resposta -->
@@ -36,7 +36,7 @@
                             // Oculta o contêiner do quiz
                             let resp = '{{mensagem}}'
                             
-                            document.getElementById('bloco1').style.display = 'none';
+                            document.getElementById('quad1_quiz').style.display = 'none';
                             
                             // Exibe o contêiner da resposta
                             document.getElementById('resposta').style.display = 'block';
@@ -52,7 +52,7 @@
                                 document.getElementById('resposta').style.display = 'none';
                                 
                                 // Exibe novamente o contêiner do quiz
-                                document.getElementById('bloco1').style.display = 'block';
+                                document.getElementById('quad1_quiz').style.display = 'block';
                                 
                                 // Redireciona para a próxima pergunta, se necessário
                                 
@@ -61,8 +61,8 @@
                         {% endif %}
                     </div>
                     <!-- Segunda caixa de conteúdo com informações adicionais -->
-                    <div id="bloco2">
-                        <div class="descricao">
+                    <div id="quad2_inicial_jg">
+                        <div class="descricao_inicial_jg">
                             <div>
                                 <h4 id="desc_text">Responda corretamente o máximo de questões que conseguir para ganhar pontos.</h4> <!-- Texto de descrição -->
                                 <ul>
