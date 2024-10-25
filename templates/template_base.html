@@ -59,13 +59,13 @@
                         <a class="links"  href="{{url_for('Ajuda')}}">
                             <button class="links-button" id="ajuda">Ajuda</button>
                         </a>
-        
+                        <!-- Seção de perfil com a imagem de perfil -->
+                        <a href="{{url_for('Perfil')}}" class="perfil">
+                            <img src="static/imgs/avatar-perfil.jpg" alt=""> <!-- Imagem de perfil do usuário -->
+                        </a>
                 </div>
             </nav>
-            <!-- Seção de perfil com a imagem de perfil -->
-            <a href="{{url_for('Perfil')}}" class="perfil">
-                <img src="static/imgs/avatar-perfil.jpg" alt=""> <!-- Imagem de perfil do usuário -->
-            </a>
+            
         </header>
         
         <!-- Bloco que irá mostrar o conteudo das paginas! < Herança de Templates > -->
