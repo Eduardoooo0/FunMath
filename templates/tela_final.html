@@ -6,8 +6,21 @@
 
     {% block conteudo %}
     <section id="section_inicial_jg">
-        <div>
-            <div class="box_inicial_jg">
+        <div class="conteudo_final">
+
+            {% if trofeu: %}
+            
+            <div id="box_trofeu">
+                <div id="div_inicial_jg">
+                    <h1 id="titulo-jogo">QUIZ MATEMÁTICO</h1>
+                </div>
+                <div id="div_img_trofeu">
+                    <img src= {{ trofeu }} alt="">  <!-- mesmo com isso vermelho da certo -->
+                </div>
+            </div>
+            {% endif %}
+
+            <div id="box_inicial_jg">
                 <div id="div_inicial_jg">
                     <h1 id="titulo-jogo">QUIZ MATEMÁTICO</h1>
                 </div>
@@ -17,13 +30,13 @@
                     </div>
                     <div>
                         <a href="{{url_for('Index')}}">voltar para pagina inicial</a>
-                    </div>    
-                    <h1>{{mensagem}}</h1>
+                    </div>   
+
                     {% if trofeu: %}
-                        <h4>{{msg_trofeu}}</h4>
-                        <img src= {{ trofeu }} alt="">  <!-- mesmo com isso vermelho da certo -->
-                        
+                    <h1>{{mensagem}}</h1>
+                    <h4>{{msg_trofeu}}</h4> 
                     {% endif %}
+
                 </div>
                 <div id="quad2_inicial_jg">
                     <div class="descricao_inicial_jg">
@@ -40,4 +53,24 @@
         </div>  
     </section>
     
+<script>
+    // Função para mostrar a div e depois o conteúdo
+    function mostrarDiv() {
+        const div = document.getElementById('box_trofeu');
+        const conteudo = document.getElementById('box_inicial_jg');
+
+        conteudo.style.display = 'none';
+        div.style.display = 'flex'; // Mostra a div
+
+        // Esconde a div após 5 segundos e mostra o conteúdo
+        setTimeout(() => {
+            div.style.display = 'none'; // Esconde a div
+            conteudo.style.display = 'flex'; // Mostra o conteúdo
+        }, 3000);
+    }
+
+    // Chama a função para mostrar a div após o carregamento da página
+    window.onload = mostrarDiv;
+</script>
+
     {% endblock %}
