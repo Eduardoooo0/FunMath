@@ -741,3 +741,53 @@ header {
     width: 250px;
     height: 150px;
 }
+
+
+
+#box_inicial_jg {
+    display: none; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    align-items: center; /* Alinha os itens horizontalmente ao centro */
+    width: 85%; /* Largura da caixa central */
+    max-width: 1000px; /* Largura máxima da caixa central */
+    margin: 0 auto; /* Centraliza a caixa horizontalmente */
+    background-color: white; /* Cor de fundo branca */
+}
+#box_trofeu {
+    display: none; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    align-items: center;
+    justify-content: center; /* Alinha os itens horizontalmente ao centro */
+    width: 85%; /* Largura da caixa central */
+    max-width: 1000px; /* Largura máxima da caixa central */
+    margin: 0 auto; /* Centraliza a caixa horizontalmente */
+    background-color: white; 
+    }
+
+#div_img_trofeu {
+    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+ /* Define a posição do quadrado como relativa */
+    display: flex;  /* Define o layout do quadrado como flexbox */
+    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
+    background-color: white;  /* Define a imagem de fundo do quadrado */
+    
+    background-position: center;  
+    /* Centraliza a imagem de fundo */
+    margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+
+}
+
+
+#div_img_trofeu img {
+    width: 100%;
+    height: 100%;
+}
+
+.conteudo_final {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
