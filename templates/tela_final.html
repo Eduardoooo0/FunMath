@@ -15,7 +15,7 @@
                     <h1 id="titulo-jogo">QUIZ MATEMÁTICO</h1>
                 </div>
                 <div id="div_img_trofeu">
-                    <img src= {{ trofeu }} alt="">  <!-- mesmo com isso vermelho da certo -->
+                    <img src= "{{ trofeu }}" alt="">
                 </div>
             </div>
             {% endif %}
@@ -31,9 +31,8 @@
                     <div>
                         <a href="{{url_for('Index')}}">voltar para pagina inicial</a>
                     </div>   
-
-                    {% if trofeu: %}
                     <h1>{{mensagem}}</h1>
+                    {% if trofeu: %}
                     <h4>{{msg_trofeu}}</h4> 
                     {% endif %}
 
@@ -56,11 +55,16 @@
 <script>
     // Função para mostrar a div e depois o conteúdo
     function mostrarDiv() {
+        let trofeu = '{{trofeu}}'
         const div = document.getElementById('box_trofeu');
         const conteudo = document.getElementById('box_inicial_jg');
-
-        conteudo.style.display = 'none';
-        div.style.display = 'flex'; // Mostra a div
+        if (trofeu){
+            conteudo.style.display = 'none';
+            div.style.display = 'flex'; // Mostra a div
+        }else{
+            conteudo.style.display = 'flex'
+        }
+        
 
         // Esconde a div após 5 segundos e mostra o conteúdo
         setTimeout(() => {
