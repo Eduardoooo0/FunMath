@@ -1,4 +1,4 @@
-from flask import render_template, request, make_response
+from flask import render_template, request, make_response,redirect,url_for
 from datetime import datetime
 
 
@@ -179,3 +179,44 @@ def finalizar_fase_fracassada(fase_atual,pontuacao,fase_desbloqueada):
     response.set_cookie('fase_atual', str(fase_atual))
     response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
     return response
+
+def tempo_esgotado(fase_atual,pergunta_atual):
+    mensagem = 'TEMPO ESGOTADO!!!'
+    response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
+    response.set_cookie('fase_atual', str(fase_atual))
+    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+    return response
+
+def fase_inicial(app,fase_atual):
+    if request.cookies.get('fase_desbloqueada',1) is None:
+        pergunta_atual = 0
+        app.config['pergunta_atual'] = pergunta_atual
+        fase_desbloqueada = 1
+        response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
+        response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
+        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+        response.set_cookie('fase_atual', str(fase_atual))
+        return response
+    else:
+        pergunta_atual = 0
+        app.config['pergunta_atual'] = pergunta_atual
+        tempo_de_inicio = request.cookies.get('tempo_de_inicio_quiz')
+        if tempo_de_inicio is not None:
+            tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
+            tempo_restante = int(app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds())
+            if tempo_restante > 0:
+                response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
+                response.set_cookie('fase_atual', str(fase_atual))
+                return response
+
+def exibir_fase(fase_atual,app):
+    fase_desbloqueada = int(request.cookies.get('fase_desbloqueada', 1))
+    if fase_atual <= fase_desbloqueada:
+        pergunta_atual = 0
+        app.config['pergunta_atual'] = pergunta_atual
+        response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=''))
+        response.set_cookie('fase_atual', str(fase_atual))
+        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+        return response
+    else:
+        return redirect(url_for('Fases_quiz'))
