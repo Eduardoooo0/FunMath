@@ -1,7 +1,6 @@
 from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for, session, flash
 from datetime import datetime
-from models.quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado ,fases
-from models.codigo import codigo_quiz
+from models.quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, codigo_quiz ,fases
 
 app = Flask(__name__)
 
@@ -10,7 +9,6 @@ app.config['tempo_de_expiracao_quiz'] = 60 # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['pontuacao'] = 0
 app.config['trofeu_quiz'] = 0
-
 
 @app.route('/')
 def Index():
@@ -34,17 +32,14 @@ def Quiz():
             return resposta_none(fase_atual,pergunta_atual)
         else:
             if resposta_user == fases[fase_atual-1][pergunta_atual]['resposta']:
-                pontuacao += 1
-                app.config['pontuacao'] = pontuacao
-                pergunta_atual += 1
-                app.config['pergunta_atual'] = pergunta_atual
+                app.config['pontuacao'] = pontuacao + 1
+                app.config['pergunta_atual'] = pergunta_atual + 1
                 if pergunta_atual < len(fases[fase_atual-1]):
                     return resposta_correta(fase_atual,pergunta_atual)
                 else:
                     return codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
             else:
-                pergunta_atual += 1
-                app.config['pergunta_atual'] = pergunta_atual
+                app.config['pergunta_atual'] = pergunta_atual + 1
                 if pergunta_atual < len(fases[fase_atual-1]):
                     return resposta_incorreta(fase_atual,pergunta_atual)
                 else:
@@ -59,15 +54,13 @@ def Quiz():
                 tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
                 tempo_restante = int(app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds())
                 if tempo_restante <= 0:
-                    pergunta_atual += 1
-                    app.config['pergunta_atual'] = pergunta_atual
+                    app.config['pergunta_atual'] = pergunta_atual + 1
                     if pergunta_atual < len(fases[fase_atual-1]):
                         return tempo_esgotado(fase_atual, pergunta_atual)
                     else:
                         return codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
         else:
-            pontuacao = 0
-            app.config['pontuacao'] = pontuacao
+            app.config['pontuacao'] = 0
             fase_atual = int(request.args.get('fase',1))
             if fase_atual == 1:
                 return fase_inicial(app,fase_atual)
@@ -123,8 +116,7 @@ def Inicial_quiz():
 
 @app.route('/fases_quiz')
 def Fases_quiz():
-    pergunta_atual = 0
-    app.config['pergunta_atual'] = pergunta_atual
+    app.config['pergunta_atual'] = 0
     response = make_response(render_template('fases_quiz.html'))
     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
     return response
