@@ -3,5 +3,29 @@
         <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
     {% block conteudo %}
-        
+        {% if trofeu %}
+        <div id="title_quiz_trf">
+            <h1>trofeus quiz</h1>
+        </div>
+        <div class="container_trf">
+            {% if trofeu == 1 %}
+                <div class="trofeus-1">
+                </div>
+            {% endif %}
+            {% if trofeu == 2 %}
+                <div class="trofeus-1">
+                </div>
+                <div class="trofeus-2">
+                </div>
+            {% endif %}
+            {% if trofeu == 3 %}
+                <div class="trofeus-1">
+                </div>
+                <div class="trofeus-2">
+                </div>
+                <div class="trofeus-3">
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
     {% endblock %}

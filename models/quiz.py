@@ -109,18 +109,65 @@ fases = [
             ],
             [
                 {
-                    "pergunta": "3x3?",
-                    "opcoes": ["9", "3", "2", "5"],
+                    "pergunta": "1+1?",
+                    "opcoes": ["1", "2", "3", "4"],
+                    "resposta": "2"
+                },
+                {
+                    "pergunta": "1+2?",
+                    "opcoes": ["1", "3", "2", "5"],
+                    "resposta": "3"
+                },
+                {
+                    "pergunta": "1+3?",
+                    "opcoes": ["1", "3", "4", "5"],
+                    "resposta": "4"
+                },
+                {
+                    "pergunta": "1+4?",
+                    "opcoes": ["1", "3", "2", "5"],
+                    "resposta": "5"
+                },
+                {
+                    "pergunta": "1+5?",
+                    "opcoes": ["1", "6", "2", "5"],
+                    "resposta": "6"
+                },
+                {
+                    "pergunta": "1+6?",
+                    "opcoes": ["7", "3", "2", "5"],
+                    "resposta": "7"
+                },
+                {
+                    "pergunta": "1+7?",
+                    "opcoes": ["1", "8", "2", "5"],
+                    "resposta": "8"
+                },
+                {
+                    "pergunta": "1+8?",
+                    "opcoes": ["1", "3", "2", "9"],
                     "resposta": "9"
+                },
+                {
+                    "pergunta": "1+9?",
+                    "opcoes": ["1", "3", "10", "5"],
+                    "resposta": "10"
+                },
+                {
+                    "pergunta": "1+10?",
+                    "opcoes": ["11", "3", "2", "5"],
+                    "resposta": "11"
                 }
             ],
             
         ]
 
+# pega a resposta do user
 def obter_resposta_usuario():
     resposta_user = request.form.get('resposta')
     return resposta_user
 
+# retorna se a resposta for None (não será necessário)
 def resposta_none(fase_atual,pergunta_atual):
     mensagem = "Por favor, selecione uma resposta."
     response = make_response(render_template('jogo_quiz.html', pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],    opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],    mensagem=mensagem))
@@ -128,6 +175,7 @@ def resposta_none(fase_atual,pergunta_atual):
     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
     return response
 
+# retorna se o user acertar a questão
 def resposta_correta(fase_atual,pergunta_atual):
     mensagem = "Parabéns! Sua resposta está correta."
     response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
@@ -135,6 +183,7 @@ def resposta_correta(fase_atual,pergunta_atual):
     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
     return response
 
+# retorna se o user errar a questão
 def resposta_incorreta(fase_atual, pergunta_atual):
     mensagem = f"Desculpe, a resposta correta era {fases[fase_atual-1][pergunta_atual]['resposta']}."
     response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
@@ -142,7 +191,7 @@ def resposta_incorreta(fase_atual, pergunta_atual):
     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
     return response
 
-
+# retorna se o user concluir uma fase que já foi concluída anteriormente
 def finalizar_fase_repetida(fase_atual,fase_desbloqueada,pontuacao):
     if pontuacao > 7:
         message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}"
@@ -153,6 +202,7 @@ def finalizar_fase_repetida(fase_atual,fase_desbloqueada,pontuacao):
     response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
     return response
     
+# retorna quando o user conclui uma fase e desbloqueia outra
 def finalizar_fase_concluida(fase_atual,pontuacao, fase_desbloqueada, trofeu_quiz):
     message = f"Parabéns sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Pode avançar de fase."
     if fase_atual == 1:    
@@ -173,6 +223,7 @@ def finalizar_fase_concluida(fase_atual,pontuacao, fase_desbloqueada, trofeu_qui
     response.set_cookie('trofeu_quiz', str(trofeu_quiz + 1))
     return response
 
+# retorna quando um user não atinge a pontuação para avançar de fase
 def finalizar_fase_fracassada(fase_atual,pontuacao,fase_desbloqueada):
     message = f"Sua pontuação foi {pontuacao}/{len(fases[fase_atual-1])}. Tente fazer melhor para avançar de fase."
     response = make_response(render_template('tela_final.html', mensagem=message))
@@ -180,6 +231,7 @@ def finalizar_fase_fracassada(fase_atual,pontuacao,fase_desbloqueada):
     response.set_cookie('fase_desbloqueada', str(fase_desbloqueada))
     return response
 
+# retorna quando o tempo acaba
 def tempo_esgotado(fase_atual,pergunta_atual):
     mensagem = 'TEMPO ESGOTADO!!!'
     response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
@@ -187,6 +239,7 @@ def tempo_esgotado(fase_atual,pergunta_atual):
     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
     return response
 
+# retorna quando for a primeira fase
 def fase_inicial(app,fase_atual):
     if request.cookies.get('fase_desbloqueada',1) is None:
         pergunta_atual = 0
@@ -209,6 +262,7 @@ def fase_inicial(app,fase_atual):
                 response.set_cookie('fase_atual', str(fase_atual))
                 return response
 
+# exibe a primeira pergunta de cada fase
 def exibir_fase(fase_atual,app):
     fase_desbloqueada = int(request.cookies.get('fase_desbloqueada', 1))
     if fase_atual <= fase_desbloqueada:
@@ -221,6 +275,7 @@ def exibir_fase(fase_atual,app):
     else:
         return redirect(url_for('Fases_quiz'))
     
+# reune códigos parecidos, quando a fase é fracassada e quando é concluída
 def codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app):
     if pontuacao >= 7:
         if fase_atual < fase_desbloqueada:

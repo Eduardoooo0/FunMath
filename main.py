@@ -16,7 +16,12 @@ def Index():
 
 @app.route('/perfil')
 def Perfil():
-    return render_template('perfil.html')
+    trofeu_quiz = request.cookies.get('trofeu_quiz')
+    if trofeu_quiz is None:
+        return render_template('perfil.html', trofeu=None)
+    else:
+        trofeu_quiz = int(trofeu_quiz)
+        return render_template('perfil.html', trofeu=trofeu_quiz)
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
@@ -31,15 +36,20 @@ def Quiz():
         if resposta_user is None:
             return resposta_none(fase_atual,pergunta_atual)
         else:
+            # se a resposta está correta
             if resposta_user == fases[fase_atual-1][pergunta_atual]['resposta']:
-                app.config['pontuacao'] = pontuacao + 1
-                app.config['pergunta_atual'] = pergunta_atual + 1
+                pontuacao += 1
+                app.config['pontuacao'] = pontuacao
+                pergunta_atual += 1
+                app.config['pergunta_atual'] = pergunta_atual
                 if pergunta_atual < len(fases[fase_atual-1]):
                     return resposta_correta(fase_atual,pergunta_atual)
                 else:
                     return codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
+            # se a resposta está incorreta
             else:
-                app.config['pergunta_atual'] = pergunta_atual + 1
+                pergunta_atual += 1
+                app.config['pergunta_atual'] = pergunta_atual
                 if pergunta_atual < len(fases[fase_atual-1]):
                     return resposta_incorreta(fase_atual,pergunta_atual)
                 else:
@@ -53,8 +63,10 @@ def Quiz():
             if tempo_de_inicio is not None:
                 tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
                 tempo_restante = int(app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds())
+                # se o tempo acabar
                 if tempo_restante <= 0:
-                    app.config['pergunta_atual'] = pergunta_atual + 1
+                    pergunta_atual += 1
+                    app.config['pergunta_atual'] = pergunta_atual
                     if pergunta_atual < len(fases[fase_atual-1]):
                         return tempo_esgotado(fase_atual, pergunta_atual)
                     else:
