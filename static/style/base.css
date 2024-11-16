@@ -70,11 +70,24 @@ header {
 }
 
 /* Estilo dos itens de navegação */
-#home, #jogos, #sobre, #ajuda {
+#bt_home, #jogos, #bt_sobre, #bt_ajuda, #bt_login {
     width: 90px;                     /* Define a largura dos itens de navegação */
-    margin-right: 100px;
-    cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre os itens */
+    margin-right: 70px;
+    cursor: pointer;    
+    font-size: 15px;        /* Define o cursor como ponteiro ao passar sobre os itens */
 }
+
+
+#bt_login {
+    background-color: orange;
+    color: black;
+}
+
+#bt_login:hover{
+    background-color: rgb(34, 34, 34);
+    color: orange;
+}
+
 
 .links-button:hover {
     color: orange;
@@ -310,6 +323,250 @@ header {
 #enviar_ajuda:hover {
     background-color: rgb(255, 194, 81);
 }
+
+
+/* ---------- PAGINA PERFIL ----------  */
+
+#perfil_content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 88%;
+}
+.aside_perfil {
+    display: flex;              /* Define o layout do aside como flexbox */
+    background-color: skyblue; /* Define a cor de fundo do aside como azul claro */
+    color: white;              /* Define a cor do texto dentro do aside como branca */
+    flex-direction: column;        /* Organiza os itens do aside em uma linha */
+    width: 23%;                /* Define a largura do aside como 100% da largura da viewport */
+    height: 100%;  
+    align-items: center;  
+    color: black;         
+}
+
+.aside_perfil img {
+    width: 120px;
+    height: 120px;
+    border-radius: 25px;
+    margin: 30px;
+
+}
+
+#perfil_info {
+    width: 100%;
+    height: 50%;
+    padding: 15px;
+
+}
+
+#perfil_info h3 {
+    text-align: center;
+    
+}
+#perfil_info p {
+    padding: 10px;
+    margin-left: 5px;
+}
+#bt_logout_perfil {
+    background-color: black;
+    color: white;
+    position: absolute;
+    bottom: 50px;
+    width: 120px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+
+.section_perfil {
+    display: flex;              /* Define o layout da seção como flexbox */
+    flex-direction: column;     /* Organiza os itens da seção em uma coluna */
+    align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
+    width: 77%;                /* Define a largura da seção como 100% da largura da viewport */
+    height: 100%;                /* Define a altura da seção como 50% da altura da viewport */
+    border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza à área de jogos */
+    
+}
+
+.box_perfil {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(223, 220, 220);
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    overflow-y: scroll;
+}
+
+.container_trf {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+
+}
+
+#title_quiz_trf{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    justify-content: center;
+}
+
+
+.trofeus-1{
+    border: 2px black solid;
+    width: 415px;
+    height: 185px;
+    background-image: url(../imgs/trofeu1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.trofeus-2{
+    border: 2px black solid;
+    width: 415px;
+    height: 185px;
+    background-image: url(../imgs/trofeu2.png);
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+.trofeus-3{
+    border: 2px black solid;
+    width: 415px;
+    height: 185px;
+    background-image: url(../imgs/trofeu3.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+/* ---------- PAGINA DE LOGIN ----------  */
+
+/* Estilo da seção principal */
+#section_login {
+    display: flex;                    /* Define o layout da seção como flexbox */
+    justify-content: center;         /* Centraliza o conteúdo horizontalmente */
+    align-items: center;             /* Centraliza o conteúdo verticalmente */
+    width: 100%;                      /* Define a largura da seção como 100% da largura da viewport */
+    height: 90%;                      /* Define a altura da seção como 80% da altura da viewport */
+    background-color: skyblue;
+}
+
+/* Estilo da área de login e cadastro */
+.login-cadastro {
+    display: flex;                    /* Define o layout da área como flexbox */
+    width: 60%;                       /* Define a largura da área como 70% da largura da seção */
+    height: 60%;                      /* Define a altura da área como 90% da altura da seção */
+    background-color: white;         /* Define a cor de fundo da área como branca */
+}
+
+/* Estilo da primeira metade da área de login e cadastro */
+#box1_login {
+    display: flex;                    /* Define o layout da caixa como flexbox */
+    width: 50%;                       /* Define a largura da caixa como 50% da largura da área */
+    height: 100%;                     /* Define a altura da caixa como 100% da altura da área */
+    /*background-color: rgb(255, 223, 223);*/ /* Cor de fundo opcional para a caixa */
+}
+
+/* Estilo da segunda metade da área de login e cadastro */
+#box2_login {
+    display: flex;                    /* Define o layout da caixa como flexbox */
+    flex-direction: column;           /* Organiza os itens da caixa em uma coluna */
+    align-items: center;             /* Alinha os itens ao centro horizontalmente */
+    justify-content: center;         /* Centraliza os itens verticalmente */
+    width: 50%;                       /* Define a largura da caixa como 50% da largura da área */
+    height: 100%;                     /* Define a altura da caixa como 100% da altura da área */
+    background-color: white;         /* Define a cor de fundo da caixa como branca */
+    font-family: Arial;              /* Define a fonte do texto na caixa */
+}
+
+/* Estilo dos formulários */
+.form_login {
+    height: 60%;                     /* Define a altura do formulário como 60% da altura da caixa */
+    width: 80%;                      /* Define a largura do formulário como 80% da largura da caixa */
+    display: flex;                   /* Define o layout do formulário como flexbox */
+    flex-direction: column;          /* Organiza os itens do formulário em uma coluna */
+    align-items: center;             /* Alinha os itens ao centro horizontalmente */
+    border-radius: 10px;             /* Adiciona bordas arredondadas ao formulário */
+    margin-top: 20px;                /* Adiciona uma margem superior ao formulário */
+}
+
+/* Estilo do bloco de login */
+#login {
+    display: flex;                    /* Define o layout do bloco de login como flexbox */
+    flex-direction: column;           /* Organiza os itens do bloco de login em uma coluna */
+    justify-content: center;         /* Centraliza os itens verticalmente */
+    position: relative;              /* Define o posicionamento relativo para o bloco de login */
+    font-family: Arial;              /* Define a fonte do texto no bloco de login */
+    font-size: 15px;                 /* Define o tamanho da fonte do texto no bloco de login */
+    width: 300px;                    /* Define a largura do bloco de login */
+    height: 200px;                   /* Define a altura do bloco de login */
+    margin-bottom: 170px;            /* Adiciona uma margem inferior ao bloco de login */
+}
+
+/* Estilo dos campos de entrada */
+#input_login {
+    padding: 10px;                   /* Adiciona preenchimento interno aos campos de entrada */
+    background-color: rgb(224, 223, 223); /* Define a cor de fundo dos campos de entrada */
+    color: gray;                     /* Define a cor do texto nos campos de entrada */
+    margin-bottom: 10px;             /* Adiciona uma margem inferior aos campos de entrada */
+    border-radius: 4px;              /* Adiciona bordas arredondadas aos campos de entrada */
+    outline: none;                   /* Remove o contorno padrão dos campos de entrada */
+}
+#input_login::placeholder {
+    color: gray;                     /* Define a cor do texto de espaço reservado (placeholder) como cinza */
+}
+input[type="button"] {
+    background-color: rgb(253, 174, 26); /* Define a cor de fundo do botão de entrada como laranja */
+    color: white;                    /* Define a cor do texto do botão de entrada como branca */
+    cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre o botão */
+    margin-top: 15px;               /* Adiciona uma margem superior ao botão de entrada */
+}
+
+#entrar_login {
+    padding: 10px;
+}
+
+#entrar_login:hover {
+    background-color: rgb(146, 145, 145); /* Muda a cor de fundo para cinza ao passar o mouse sobre o botão de entrada */
+    color: white;                    /* Mantém a cor do texto como branca ao passar o mouse */
+}
+
+/* Estilo da opção de lembrar-se de mim */
+.lembrar {
+    display: flex;                    /* Define o layout da opção como flexbox */
+    position: relative;              /* Define o posicionamento relativo para a opção */
+    bottom: 150px;                   /* Define a distância da parte inferior da página */
+    right: 98px;                     /* Define a distância da borda direita da página */
+    font-family: Arial;              /* Define a fonte do texto na opção */
+    font-size: 12px;                 /* Define o tamanho da fonte do texto na opção */
+}
+
+.cadastrar {
+    display: flex;                    /* Define o layout da opção como flexbox */
+    flex-direction: row;
+    justify-content: flex-start;              /* Organiza os itens da opção em uma linha */
+    position: relative;              /* Define o posicionamento relativo para a opção */
+    bottom: 145px;
+    width: 290px;                   /* Define a distância da parte inferior da página */
+    right: 2px;                      /* Define a distância da borda direita da página */
+    font-family: Arial;              /* Define a fonte do texto na opção */
+    font-size: 12px;                 /* Define o tamanho da fonte do texto na opção */
+}
+
+.cadastrar #link-cadastro{
+    background-color: white;         /* Define a cor de fundo do botão de cadastro como branca */
+    color: orange;
+    text-decoration: none;            /* Define a cor do texto do botão de cadastro como laranja */
+    padding: 5px;                    /* Adiciona preenchimento interno ao botão de cadastro */
+    border-radius: 20px;             /* Adiciona bordas arredondadas ao botão de cadastro */
+    margin-left: 20px;               /* Adiciona uma margem esquerda ao botão de cadastro */
+    margin-top: -5px;                /* Adiciona uma margem superior negativa ao botão de cadastro */
+    border: 1px solid orange;        /* Adiciona uma borda laranja ao botão de cadastro */
+    cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre o botão */
+}
+
 
 /* ---------- PAGINA DAS FASES ----------  */
 /* Estiliza a seção principal da página */
@@ -790,44 +1047,4 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-#title_quiz_trf{
-    display: flex;
-    width: 100%;
-    padding: 20px;
-    justify-content: center;
-}
-
-.container_trf{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 250px;
-    justify-content: space-around;
-}
-
-.trofeus-1{
-    border: 2px black solid;
-    width: 500px;
-    height: 250px;
-    background-image: url(../imgs/trofeu1.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-.trofeus-2{
-    border: 2px black solid;
-    width: 500px;
-    height: 250px;
-    background-image: url(../imgs/trofeu2.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-.trofeus-3{
-    border: 2px black solid;
-    width: 500px;
-    height: 250px;
-    background-image: url(../imgs/trofeu3.png);
-    background-size: contain;
-    background-repeat: no-repeat;
 }
