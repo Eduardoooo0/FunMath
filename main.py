@@ -160,3 +160,12 @@ def Sobre():
 @app.route('/jogos')
 def Jogos():
     return render_template ('jogos.html')
+
+@app.route('/login')
+def Login():
+    return render_template('login.html')
+
+@app.route('/cadastro')
+def Cadastro():
+    return render_template('cadastro.html')
+
