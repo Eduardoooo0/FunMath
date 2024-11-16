@@ -3,29 +3,136 @@
         <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
     {% block conteudo %}
-        {% if trofeu %}
-        <div id="title_quiz_trf">
-            <h1>trofeus quiz</h1>
-        </div>
-        <div class="container_trf">
-            {% if trofeu == 1 %}
-                <div class="trofeus-1">
+    <div id="perfil_content">
+        <aside class="aside_perfil">
+            
+            <img src="static/imgs/avatar-perfil.jpg" alt="">
+            
+            <div id="perfil_info">
+                <h3>Informações do Usuário</h3>
+
+                <p>Nome:
+                {% if nome%}
+                {{nome}}
+                {% else %}
+                Anônimo
+                {% endif %}
+                </p>
+
+                <p>Email:
+                {% if email%}
+                {{email}}
+                {% else %}
+                anonimo@gmail.com
+                {% endif %}
+                </p>
+
+                <p>Pontuação:
+                    {% if pontuacao %}
+                    {{pontuacao}}
+                    {% else %}
+                    0
+                    {% endif %}
+                    </p>
+            </div>
+            <button id="bt_logout_perfil">
+                Logout
+            </button>
+
+            
+        </aside>
+        <section class="section_perfil">
+        
+            <div class="box_perfil">
+                
+        
+                {% if trofeu %}
+                <div id="title_quiz_trf">
+                    <h1>Trofeus Quiz</h1>
                 </div>
-            {% endif %}
-            {% if trofeu == 2 %}
-                <div class="trofeus-1">
+                <div class="container_trf">
+                    {% if trofeu == 1 %}
+                        <div class="trofeus-1">
+                        </div>
+                    {% endif %}
+                    {% if trofeu == 2 %}
+                        <div class="trofeus-1">
+                        </div>
+                        <div class="trofeus-2">
+                        </div>
+                    {% endif %}
+                    {% if trofeu == 3 %}
+                        <div class="trofeus-1">
+                        </div>
+                        <div class="trofeus-2">
+                        </div>
+                        <div class="trofeus-3">
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="trofeus-2">
+                {% endif %}
+                
+
+                <div id="title_quiz_trf">
+                    <h1>Trofeus Quebra-Cabeça</h1>
                 </div>
-            {% endif %}
-            {% if trofeu == 3 %}
-                <div class="trofeus-1">
+                {% if trofeu %}
+                <div class="container_trf">
+                    {% if trofeu == 1 %}
+                        <div class="trofeus-1">
+                        </div>
+                    {% endif %}
+                    {% if trofeu == 2 %}
+                        <div class="trofeus-1">
+                        </div>
+                        <div class="trofeus-2">
+                        </div>
+                    {% endif %}
+                    {% if trofeu == 3 %}
+                        <div class="trofeus-1">
+                        </div>
+                        <div class="trofeus-2">
+                        </div>
+                        <div class="trofeus-3">
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="trofeus-2">
+                {% endif %}
+
+                <div id="title_quiz_trf">
+                    <h1>Trofeus Trilha da Raposa</h1>
                 </div>
-                <div class="trofeus-3">
+                {% if trofeu_trilha %}
+                <div class="container_trf">
+                    {% if trofeu_trilha == 1 %}
+                        <div class="trofeus-1">
+                        </div>
+                    {% endif %}
+                    {% if trofeu_trilha == 2 %}
+                        <div class="trofeus-1">
+                        </div>
+                        <div class="trofeus-2">
+                        </div>
+                    {% endif %}
+                    {% if trofeu_trilha == 3 %}
+                        <div class="trofeus-1">
+                        </div>
+                        <div class="trofeus-2">
+                        </div>
+                        <div class="trofeus-3">
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-        </div>
-        {% endif %}
+                {% endif %}
+
+                
+                
+                </div>
+            </div>
+        </section>
+    
+
+    </div>
+
+    
     {% endblock %}
