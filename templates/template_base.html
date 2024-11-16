@@ -34,7 +34,7 @@
                 <div class="menu-items">
                     <!-- Botão para a página inicial -->
                         <a class="links"  href="{{url_for('Index')}}">
-                            <button class="links-button" id="home">Home</button>
+                            <button class="links-button" id="bt_home">Home</button>
                         </a> <!-- Link para a página inicial -->
                     
                     <!-- Botão para a seção de jogos -->
@@ -52,13 +52,18 @@
                     <!-- Botão para a seção sobre -->
                     
                         <a class="links"  href="{{url_for('Sobre')}}">
-                            <button class="links-button" id="sobre">Sobre</button>
+                            <button class="links-button" id="bt_sobre">Sobre</button>
                         </a>
                     <!-- Botão para a seção de ajuda -->
                     
                         <a class="links"  href="{{url_for('Ajuda')}}">
-                            <button class="links-button" id="ajuda">Ajuda</button>
+                            <button class="links-button" id="bt_ajuda">Ajuda</button>
                         </a>
+
+                        <a class="links"  href="{{url_for('Login')}}">
+                            <button class="links-button" id="bt_login">Login</button>
+                        </a>
+                        
                         <!-- Seção de perfil com a imagem de perfil -->
                         <a href="{{url_for('Perfil')}}" class="perfil">
                             <img src="static/imgs/avatar-perfil.jpg" alt=""> <!-- Imagem de perfil do usuário -->
@@ -71,6 +76,8 @@
         <!-- Bloco que irá mostrar o conteudo das paginas! < Herança de Templates > -->
         {% block conteudo %}
         {% endblock %}
+
+    </div>
         
         <!-- Script JavaScript para interatividade do cabeçalho -->
         {% block js %}
