@@ -5,9 +5,10 @@
     {% block conteudo %}
     <div id="perfil_content">
         <aside class="aside_perfil">
-            
+            <div id="box_voltar">
+                <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
+            </div>
             <img src="static/imgs/avatar-perfil.jpg" alt="">
-            
             <div id="perfil_info">
                 <h3>Informações do Usuário</h3>
 
@@ -126,14 +127,8 @@
                 </div>
                 {% endif %}
 
-                
-                
                 </div>
             </div>
         </section>
-    
-
     </div>
-
-    
     {% endblock %}
