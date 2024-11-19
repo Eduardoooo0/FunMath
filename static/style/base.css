@@ -73,14 +73,34 @@ header {
 #bt_home, #jogos, #bt_sobre, #bt_ajuda, #bt_login {
     width: 90px;                     /* Define a largura dos itens de navegação */
     margin-right: 70px;
-    cursor: pointer;    
-    font-size: 15px;        /* Define o cursor como ponteiro ao passar sobre os itens */
+    cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre os itens */
+    font-size: 15px;
 }
-
 
 #bt_login {
     background-color: orange;
     color: black;
+}
+
+#bt_voltar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    color: black;
+    width: 90px;
+    height: 100%;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+#box_voltar {
+    width: 100%;
+    height: 40px;
+    margin-top: 20px;
 }
 
 #bt_login:hover{
@@ -88,9 +108,9 @@ header {
     color: orange;
 }
 
-
 .links-button:hover {
-    color: orange;
+    background-color: orange;
+    color: white;
 }
 .links-button {
     height: 100%;
@@ -119,16 +139,19 @@ header {
     height: 40px;
     border-bottom: 1px solid rgb(197, 197, 197);
     border-top: 1px solid rgb(197, 197, 197);
+    font-size: 15px;
 
 }
 
 .bt_jogo a {
     text-decoration: none;
     color: black;
+
 }
 
-.bt_jogo a:hover {
-    color: orange;
+.bt_jogo:hover {
+    background-color: orange;
+    color: white;
 }
 .botoes-jogos {
     width: 90px;
@@ -156,7 +179,7 @@ header {
     width: 50%;  /* Define a largura dos itens do menu como 100% da largura do seu elemento pai */
     height: 40px;  /* Define a altura dos itens do menu como 40 pixels */
     font-size: 18px;  /* Define o tamanho da fonte dos itens do menu como 18 pixels */
-    margin-left: 60%;
+    margin-left: 65%;
 }
 
 /* -------- PAGINA INICIAL --------- */
@@ -168,6 +191,10 @@ header {
     flex-direction: row;        /* Organiza os itens do aside em uma linha */
     width: 100%;                /* Define a largura do aside como 100% da largura da viewport */
     height: 40%;                /* Define a altura do aside como 30% da altura da viewport */
+    background-image: url(../imgs/introducao.png);
+    background-size: cover;
+    background-position: center;  /* Centraliza a imagem de fundo */
+    background-color: rgb(255, 234, 198);
 }
 
 /* Estiliza a seção principal */
@@ -280,7 +307,7 @@ header {
     flex-direction: row;
     width: 60%;
     height: 70%;
-    background-color: rgb(223, 220, 220);
+    background-color: rgb(255, 208, 137);
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
@@ -293,8 +320,12 @@ header {
     flex-direction: column;
     width: 60%;
     height: 100%;
-    
 }
+
+.form_ajuda h4{
+    margin-left: 15px;
+}
+
 #input_ajuda {
     width: 50%;
     padding: 8px;
@@ -308,6 +339,7 @@ header {
     border: 1px solid gray;
     border-radius: 10px;
     margin: 8px;
+    padding: 3px 15px 13px 8px;
 }
 
 #enviar_ajuda {
@@ -324,129 +356,13 @@ header {
     background-color: rgb(255, 194, 81);
 }
 
-
-/* ---------- PAGINA PERFIL ----------  */
-
-#perfil_content {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 88%;
-}
-.aside_perfil {
-    display: flex;              /* Define o layout do aside como flexbox */
-    background-color: skyblue; /* Define a cor de fundo do aside como azul claro */
-    color: white;              /* Define a cor do texto dentro do aside como branca */
-    flex-direction: column;        /* Organiza os itens do aside em uma linha */
-    width: 23%;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 100%;  
-    align-items: center;  
-    color: black;         
-}
-
-.aside_perfil img {
-    width: 120px;
-    height: 120px;
-    border-radius: 25px;
-    margin: 30px;
-
-}
-
-#perfil_info {
-    width: 100%;
-    height: 50%;
-    padding: 15px;
-
-}
-
-#perfil_info h3 {
-    text-align: center;
-    
-}
-#perfil_info p {
-    padding: 10px;
-    margin-left: 5px;
-}
-#bt_logout_perfil {
-    background-color: black;
-    color: white;
-    position: absolute;
-    bottom: 50px;
-    width: 120px;
-    height: 40px;
-    border-radius: 30px;
-}
-
-
-.section_perfil {
-    display: flex;              /* Define o layout da seção como flexbox */
-    flex-direction: column;     /* Organiza os itens da seção em uma coluna */
-    align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
-    width: 77%;                /* Define a largura da seção como 100% da largura da viewport */
-    height: 100%;                /* Define a altura da seção como 50% da altura da viewport */
-    border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza à área de jogos */
-    
-}
-
-.box_perfil {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    background-color: rgb(223, 220, 220);
-    padding: 30px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    overflow-y: scroll;
-}
-
-.container_trf {
-     display: flex;
-     flex-direction: row;
-     justify-content: space-around;
-
-}
-
-#title_quiz_trf{
-    display: flex;
-    width: 100%;
-    padding: 10px;
-    justify-content: center;
-}
-
-
-.trofeus-1{
-    border: 2px black solid;
-    width: 415px;
-    height: 185px;
-    background-image: url(../imgs/trofeu1.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-.trofeus-2{
-    border: 2px black solid;
-    width: 415px;
-    height: 185px;
-    background-image: url(../imgs/trofeu2.png);
-    background-size:contain;
-    background-repeat: no-repeat;
-}
-.trofeus-3{
-    border: 2px black solid;
-    width: 415px;
-    height: 185px;
-    background-image: url(../imgs/trofeu3.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-
 /* ---------- PAGINA DE LOGIN ----------  */
 
 /* Estilo da seção principal */
+
 #section_login {
     display: flex;                    /* Define o layout da seção como flexbox */
-    justify-content: center;         /* Centraliza o conteúdo horizontalmente */
+    flex-direction: column;
     align-items: center;             /* Centraliza o conteúdo verticalmente */
     width: 100%;                      /* Define a largura da seção como 100% da largura da viewport */
     height: 90%;                      /* Define a altura da seção como 80% da altura da viewport */
@@ -459,6 +375,7 @@ header {
     width: 60%;                       /* Define a largura da área como 70% da largura da seção */
     height: 60%;                      /* Define a altura da área como 90% da altura da seção */
     background-color: white;         /* Define a cor de fundo da área como branca */
+    margin-top: 100px;
 }
 
 /* Estilo da primeira metade da área de login e cadastro */
@@ -576,8 +493,7 @@ input[type="button"] {
     width: 100%;  /* Define a largura da seção como 100% da largura da viewport */
     height: 900px;  /* Define a altura da seção como 900 pixels */
     overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
-    background-color: rgb(117, 193, 255);  /* Define a cor de fundo da seção como um azul claro */
-    padding: 15px;  /* Adiciona um preenchimento interno de 15 pixels à seção */
+    background-color: skyblue;  /* Define a cor de fundo da seção como um azul claro */
 }
 
 /* Estiliza o container de fases */
@@ -612,12 +528,10 @@ input[type="button"] {
 #section_inicial_jg{
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
-    justify-content: center;
     width: 100%; /* Largura da seção é 100% da largura disponível */
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
     background-color: skyblue; /* Cor de fundo azul claro */
-    padding: 15px; /* Espaçamento interno da seção */
 }
 
 /* Estilo para a caixa central de conteúdo */
@@ -628,6 +542,7 @@ input[type="button"] {
     width: 85%; /* Largura da caixa central */
     max-width: 1000px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
+    margin-top: 70px;
     background-color: white; /* Cor de fundo branca */
 }
 
@@ -663,15 +578,16 @@ input[type="button"] {
     height: 150px;  /* Define a altura do botão jogar como 150 pixels */
     margin: 20px;  /* Adiciona uma margem de 20 pixels ao redor do botão jogar */
     cursor: pointer;  /* Define o cursor como ponteiro quando sobre o botão jogar */
-    border-radius: 150px;  /* Define bordas arredondadas no botão jogar para criar um formato circular */
-    background-image: url(../imgs/botao-play.png);  /* Define a imagem de fundo do botão jogar */
+    border-radius: 50px;  /* Define bordas arredondadas no botão jogar para criar um formato circular */
+
+    background-image: url(../imgs/botao-play.svg);  /* Define a imagem de fundo do botão jogar */
 }
 
 
 /* Estilo para o contêiner do quiz */
 #div_inicial_jg {
     width: 100%; /* Largura do contêiner do quiz */
-    background-color: gainsboro; /* Cor de fundo cinza claro */
+    background-color: rgb(255, 203, 106); /* Cor de fundo cinza claro */
 }
 
 /* Estilo para o segundo bloco de conteúdo */
@@ -972,6 +888,118 @@ input[type="button"] {
     padding: 12px;
 }
 
+/* ---------- PAGINA PERFIL ----------  */
+
+#perfil_content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 88%;
+}
+.aside_perfil {
+    display: flex;              /* Define o layout do aside como flexbox */
+    background-color: skyblue; /* Define a cor de fundo do aside como azul claro */
+    color: white;              /* Define a cor do texto dentro do aside como branca */
+    flex-direction: column;        /* Organiza os itens do aside em uma linha */
+    width: 23%;                /* Define a largura do aside como 100% da largura da viewport */
+    height: 100%;  
+    align-items: center;  
+    color: black;         
+}
+
+.aside_perfil img {
+    width: 120px;
+    height: 120px;
+    border-radius: 25px;
+    margin: 30px;
+
+}
+
+#perfil_info {
+    width: 100%;
+    height: 50%;
+    padding: 15px;
+
+}
+
+#perfil_info h3 {
+    text-align: center;
+    
+}
+#perfil_info p {
+    padding: 10px;
+    margin-left: 5px;
+}
+#bt_logout_perfil {
+    background-color: black;
+    color: white;
+    position: absolute;
+    bottom: 50px;
+    width: 120px;
+    height: 40px;
+    border-radius: 30px;
+}
+
+.section_perfil {
+    display: flex;              /* Define o layout da seção como flexbox */
+    flex-direction: column;     /* Organiza os itens da seção em uma coluna */
+    align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
+    width: 77%;                /* Define a largura da seção como 100% da largura da viewport */
+    height: 100%;                /* Define a altura da seção como 50% da altura da viewport */
+    border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza à área de jogos */
+    
+}
+
+.box_perfil {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(223, 220, 220);
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    overflow-y: scroll;
+}
+
+.container_trf {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+}
+
+#title_quiz_trf{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    justify-content: center;
+}
+
+.trofeus-1{
+    border: 2px black solid;
+    width: 415px;
+    height: 185px;
+    background-image: url(../imgs/trofeu1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.trofeus-2{
+    border: 2px black solid;
+    width: 415px;
+    height: 185px;
+    background-image: url(../imgs/trofeu2.png);
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+.trofeus-3{
+    border: 2px black solid;
+    width: 415px;
+    height: 185px;
+    background-image: url(../imgs/trofeu3.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 /* ---------- TELA FINAL ----------  */
 
 #quad1_final {
@@ -998,8 +1026,6 @@ input[type="button"] {
     width: 250px;
     height: 150px;
 }
-
-
 
 #box_inicial_jg {
     display: none; /* Utiliza flexbox para layout */
@@ -1036,7 +1062,6 @@ input[type="button"] {
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
 
 }
-
 
 #div_img_trofeu img {
     width: 100%;
