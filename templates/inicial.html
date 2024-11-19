@@ -6,7 +6,9 @@
 
     {% block conteudo %}
         <aside class="aside_inicial">
-            <!-- contêiner para a introdução -->
+            <div id="box_voltar">
+                <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
+            </div>
         </aside>
         
         <section id="section_inicial">
@@ -42,4 +44,3 @@
         </section>
 
     {% endblock %}
-
