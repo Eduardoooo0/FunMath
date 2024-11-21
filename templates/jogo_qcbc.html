@@ -19,9 +19,9 @@
                     </div>
                     <!-- Primeira caixa de conteúdo do quiz -->
                     <div id="quad1_qcbc">
-                        <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get">
-                            {% for i in range(1,10)%}
-                                <input class="button_quest bt-{{fase}}-{{i}}" name="questao"  value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
+                        <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get"> <!-- form é sempre method=POST -->
+                            {% for i in range(9)%}
+                                <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
                             {% endfor %}
                         </form>
                     </div>
@@ -31,7 +31,7 @@
                                 <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
                                 <ul>
                                     <li><p>Responda corretamente as questões para desbloquear cada peça do quebra-cabeça.</p></li>
-                                    <li><p>você ganhará pontos por cada quebra-cabeça montado.</p></li>
+                                    <li><p>Você ganhará pontos por cada quebra-cabeça montado.</p></li>
                                 </ul>
                             </div>
                         </div>
@@ -42,65 +42,42 @@
     {% endblock %}
     {% block js %}
     <script>
-        let lista_imagens = [
-            [
-                {'imagem':"{{ url_for('static', filename='imgs/BOX1.jpg') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/facebook.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/google.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-            ],
-            [
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-            ]
+        let quebra_cabeca = [
+            {% for _ in range(2) %}
+                [
+                {% for _ in range(9) %}
+                    {
+                        "img": "{{ url_for('static', filename='imgs/1.png') }}",
+                        "bloqueado": true
+                    },
+                {% endfor %}
+                ],
+            {% endfor %}
         ];
-        let valor = parseInt('{{valor}}')
+        let questao_atual = parseInt('{{questao_atual}}')
         let resposta = '{{resposta}}'
         let fase = parseInt('{{fase}}')
-        let lista = JSON.parse(localStorage.getItem(`Lista-${fase}`)) || [];
 
-        if (resposta === 'True'){
-            if (lista.includes(valor)){
-                for (let i = 0; i < lista.length; i++){
-                    atualizarImagens(lista[i])
-                }
-            }
-            else{
-                lista.push(valor)
-                Salvar_imagem(valor)
-                localStorage.setItem(`Lista-${fase}`, JSON.stringify(lista));
-                for (let i = 0; i < lista.length; i++){
-                    atualizarImagens(lista[i])
-                }
-            }
-        }else{
-            for (let i = 0; i < lista.length; i++){
-                atualizarImagens(lista[i])
-            }
+        if (resposta === 'True')
+            desbloquearImagem(questao_atual)
+
+        atualizarQuebraCabeca()
+
+
+        function desbloquearImagem(questao_atual) {
+            quebra_cabeca[fase][questao_atual]['bloqueado'] = false;
         }
 
-        function Salvar_imagem(valor) {
-            localStorage.setItem(`imagem-${fase}-${valor}`, lista_imagens[fase - 1][valor - 1]['imagem']);
+        function atualizarQuebraCabeca() {
+            for (i = 0; i < quebra_cabeca[fase].length; i++) {
+                var quadrado = quebra_cabeca[fase][i];
+                if (!quebra_cabeca[fase][i]['bloqueado']){
+                    var id_input = `bt-${fase}-${i}`;
+                    var input = document.getElementById(id_input);
+                    input.style.backgroundImage = `url('${quadrado['img']}')`;
+                }
+            }
         }
-        function atualizarImagens(valor) {
-            let imagemArmazenada = localStorage.getItem(`imagem-${fase}-${valor}`);
-            let input = document.getElementById(`bt-${fase}-${valor}`)
-            if (imagemArmazenada && input) {
-                input.style.backgroundImage = `url('${imagemArmazenada}')`;
-            }
-            }
 
              
         // Seleciona os elementos
