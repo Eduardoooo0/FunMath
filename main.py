@@ -1,6 +1,6 @@
 from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for, session, flash
 from datetime import datetime
-from models.quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, codigo_quiz ,fases
+from models.quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado ,fases
 
 app = Flask(__name__)
 
@@ -45,7 +45,7 @@ def Quiz():
                 if pergunta_atual < len(fases[fase_atual-1]):
                     return resposta_correta(fase_atual,pergunta_atual)
                 else:
-                    return codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
+                    return verificar_resultado(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
             # se a resposta está incorreta
             else:
                 pergunta_atual += 1
@@ -53,7 +53,7 @@ def Quiz():
                 if pergunta_atual < len(fases[fase_atual-1]):
                     return resposta_incorreta(fase_atual,pergunta_atual)
                 else:
-                    return codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
+                    return verificar_resultado(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
     else:
         fase_atual = request.args.get('fase')
         if fase_atual is None:
@@ -70,7 +70,7 @@ def Quiz():
                     if pergunta_atual < len(fases[fase_atual-1]):
                         return tempo_esgotado(fase_atual, pergunta_atual)
                     else:
-                        return codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
+                        return verificar_resultado(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app)
         else:
             app.config['pontuacao'] = 0
             fase_atual = int(request.args.get('fase',1))

@@ -2,6 +2,8 @@ from flask import render_template, request, make_response,redirect,url_for
 from datetime import datetime
 
 
+PONTUACAO_MINIMA = 2
+
 fases = [
             [
                 {
@@ -276,33 +278,14 @@ def exibir_fase(fase_atual,app):
         return redirect(url_for('Fases_quiz'))
     
 # reune códigos parecidos, quando a fase é fracassada e quando é concluída
-def codigo_quiz(pontuacao,fase_atual,fase_desbloqueada,trofeu_quiz,app):
-    if pontuacao >= 7:
-        if fase_atual < fase_desbloqueada:
-            finalizar = finalizar_fase_repetida(fase_atual,fase_desbloqueada,pontuacao)                       
-            app.config['pontuacao'] = 0
-            app.config['pergunta_atual'] = 0
-            return finalizar
-        else:
-            if (fase_atual) in (1,2,3):  # ganhou um trófeu
-                finalizar = finalizar_fase_concluida(fase_atual,pontuacao,fase_desbloqueada,trofeu_quiz)
-                app.config['pontuacao'] = 0
-                app.config['pergunta_atual'] = 0
-                return finalizar
-            else:
-                finalizar = finalizar_fase_concluida(fase_atual,pontuacao,fase_desbloqueada,trofeu_quiz)
-                app.config['pontuacao'] = 0
-                app.config['pergunta_atual'] = 0
-                return finalizar
-            
+def verificar_resultado(pontuacao: int, fase_atual: int, fase_desbloqueada: int, trofeu_quiz: int, app):
+    if fase_atual < fase_desbloqueada:
+        finalizar = finalizar_fase_repetida(fase_atual, fase_desbloqueada, pontuacao)
     else:
-        if fase_atual < fase_desbloqueada:      
-            finalizar = finalizar_fase_repetida(fase_atual,fase_desbloqueada,pontuacao)
-            app.config['pontuacao'] = 0
-            app.config['pergunta_atual'] = 0
-            return finalizar
+        if pontuacao >= PONTUACAO_MINIMA:
+            finalizar = finalizar_fase_concluida(fase_atual, pontuacao, fase_desbloqueada, trofeu_quiz)
         else:
-            finalizar = finalizar_fase_fracassada(fase_atual,pontuacao,fase_desbloqueada)
-            app.config['pontuacao'] = 0
-            app.config['pergunta_atual'] = 0
-            return finalizar
+            finalizar = finalizar_fase_fracassada(fase_atual, pontuacao, fase_desbloqueada)
+    app.config['pontuacao'] = 0
+    app.config['pergunta_atual'] = 0
+    return finalizar
