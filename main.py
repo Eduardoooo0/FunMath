@@ -1,6 +1,6 @@
 from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for, session, flash
 from datetime import datetime
-from models.quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado ,fases
+from quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado ,fases
 
 app = Flask(__name__)
 
