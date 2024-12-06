@@ -66,11 +66,15 @@
                         <a class="links"  href="{{url_for('Ajuda')}}">
                             <button class="links-button" id="bt_ajuda">Ajuda</button>
                         </a>
-
-                        <a class="links"  href="{{url_for('Login')}}">
-                            <button class="links-button" id="bt_login">Login</button>
-                        </a>
-
+                        {% if current_user.is_authenticated %}
+                            <form class="links" action="{{url_for('Logout')}}" method="post">
+                                <button class="links-button" id="bt_login">Sair</button>
+                            </form>
+                        {% else %}
+                            <a class="links"  href="{{url_for('Login')}}">
+                                <button class="links-button" id="bt_login">Login</button>
+                            </a>
+                        {% endif %}
                         <!-- Seção de perfil com a imagem de perfil -->
                         <a href="{{url_for('Perfil')}}" class="perfil">
                             <img src="static/imgs/avatar-perfil.jpg" alt=""> <!-- Imagem de perfil do usuário -->

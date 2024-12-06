@@ -15,14 +15,15 @@
                         <h1>Cadastro</h1>
                         <div class="form_login">
                             <form id="login" action="{{url_for('Cadastro')}}" method="post">
+                                <input id="input_login" type="text" name="nome" placeholder="Nome">
                                 <input id="input_login" type="email" name="email" id="emailId" placeholder="Email ou número de telefone">
                                 <input id="input_login" type="password" name="senha" id="senhaId" placeholder="Senha">
                                 {% with messages = get_flashed_messages() %}
                                     {% if messages %}
-                                        <p>{{messages[0]}}</p>
+                                        <p style="color: red;">{{messages[0]}}</p>
                                     {% endif %}
                                 {% endwith %}
-                                <input id="entrar_login" type="submit" value="Entrar">
+                                <input id="entrar_login" type="submit" value="Enviar">
                             </form>
                             <div class="lembrar">
                                 <input type="checkbox" id="checkId">

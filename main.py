@@ -1,14 +1,25 @@
 from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for, session, flash
 from datetime import datetime
 from quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado ,fases
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from database import session
+from werkzeug.security import generate_password_hash
+from models.user import User
+
 
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = 'Supersenha'
 app.config['tempo_de_expiracao_quiz'] = 60 # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['pontuacao'] = 0
 app.config['trofeu_quiz'] = 0
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return session.query(User).get(user_id)
 
 @app.route('/')
 def Index():
@@ -161,11 +172,42 @@ def Sobre():
 def Jogos():
     return render_template ('jogos.html')
 
-@app.route('/login')
+@app.route('/login', methods = ['POST','GET'])
 def Login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+        user = session.query(User).filter_by(email=email).first()
+        senha_hash = session.query(User).filter_by(senha=generate_password_hash(senha))
+        if user and senha_hash:
+            login_user(user)
+            return redirect(url_for('Index'))
+        flash('email ou senha incorreto')
+    else:
+        if current_user.is_authenticated:
+            return redirect(url_for('Index'))
+        return render_template('login.html')
 
-@app.route('/cadastro')
+@app.route('/cadastro', methods = ['POST', 'GET'])
 def Cadastro():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        senha = request.form['senha']
+        senha_hash = generate_password_hash(senha)
+        user = User(nome=nome,email=email,senha=senha_hash)
+        usuario_existente = session.query(User).filter_by(email=email).first()
+        if usuario_existente:
+            flash('email já cadastrado')
+            return redirect(url_for('Cadastro'))
+        session.add(user)
+        session.commit()
+        return redirect(url_for('Index'))
     return render_template('cadastro.html')
 
+
+@app.route('/logout', methods = ['POST'])
+@login_required
+def Logout():
+    logout_user()
+    return redirect(url_for('Index'))

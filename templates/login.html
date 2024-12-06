@@ -21,7 +21,7 @@
                             <input id="input_login" type="password" name="senha" id="senhaId" placeholder="Senha">
                             {% with messages = get_flashed_messages() %}
                                 {% if messages %}
-                                    <p>{{messages[0]}}</p>
+                                    <p style="color: red;" >{{messages[0]}}</p>
                                 {% endif %}
                             {% endwith %}
                             <input id="entrar_login" type="submit" value="Entrar">
