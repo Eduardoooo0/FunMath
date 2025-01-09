@@ -187,7 +187,7 @@ def resposta_correta(fase_atual,pergunta_atual):
 
 # retorna se o user errar a questão
 def resposta_incorreta(fase_atual, pergunta_atual):
-    mensagem = f"Desculpe, a resposta correta era {fases[fase_atual-1][pergunta_atual]['resposta']}."
+    mensagem = f"Desculpe, a resposta correta era {fases[fase_atual-1][pergunta_atual - 1]['resposta']}."
     response = make_response(render_template('jogo_quiz.html',pergunta=fases[fase_atual-1][pergunta_atual]['pergunta'],opcoes=fases[fase_atual-1][pergunta_atual]['opcoes'],mensagem=mensagem))
     response.set_cookie('fase_atual', str(fase_atual))
     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))

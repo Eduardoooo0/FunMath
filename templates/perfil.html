@@ -12,33 +12,16 @@
             <div id="perfil_info">
                 <h3>Informações do Usuário</h3>
 
+                {% if current_user.is_authenticated %}
                 <p>Nome:
-                {% if nome%}
-                {{nome}}
-                {% else %}
-                Anônimo
-                {% endif %}
+                    {{current_user['nome']}}
                 </p>
 
                 <p>Email:
-                {% if email%}
-                {{email}}
-                {% else %}
-                anonimo@gmail.com
-                {% endif %}
+                    {{current_user['email']}}
                 </p>
-
-                <p>Pontuação:
-                    {% if pontuacao %}
-                    {{pontuacao}}
-                    {% else %}
-                    0
-                    {% endif %}
-                    </p>
+                {% endif %}
             </div>
-            <button id="bt_logout_perfil">
-                Logout
-            </button>
 
             
         </aside>
@@ -51,19 +34,19 @@
                 <div id="title_quiz_trf">
                     <h1>Trofeus Quiz</h1>
                 </div>
-                {% if trofeu %}
+                {% if trofeu_quiz %}
                 <div class="container_trf">
-                    {% if trofeu == 1 %}
+                    {% if trofeu_quiz == 1 %}
                         <div class="trofeus-1">
                         </div>
                     {% endif %}
-                    {% if trofeu == 2 %}
+                    {% if trofeu_quiz == 2 %}
                         <div class="trofeus-1">
                         </div>
                         <div class="trofeus-2">
                         </div>
                     {% endif %}
-                    {% if trofeu == 3 %}
+                    {% if trofeu_quiz == 3 %}
                         <div class="trofeus-1">
                         </div>
                         <div class="trofeus-2">
@@ -78,19 +61,19 @@
                 <div id="title_quiz_trf">
                     <h1>Trofeus Quebra-Cabeça</h1>
                 </div>
-                {% if trofeu %}
+                {% if trofeu_qcbc %}
                 <div class="container_trf">
-                    {% if trofeu == 1 %}
+                    {% if trofeu_qcbc == 1 %}
                         <div class="trofeus-1">
                         </div>
                     {% endif %}
-                    {% if trofeu == 2 %}
+                    {% if trofeu_qcbc == 2 %}
                         <div class="trofeus-1">
                         </div>
                         <div class="trofeus-2">
                         </div>
                     {% endif %}
-                    {% if trofeu == 3 %}
+                    {% if trofeu_qcbc == 3 %}
                         <div class="trofeus-1">
                         </div>
                         <div class="trofeus-2">

@@ -22,17 +22,17 @@ def load_user(user_id):
     return session.query(User).get(user_id)
 
 @app.route('/')
-def Index():
-    return render_template('inicial.html')
+def index():
+    return render_template('index.html')
 
 @app.route('/perfil')
 def Perfil():
     trofeu_quiz = request.cookies.get('trofeu_quiz')
     if trofeu_quiz is None:
-        return render_template('perfil.html', trofeu=None)
+        return render_template('perfil.html', trofeu_quiz=None)
     else:
         trofeu_quiz = int(trofeu_quiz)
-        return render_template('perfil.html', trofeu=trofeu_quiz)
+        return render_template('perfil.html', trofeu_quiz=trofeu_quiz)
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
@@ -181,11 +181,13 @@ def Login():
         senha_hash = session.query(User).filter_by(senha=generate_password_hash(senha))
         if user and senha_hash:
             login_user(user)
-            return redirect(url_for('Index'))
-        flash('email ou senha incorreto')
+            return redirect(url_for('index'))
+        else:
+            flash('email ou senha incorreto')
+            return redirect(url_for('Login'))
     else:
         if current_user.is_authenticated:
-            return redirect(url_for('Index'))
+            return redirect(url_for('index'))
         return render_template('login.html')
 
 @app.route('/cadastro', methods = ['POST', 'GET'])
@@ -202,7 +204,11 @@ def Cadastro():
             return redirect(url_for('Cadastro'))
         session.add(user)
         session.commit()
-        return redirect(url_for('Index'))
+        if current_user.is_authenticated:
+            return redirect(url_for('index'))
+        else:
+            login_user(user)
+            return redirect(url_for('index'))
     return render_template('cadastro.html')
 
 
@@ -210,4 +216,5 @@ def Cadastro():
 @login_required
 def Logout():
     logout_user()
-    return redirect(url_for('Index'))
+    return redirect(url_for('index'))
+

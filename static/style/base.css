@@ -426,7 +426,7 @@ header {
 #input_login {
     padding: 10px;                   /* Adiciona preenchimento interno aos campos de entrada */
     background-color: rgb(224, 223, 223); /* Define a cor de fundo dos campos de entrada */
-    color: gray;                     /* Define a cor do texto nos campos de entrada */
+    color: black;                     /* Define a cor do texto nos campos de entrada */
     margin-bottom: 10px;             /* Adiciona uma margem inferior aos campos de entrada */
     border-radius: 4px;              /* Adiciona bordas arredondadas aos campos de entrada */
     outline: none;                   /* Remove o contorno padrão dos campos de entrada */
