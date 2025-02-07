@@ -4,11 +4,11 @@
     {% endblock %}
 
     {% block conteudo %}
-    <section id="section_fases">
+    <section id="section_inicial_jg">
         <div id="box_voltar">
             <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
         </div>
-        <form class="fases" action="{{url_for('Jogo_qcbc')}}" method="get">
+        <form class="fases" action="{{url_for('Qcbc_jogo')}}" method="get">
             <input class="button_fases" name="fase"  value="1" type="submit">
             <input class="button_fases" name="fase"  value="2" type="submit">
             <input class="button_fases" name="fase"  value="3" type="submit">

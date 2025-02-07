@@ -1,0 +1,25 @@
+// Recebe o número passado pelo Flask
+        //var questao = `{questao }}`; // Usando tojson para garantir a segurança
+        var q = 'url(../static/imgs/trilha_jogo2.png)';
+        // Função para alterar o estilo da div com base no número
+        function fn_questao(questao) {
+            var div = document.getElementById("pergunta_trilha");
+
+            // Define a imagem de fundo usando a URL da questao
+            div.style.backgroundImage = questao;
+
+        }
+
+        // Chama a função passando o número recebido
+        fn_questao(questao);
+
+        fn_questao({{ questao }})
+        console.log(questao)
+
+
+
+
+        <!-- <input type="hidden" id="meu-input" value="{{ questao }}" readonly> -->
+                        {% if questao %}
+                        <div id="pt-{{questao}}"></div>
+                        {% endif %}

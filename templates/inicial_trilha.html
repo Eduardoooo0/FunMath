@@ -9,32 +9,29 @@
             <div id="box_voltar">
                 <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
             </div>
-            <div>
-                <!-- Caixa principal de conteúdo -->
-                <div class="box_inicial_jg">
-                    <!-- Div para o quiz -->
-                    <div id="div_inicial_jg">
-                        <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1> <!-- Título do quiz -->
+            <div class="box_inicial_jg">
+                <!-- Div para o quiz -->
+                <div id="div_inicial_jg">
+                    <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1> <!-- Título do quiz -->
+                </div>
+                <!-- Primeira caixa de conteúdo do quiz -->
+                <div id="quad1_inicial_trilha">
+                    <div id="play-jogo">
+                        <a id="jogar" href="{{url_for('Fases_trilha')}}"></a>
                     </div>
-                    <!-- Primeira caixa de conteúdo do quiz -->
-                    <div id="quad1_inicial_trilha">
-                        <div id="play-jogo">
-                            <a id="jogar" href="{{url_for('Fases_qcbc')}}"></a>
-                        </div>
-                    </div>
-                    <div id="quad2_inicial_jg">
-                        <div class="descricao_inicial_jg">
-                            <div>
-                                <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
-                                <ul>
-                                    <li><p>Responda corretamente as questões para desbloquear cada peça do quebra-cabeça.</p></li>
-                                    <li><p>você ganhará pontos por cada quebra-cabeça montado.</p></li>
-                                </ul>
-                            </div>
+                </div>
+                <div id="quad2_inicial_jg">
+                    <div class="descricao_inicial_jg">
+                        <div>
+                            <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
+                            <ul>
+                                <li><p>Responda corretamente as questões para desbloquear cada peça do quebra-cabeça.</p></li>
+                                <li><p>você ganhará pontos por cada quebra-cabeça montado.</p></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
         </section>
 
     {% endblock %}

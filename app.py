@@ -6,6 +6,7 @@ from database import session
 from werkzeug.security import generate_password_hash
 from models.user import User
 
+from trilha import fases_trilha
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Supersenha'
@@ -99,7 +100,7 @@ def Fases_qcbc():
     return render_template('fases_qcbc.html')
 
 @app.route('/jogo_qcbc',methods=['POST', 'GET'])
-def Jogo_qcbc():
+def Qcbc_jogo():
     if request.method == 'GET':
         fase = request.args.get('fase')
         if fase is None:
@@ -113,8 +114,7 @@ def Jogo_qcbc():
 def Questoes_qcbc():
     fase = int(request.cookies.get('fase_atual',1))
     if request.method == 'GET':
-        questao = int(request.args.get('questao'))
-        response = make_response(render_template('questoes_qcbc.html',pergunta=fases[fase-1][questao-1]['pergunta'],opcoes=fases[fase-1][questao-1]['opcoes'],mensagem=''))
+        response = make_response(render_template('jogo_trilha.html',pergunta=fases_trilha[fase-1]['pergunta'],mensagem=''))
         response.set_cookie('questao_atual', str(questao))
         return response
         
@@ -159,6 +159,51 @@ def Tempo_restante():
 @app.route('/trilha')
 def Trilha():
     return render_template ('inicial_trilha.html')
+
+@app.route('/fases_trilha')
+def Fases_trilha():
+    return render_template('fases_trilha.html')
+
+@app.route('/trilha_jogo')
+def Trilha_jogo():
+    return render_template('jogo_trilha.html')
+
+# mostrar a questão da trilha e ver se estar correta
+@app.route('/questoes_trilha',methods=['POST', 'GET'])
+def Questoes_trilha():
+    fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada',1))
+
+    if request.method == 'GET': # mostrar a questao
+        fase = int(request.args.get('fase'))
+        if fase <= fase_desbloqueada: 
+            response = make_response(render_template('jogo_trilha.html',questao=fases_trilha[fase-1]['pergunta'],mensagem='')) # a imagem da questão é utilizada no JS para modificar o css do background-image
+            response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada))
+            response.set_cookie('questao_atual_trilha', str(fase)) 
+            return response
+        else:
+            mensagem=f'A fase {fase} não não foi desbloqueada! Responda corretamente a fase {fase_desbloqueada}!'
+            return render_template('fases_trilha.html', mensagem=mensagem)
+        
+    else: # verificar se a resposta estar correta ou não
+        resposta = str((request.form.get('resp_trilha')))
+        fase = int(request.cookies.get('questao_atual_trilha',1))
+        if resposta == fases_trilha[fase-1]['resposta']:
+            if fase == fase_desbloqueada: # se a fase respondida for da fase desbloqueada eu posso desbloquear a proxima fase!
+                response = make_response(render_template('fases_trilha.html',resposta='Resposta correta! Parabéns você passou de fase!',fase=fase))
+                response.set_cookie('trilha_desbloqueada',str(fase_desbloqueada+1))
+            else:
+                response = make_response(render_template('fases_trilha.html',resposta=f'Resposta correta!',fase=fase))
+                response.set_cookie('trilha_desbloqueada',str(fase_desbloqueada))
+            return response
+
+        else:
+            if fase == fase_desbloqueada:
+                response = make_response(render_template('fases_trilha.html',resposta='Resposta errada! Tente novamente para passar de fase!',fase=fase)) 
+            else:
+                response = make_response(render_template('fases_trilha.html',resposta='Resposta errada!',fase=fase)) 
+            response.set_cookie('trilha_desbloqueada',str(fase_desbloqueada))
+            return response
+    
 
 @app.route('/ajuda')
 def Ajuda():

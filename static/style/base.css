@@ -44,13 +44,14 @@ header {
     flex-direction: row;        /* Organiza os logotipos em uma linha */
     height: 100%;               /* Define a altura da área dos logotipos como 100% da altura do cabeçalho */
     width: 20%;                 /* Define a largura da área dos logotipos como 20% da largura do cabeçalho */
+    margin-left: 1%;
 }
 
 /* Estiliza o primeiro logotipo */
-#logo1 img {
-    width: 110px;               /* Define a largura do primeiro logotipo */
-    height: 100px;              /* Define a altura do primeiro logotipo */
-    margin-left: 20px;          /* Adiciona uma margem esquerda ao logotipo */
+#logo img {
+    width: 100%;               /* Define a largura do primeiro logotipo */
+    height: 100%;              /* Define a altura do primeiro logotipo */
+    margin-left: 15%;          /* Adiciona uma margem esquerda ao logotipo */
 }
 
 /* Estiliza o segundo logotipo */
@@ -88,8 +89,8 @@ header {
     align-items: center;
     background-color: orange;
     color: black;
-    width: 90px;
-    height: 100%;
+    width: 85px;
+    height: 75%;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
@@ -99,8 +100,7 @@ header {
 
 #box_voltar {
     width: 100%;
-    height: 40px;
-    margin-top: 20px;
+    height: 5%;
 }
 
 #bt_login:hover{
@@ -274,13 +274,12 @@ header {
     margin: 25px;               /* Adiciona uma margem ao redor do quiz */
 }
 
-/* Estiliza as imagens dentro da seção quiz */
+/* imagem do quiz na pag inicial */
 #quiz img {
     width: 170px;               /* Define a largura da imagem do quiz */
     height: 170px;              /* Define a altura da imagem do quiz */
     margin-top: 5px;            /* Adiciona uma margem superior à imagem */
 }
-
 
 /* ---------- PAGINA AJUDA ----------  */
 
@@ -290,7 +289,14 @@ header {
     color: white;              /* Define a cor do texto dentro do aside como branca */
     flex-direction: row;        /* Organiza os itens do aside em uma linha */
     width: 100%;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 35%;                /* Define a altura do aside como 30% da altura da viewport */
+    height: 36%;                /* Define a altura do aside como 30% da altura da viewport */
+    flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
+    padding: 1%;
+
+}
+
+.aside_ajuda #box_voltar {
+    height: 12%;
 }
 
 .section_ajuda {
@@ -298,7 +304,7 @@ header {
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
     align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
     width: 100%;                /* Define a largura da seção como 100% da largura da viewport */
-    height: 50%;                /* Define a altura da seção como 50% da altura da viewport */
+    height: 49%;                /* Define a altura da seção como 50% da altura da viewport */
     border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza à área de jogos */
 }
 
@@ -367,6 +373,7 @@ header {
     width: 100%;                      /* Define a largura da seção como 100% da largura da viewport */
     height: 90%;                      /* Define a altura da seção como 80% da altura da viewport */
     background-color: skyblue;
+    padding: 1%;
 }
 
 /* Estilo da área de login e cadastro */
@@ -491,7 +498,7 @@ input[type="button"] {
     display: flex;  /* Define o layout da seção como flexbox */
     flex-direction: column;  /* Organiza os itens da seção em uma coluna */
     width: 100%;  /* Define a largura da seção como 100% da largura da viewport */
-    height: 900px;  /* Define a altura da seção como 900 pixels */
+    height: 90%;  /* Define a altura da seção como 900 pixels */
     overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
     background-color: skyblue;  /* Define a cor de fundo da seção como um azul claro */
 }
@@ -518,8 +525,44 @@ input[type="button"] {
     height: 15%;  /* Define a altura dos botões de fases como 15% da altura do container de fases */
     margin: 5%;  /* Adiciona uma margem de 5% ao redor dos botões de fases */
     border-radius: none;  /* Remove qualquer arredondamento das bordas dos botões de fases */
-    background-color: white;  /* Define a cor de fundo dos botões de fases como branca */
+    background-image: url(../imgs/fase1.png);
+    background-size: cover;
     border: black solid 1px;  /* Adiciona uma borda sólida preta de 1 pixel aos botões de fases */
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.button_fases_quiz {
+    display: flex;  /* Define o layout dos botões de fases como flexbox */
+    align-items: center;  /* Alinha o conteúdo dos botões de fases verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conteúdo dos botões de fases horizontalmente */
+    width: 20%;  /* Define a largura dos botões de fases como 20% da largura do container de fases */
+    height: 15%;  /* Define a altura dos botões de fases como 15% da altura do container de fases */
+    margin: 5%;  /* Adiciona uma margem de 5% ao redor dos botões de fases */
+    border-radius: none;  /* Remove qualquer arredondamento das bordas dos botões de fases */
+    background-image: url(../imgs/fase2.png);
+    background-size: cover;
+    border: black solid 1px;  /* Adiciona uma borda sólida preta de 1 pixel aos botões de fases */
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.button_fases_trilha {
+    display: flex;  /* Define o layout dos botões de fases como flexbox */
+    align-items: center;  /* Alinha o conteúdo dos botões de fases verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conteúdo dos botões de fases horizontalmente */
+    width: 20%;  /* Define a largura dos botões de fases como 20% da largura do container de fases */
+    height: 15%;  /* Define a altura dos botões de fases como 15% da altura do container de fases */
+    margin: 5%;  /* Adiciona uma margem de 5% ao redor dos botões de fases */
+    border-radius: none;  /* Remove qualquer arredondamento das bordas dos botões de fases */
+    background-image: url(../imgs/fase3.png);
+    background-size: cover;
+    border: black solid 1px;  /* Adiciona uma borda sólida preta de 1 pixel aos botões de fases */
+    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 /* ---------- PAGINAS INICIAIS ----------  */
@@ -529,9 +572,11 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     width: 100%; /* Largura da seção é 100% da largura disponível */
+    height: 100vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
     background-color: skyblue; /* Cor de fundo azul claro */
+    padding: 1%;
 }
 
 /* Estilo para a caixa central de conteúdo */
@@ -539,10 +584,11 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
-    width: 85%; /* Largura da caixa central */
-    max-width: 1000px; /* Largura máxima da caixa central */
+    width: 100%; /* Largura da caixa central */
+    height: 90%;
+    max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
-    margin-top: 70px;
+    margin-top: 0;
     background-color: white; /* Cor de fundo branca */
 }
 
@@ -555,7 +601,7 @@ input[type="button"] {
 /* Estiliza o quadrado do jogo com imagem de fundo */
 #quad1_inicial_cbc {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+    height: 100%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
@@ -595,9 +641,9 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     width: 90%; /* Largura do bloco de conteúdo */
+    height: 20%;
     margin-top: 20px; /* Espaço acima do bloco de conteúdo */
     margin-right: 60px;  /* Adiciona uma margem direita de 60 pixels ao segundo quadrado */
-    padding-bottom: 30px; /* Espaço interno na parte inferior do bloco */
 }
 
 /* Estilo para o texto de descrição */
@@ -615,7 +661,7 @@ input[type="button"] {
 
 #quad1_inicial_quiz {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+    height: 90%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
@@ -631,12 +677,12 @@ input[type="button"] {
 
 #quad1_inicial_trilha {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+    height: 90%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
     justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
-    background-image: url(../imgs/img_inicial_trilha.png);
+    background-image: url(../imgs/trilha_jogo.jpg);
     background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
     background-position: center;  /* Centraliza a imagem de fundo */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
@@ -650,7 +696,7 @@ input[type="button"] {
     display: flex;
     flex-wrap: wrap;
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+    height: 70%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
@@ -770,37 +816,60 @@ input[type="button"] {
     padding-bottom: 30px; /* Espaço interno na parte inferior do bloco */
 }
 
+#botoes_qcbc {
+    display: flex;
+    flex-direction: row;
+    width: 10%;
+    height: 5%;
+    margin-left: 80%;
+    margin-top: 5%;
+}
+
+#voltar_qcbc {
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: orange;
+}
+
+#prox_qcbc {
+    cursor: pointer;
+    background-color: orange;
+}
+
 /* QUESTÕES QUEBRA-CABEÇA */
 
 
 #quad1_quest_qcbc {
-    width: 95%; /* Largura do bloco de conteúdo */
-    height: 400px; /* Altura do bloco de conteúdo */
-    position: relative; /* Permite o posicionamento relativo dos filhos */
-    display: flex; /* Utiliza flexbox para layout */
-    flex-direction: column; /* Organiza o conteúdo em uma coluna */
-    background-color: white; /* Cor de fundo branca */
-    border: 1px solid rgb(173, 173, 173); /* Borda cinza clara ao redor do bloco */
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 85%;  /* Define a altura do quadrado como 400 pixels */
+    position: relative;  /* Define a posição do quadrado como relativa */
+    margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+
     padding: 20px; /* Espaçamento interno ao redor do conteúdo */
+    margin-top: 20px; /* Espaço acima da área de resposta */
 }
 
 /* Estilo para a pergunta */
 #pergunta {
     margin-top: 40px; /* Espaço acima da pergunta */
     font-weight: bold; /* Deixa o texto em negrito */
-    font-size: 17px; /* Define o tamanho da fonte */
+    font-size: 20px; /* Define o tamanho da fonte */
 }
+
 
 /* Estilo para o contêiner das questões */
 .questao {
     display: flex; /* Utiliza flexbox para layout */
     flex-wrap: wrap; /* Permite que os itens quebrem a linha se necessário */
     justify-content: center; /* Alinha os itens horizontalmente ao centro */
+    align-items: center;
     gap: 10px; /* Espaço entre os itens */
     width: 70%; /* Largura do contêiner das questões */
     padding: 10px; /* Espaçamento interno ao redor do conteúdo */
-    margin-left: 15%; /* Espaço à esquerda do contêiner das questões */
-    margin-top: 40px; /* Espaço acima do contêiner das questões */
+    margin: 20%; /* Espaço à esquerda do contêiner das questões */
 }
 
 /* Estilo para as opções de resposta */
@@ -852,7 +921,7 @@ input[type="button"] {
 /* Estilo para a área de resposta */
 #resposta {
     width: 95%; /* Largura do bloco de conteúdo */
-    height: 400px; /* Altura do bloco de conteúdo */
+    height: 85%; /* Altura do bloco de conteúdo */
     display: none; /* Utiliza flexbox para layout */
     text-align: center;
     background-color: white; /* Cor de fundo branca */
@@ -862,7 +931,7 @@ input[type="button"] {
     font-size: 40px;
 }
 #resposta p {
-    margin-top: 100px;
+    margin-top: 20%;
 }
 /* QUIZ */
 
@@ -870,7 +939,7 @@ input[type="button"] {
 /* Estilo para o primeiro bloco de conteúdo */
 #quad1_quiz {
     width: 95%; /* Largura do bloco de conteúdo */
-    height: 400px; /* Altura do bloco de conteúdo */
+    height: 85%; /* Altura do bloco de conteúdo */
     position: relative; /* Permite o posicionamento relativo dos filhos */
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
@@ -888,6 +957,214 @@ input[type="button"] {
     padding: 12px;
 }
 
+/* TRILHA */
+
+#quad1_jogo_trilha {
+    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 90%;  /* Define a altura do quadrado como 400 pixels */
+    position: relative;  /* Define a posição do quadrado como relativa */
+    display: flex;  /* Define o layout do quadrado como flexbox */
+    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
+    justify-content: center; /* Centraliza o conteúdo do quadrado horizontalmente */
+    background-image: url(../imgs/trilha_jogo2.png);
+    background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
+    background-position:center;  /* Centraliza a imagem de fundo */
+    margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+
+
+}
+
+/* apagar o css dos botoes da fase da trilha se nçao funcionar - teste chat*/
+
+#fases_trilha {
+    padding:40px;
+    position:absolute;
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total da div */
+    height: 100%; /* Altura total da div */
+    display:inline-block; /* Usar flexbox para organização */
+     /* Permitir que os botões quebrem em várias linhas */
+    
+}
+
+.fases {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    left: 0;
+    width: 100%; /* O formulário ocupa 100% da largura da div */
+    height: 100%; /* O formulário ocupa 100% da altura da div */
+    display: flex; /* Usar flexbox para os inputs */
+    flex-wrap: wrap; /* Permitir que os botões quebrem em várias linhas */
+    justify-content: space-around; /* Centralizar os botões horizontalmente */
+    align-items: center; /* Centralizar os botões verticalmente */
+}
+
+.button_fases_trilha {
+    width: 7%; /* Largura do botão */
+    height: 10%; /* Altura do botão */
+    margin: 5px; /* Espaçamento entre os botões */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    position: relative; /* Permite o posicionamento relativo dos botões */
+    background-color: #78797b; /* Cor de fundo do botão */
+    color: white; /* Cor do texto */
+    border: none; /* Sem borda */
+    border-radius: 100%; /* Bordas arredondadas */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+
+    
+
+}
+
+.fases .t1 {
+    top: 70px;
+    right: 8px;
+}
+.fases .t2 {
+    top: 35px;
+    right: 10px;
+}
+.fases .t3 {
+    top: -35px;
+    right: 38px;
+}
+.fases .t4 {
+    top: -68px;
+    right: 45px;
+}
+.fases .t5 {
+    top: -4%;
+    right: 4%;
+}
+.fases .t6 {
+    top: 7%;
+    right: 6%;
+}
+.fases .t7 {
+    top: 13%;
+    right: 6%;
+}
+.fases .t8 {
+    top: 40px;
+    right: 6%;
+}
+.fases .t9 {
+    top: -5%;
+    right: 5%;
+}
+
+
+
+/* questões da TRILHA */
+
+#quad1_trilha {
+    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 85%;  /* Define a altura do quadrado como 400 pixels */
+    position: relative;  /* Define a posição do quadrado como relativa */
+    display: flex; 
+    flex-direction: column; /* Define o layout do quadrado como flexbox */
+    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
+    justify-content: center; /* Centraliza o conteúdo do quadrado horizontalmente */
+     /* Centraliza a imagem de fundo */
+    margin: 5px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+
+
+}
+
+/* apagar o css dos botoes da fase da trilha se nçao funcionar - teste chat*/
+
+#pergunta_trilha {
+    width: 90%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 88%;  /* Define a altura do quadrado como 400 pixels */
+    position: relative;  /* Define a posição do quadrado como relativa */
+    display: flex;  /* Define o layout do quadrado como flexbox */
+    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
+    justify-content: center; /* Centraliza o conteúdo do quadrado horizontalmente */
+    
+    background-position:center;  /* Centraliza a imagem de fundo */
+    margin: 5px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+
+}
+
+#pt-0 {
+    width: 100%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 100%;  /* Define a altura do quadrado como 400 pixels */
+    background-image: url(../imgs/questão_trilha.png);
+    
+}
+#pt-1 {
+    width: 100%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 100%;  /* Define a altura do quadrado como 400 pixels */
+    background-image: url(../imgs/trilha_jogo2.png);
+    
+}
+
+.questao_trilha {
+
+    background-color: #ffffff; /* Fundo da caixa */
+    border: 1px solid #ccc; /* Borda cinza */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 0px; /* Espaçamento interno */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    margin: 0;
+    width: 100%; /* O formulário ocupa 100% da largura da div */
+    height: 5%; /* O formulário ocupa 100% da altura da div */
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap; /* Permitir que os botões quebrem em várias linhas */
+    justify-content: space-around; /* Centralizar os botões horizontalmente */
+    align-items: center; /* Centralizar os botões verticalmente */
+}
+
+.questao_trilha form{
+    background-color: #ffffff; /* Fundo da caixa */
+    border: 1px solid #ccc; /* Borda cinza */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 20px; /* Espaçamento interno */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 100%; /* Largura da caixa */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.questao_trilha form label {
+    display: inline; /* Faz o lbel ocupar uma linha inteira */
+    margin-bottom: 0px; /* Espaço abaixo do label */
+}
+
+.questao_trilha form input {
+    width: 10%; /* Largura total */
+    border: 1px solid #ccc; /* Borda cinza */
+    border-radius: 5px; /* Bordas arredondadas */
+    margin-bottom: 0px; /* Espaço abaixo do input */
+}    
+
+.bt_enviar_trilha {
+    background-color: #4CAF50; /* Cor de fundo do botão */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    padding: 5px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de mão ao passar por cima */
+    width: 40%; /* Largura total */
+}
+
+.bt_enviar_trilha:hover {
+    background-color: #45a049; /* Cor do botão ao passar o mouse */
+}
+
+
+
+
+
 /* ---------- PAGINA PERFIL ----------  */
 
 #perfil_content {
@@ -898,19 +1175,19 @@ input[type="button"] {
 }
 .aside_perfil {
     display: flex;              /* Define o layout do aside como flexbox */
-    background-color: skyblue; /* Define a cor de fundo do aside como azul claro */
-    color: white;              /* Define a cor do texto dentro do aside como branca */
+    background-color: rgb(194, 194, 194); /* Define a cor de fundo do aside como azul claro */
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     width: 23%;                /* Define a largura do aside como 100% da largura da viewport */
     height: 100%;  
     align-items: center;  
-    color: black;         
+    color: black;   
+    padding: 1%;      
 }
 
 .aside_perfil img {
     width: 120px;
     height: 120px;
-    border-radius: 25px;
+    border-radius: 60px;
     margin: 30px;
 
 }
@@ -946,7 +1223,7 @@ input[type="button"] {
     align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
     width: 77%;                /* Define a largura da seção como 100% da largura da viewport */
     height: 100%;                /* Define a altura da seção como 50% da altura da viewport */
-    border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza à área de jogos */
+    color: white;
     
 }
 
@@ -955,7 +1232,7 @@ input[type="button"] {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: rgb(223, 220, 220);
+    background-color: skyblue;
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;

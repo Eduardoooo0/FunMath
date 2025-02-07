@@ -1,0 +1,67 @@
+{% extends 'template_base.html' %}
+
+    {% block style %}
+    <link rel="stylesheet" href="static/style/base.css">
+    {% endblock %}
+
+    {% block conteudo %}
+        <!-- Seção principal do conteúdo -->
+        <section id="section_inicial_jg">
+            <div id="box_voltar">
+                <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
+            </div>
+            <div class="box_inicial_jg">
+                <!-- Div para o quiz -->
+
+                <div id="div_inicial_jg">
+                    <h1 id="titulo-jogo">TRILHA DA RAPOSA </h1> <!-- Título do quiz -->
+                </div>
+
+                <!-- Primeira caixa de conteúdo do quiz -->
+                <div id="quad1_trilha">
+                    <div id="pergunta_trilha"> <!--imagem da pergunta-->
+                        
+                    </div>
+                    <div class="questao_trilha">
+                        <form method="post" action="{{ url_for('Questoes_trilha') }}">
+                            <label for="resp_trilha">Digite sua resposta:</label>
+                            <input type="number" name="resp_trilha" id="resp_trilha" required>
+                            <input class="bt_enviar_trilha" type="submit" name="resposta" value="Enviar">
+                        </form>
+                    </div>
+
+                </div>
+
+
+                <!-- Div para exibir mensagens relacionadas à resposta -->
+                <div id="resposta">
+                    {% if mensagem %}
+                    <p>{{ mensagem }}</p> <!-- Mensagem exibida -->
+                    {% endif %}
+                </div>
+                <!-- Segunda caixa de conteúdo com informações adicionais -->
+                
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Pensar em outro jeito de pegar o valor pelo jinja sem erros
+        var questao = {{ questao | tojson }};  
+        
+        function fn_questao(questao) {
+            var div = document.getElementById("pergunta_trilha");
+    
+            // Define a imagem de fundo usando a URL da questão
+            div.style.backgroundImage = `url(${questao})`;
+        }
+    
+        // Chama a função com a questão recebida
+        fn_questao(questao);
+    
+        console.log(questao);
+    </script>
+
+
+
+    {% endblock %}
