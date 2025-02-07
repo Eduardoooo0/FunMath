@@ -6,6 +6,7 @@
     {% block conteudo %}
     <section id="section_inicial_jg">
         <div id="box_voltar">
+            <!-- Colocar um url_for para uma página fixa no lugar do window.history.back() -->
             <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
         </div>
         <form class="fases" action="{{url_for('Qcbc_jogo')}}" method="get">

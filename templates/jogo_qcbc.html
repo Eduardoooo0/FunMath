@@ -10,18 +10,32 @@
             <div id="box_voltar">
                 <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
             </div>
-            <div class="box_inicial_jg">
-                <!-- Div para o quiz -->
-                <div id="div_inicial_jg">
-                    <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1> <!-- Título do quiz -->
-                </div>
-                <!-- Primeira caixa de conteúdo do quiz -->
-                <div id="quad1_qcbc">
-                    <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get">
-                        {% for i in range(1,10)%}
-                            <input class="button_quest bt-{{fase}}-{{i}}" name="questao"  value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
-                        {% endfor %}
-                    </form>
+            <div>
+                <!-- Caixa principal de conteúdo -->
+                <div class="box_inicial_jg">
+                    <!-- Div para o quiz -->
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1> <!-- Título do quiz -->
+                    </div>
+                    <!-- Primeira caixa de conteúdo do quiz -->
+                    <div id="quad1_qcbc">
+                        <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get"> <!-- form é sempre method=POST -->
+                            {% for i in range(9)%}
+                                <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
+                            {% endfor %}
+                        </form>
+                    </div>
+                    <div id="quad2_inicial_jg">
+                        <div class="descricao_inicial_jg">
+                            <div>
+                                <h4 id="desc_text">Resolva problemas matemáticos para montar o quebra-cabeça.</h4>
+                                <ul>
+                                    <li><p>Responda corretamente as questões para desbloquear cada peça do quebra-cabeça.</p></li>
+                                    <li><p>Você ganhará pontos por cada quebra-cabeça montado.</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div id="botoes_qcbc">
                     <button id="voltar_qcbc">voltar</button>
@@ -32,66 +46,73 @@
     {% endblock %}
     {% block js %}
     <script>
-        let lista_imagens = [
-            [
-                {'imagem':"{{ url_for('static', filename='imgs/BOX1.jpg') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/facebook.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/google.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-            ],
-            [
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/logo_raposa.png') }}"},
-                {'imagem':"{{ url_for('static', filename='imgs/1.png') }}"},
-            ]
-        ];
-        let valor = parseInt('{{valor}}')
-        let resposta = '{{resposta}}'
-        let fase = parseInt('{{fase}}')
-        let lista = JSON.parse(localStorage.getItem(`Lista-${fase}`)) || [];
+        var questao_atual = parseInt('{{questao_atual}}')
+        var resposta = '{{resposta}}'
+        var fase = parseInt('{{fase}}')
+
+        let cookie_tabuleiro = getCookie('tabuleiro-'+fase);
+        var tabuleiro = []
+        if (cookie_tabuleiro == "") {
+            // O cookie do tabuleiro ainda não existe
+            // Cria um novo tabuleiro
+            for (j=0; j<9; j++) {
+                tabuleiro.push({
+                    "img": "{{ url_for('static', filename='imgs/avatar-perfil.jpg') }}",
+                    "bloqueado": true
+                })
+            }
+            // Cria o cookie
+            setCookie('tabuleiro-'+fase, JSON.stringify(tabuleiro), 1000)
+        }
+
+
+        tabuleiro = JSON.parse(getCookie('tabuleiro-'+fase))
 
         if (resposta === 'True'){
-            if (lista.includes(valor)){
-                for (let i = 0; i < lista.length; i++){
-                    atualizarImagens(lista[i])
+            desbloquearImagem(fase, questao_atual, tabuleiro)
+        }
+
+        atualizarQuebraCabeca(fase, tabuleiro)
+
+        function desbloquearImagem(fase, questao_atual, tabuleiro) {
+            tabuleiro[questao_atual]['bloqueado'] = false;
+            setCookie('tabuleiro-'+fase, JSON.stringify(tabuleiro), 1000)
+        }
+
+        function atualizarQuebraCabeca(fase, tabuleiro) {
+            for (i = 0; i < tabuleiro.length; i++) {
+                var quadrado = tabuleiro[i];
+                if (!tabuleiro[i]['bloqueado']){
+                    var id_input = `bt-${fase}-${i}`;
+                    var input = document.getElementById(id_input);
+                    input.style.backgroundImage = `url('${quadrado['img']}')`;
                 }
-            }
-            else{
-                lista.push(valor)
-                Salvar_imagem(valor)
-                localStorage.setItem(`Lista-${fase}`, JSON.stringify(lista));
-                for (let i = 0; i < lista.length; i++){
-                    atualizarImagens(lista[i])
-                }
-            }
-        }else{
-            for (let i = 0; i < lista.length; i++){
-                atualizarImagens(lista[i])
             }
         }
 
-        function Salvar_imagem(valor) {
-            localStorage.setItem(`imagem-${fase}-${valor}`, lista_imagens[fase - 1][valor - 1]['imagem']);
+        /* Atribui um cookie. */
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
         }
-        function atualizarImagens(valor) {
-            let imagemArmazenada = localStorage.getItem(`imagem-${fase}-${valor}`);
-            let input = document.getElementById(`bt-${fase}-${valor}`)
-            if (imagemArmazenada && input) {
-                input.style.backgroundImage = `url('${imagemArmazenada}')`;
-            }
-            }
 
+        /* Acessa um cookie. */
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
              
         // Seleciona os elementos
         const jogosButton = document.getElementById('jogos');
