@@ -42,36 +42,46 @@
     {% endblock %}
     {% block js %}
     <script>
-        let quebra_cabeca = [
-            {% for _ in range(2) %}
-                [
-                {% for _ in range(9) %}
-                    {
+        let cookie_tabuleiro = getCookie('tabuleiro');
+        var tabuleiro = {}
+        if (cookie_tabuleiro == "") {
+            // O cookie do tabuleiro ainda não existe
+            // Cria um novo tabuleiro
+            for (i=1; i<=9; i++) {
+                tabuleiro[i] = []
+                for (j=0; j<9; j++) {
+                    tabuleiro[i].push({
                         "img": "{{ url_for('static', filename='imgs/1.png') }}",
                         "bloqueado": true
-                    },
-                {% endfor %}
-                ],
-            {% endfor %}
-        ];
-        let questao_atual = parseInt('{{questao_atual}}')
-        let resposta = '{{resposta}}'
-        let fase = parseInt('{{fase}}')
-
-        if (resposta === 'True')
-            desbloquearImagem(questao_atual)
-
-        atualizarQuebraCabeca()
-
-
-        function desbloquearImagem(questao_atual) {
-            quebra_cabeca[fase][questao_atual]['bloqueado'] = false;
+                    })
+                }
+            }
+            // Cria o cookie
+            setCookie('tabuleiro', JSON.stringify(tabuleiro), 1000)
         }
 
-        function atualizarQuebraCabeca() {
-            for (i = 0; i < quebra_cabeca[fase].length; i++) {
-                var quadrado = quebra_cabeca[fase][i];
-                if (!quebra_cabeca[fase][i]['bloqueado']){
+
+        tabuleiro = JSON.parse(getCookie('tabuleiro'))
+
+        var questao_atual = parseInt('{{questao_atual}}')
+        var resposta = '{{resposta}}'
+        var fase = parseInt('{{fase}}')
+
+        if (resposta === 'True'){
+            desbloquearImagem(fase, questao_atual, tabuleiro)
+        }
+
+        atualizarQuebraCabeca(fase, tabuleiro)
+
+        function desbloquearImagem(fase, questao_atual, tabuleiro) {
+            tabuleiro[fase][questao_atual]['bloqueado'] = false;
+            setCookie('tabuleiro', JSON.stringify(tabuleiro), 1000)
+        }
+
+        function atualizarQuebraCabeca(fase, tabuleiro) {
+            for (i = 0; i < tabuleiro[fase].length; i++) {
+                var quadrado = tabuleiro[fase][i];
+                if (!tabuleiro[fase][i]['bloqueado']){
                     var id_input = `bt-${fase}-${i}`;
                     var input = document.getElementById(id_input);
                     input.style.backgroundImage = `url('${quadrado['img']}')`;
@@ -79,6 +89,29 @@
             }
         }
 
+        /* Atribui um cookie. */
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        /* Acessa um cookie. */
+        function getCookie(cname) {
+            let name = cname + "=";
+            let ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
              
         // Seleciona os elementos
         const jogosButton = document.getElementById('jogos');

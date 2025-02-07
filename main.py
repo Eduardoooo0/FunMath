@@ -100,16 +100,24 @@ def Jogo_qcbc():
     
 @app.route('/questoes_qcbc',methods=['POST', 'GET'])
 def Questoes_qcbc():
-    fase = int(request.cookies.get('fase_atual',1))
+    fase = int(request.cookies.get('fase_atual', 1))
     if request.method == 'GET':
         questao = int(request.args.get('questao'))
-        response = make_response(render_template('questoes_qcbc.html',pergunta=fases[fase-1][questao]['pergunta'],opcoes=fases[fase-1][questao]['opcoes'],mensagem=''))
+        response = make_response(render_template(
+            'questoes_qcbc.html',
+            pergunta=fases[fase-1][questao]['pergunta'],
+            opcoes=fases[fase-1][questao]['opcoes'],
+            mensagem=''))
     else:
         resposta = request.form.get('resposta')
         # Se o cookie não existir ainda, pega a questão 1 por padrão
-        questao = int(request.cookies.get('questao_atual', 1))
+        questao = int(request.cookies.get('questao_atual', 1))  # TODO: Pegar questão que o usuário clicou
         acertou = resposta == fases[fase-1][questao]['resposta']
-        response = make_response(render_template('jogo_qcbc.html', questao_atual=questao, resposta=acertou, fase=fase))
+        response = make_response(render_template(
+            'jogo_qcbc.html',
+            questao_atual=questao,
+            resposta=acertou,
+            fase=fase))
     response.set_cookie('questao_atual', str(questao))
     return response
 
