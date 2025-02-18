@@ -831,7 +831,7 @@ input[type="button"] {
     width: 10%;
     height: 5%;
     margin-left: 80%;
-    margin-top: 5%;
+    margin-top: 1%;
 }
 
 #voltar_qcbc {
@@ -1039,11 +1039,13 @@ input[type="button"] {
     opacity: 0.5;
     filter: grayscale(100%);
     pointer-events: none; /* Não permite interação */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .desbloqueado {
     background-color: orange;
-    opacity: 0.5;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .forms_fases_trilha .t1 {
