@@ -170,39 +170,38 @@ def Trilha_jogo():
     return render_template('jogo_trilha.html')
 
 # mostrar a questão da trilha e ver se estar correta
-@app.route('/questoes_trilha',methods=['POST', 'GET'])
+@app.route('/questoes_trilha', methods=['POST', 'GET'])
 def Questoes_trilha():
-    fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada',1))
+    fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 1))
 
-    if request.method == 'GET': # mostrar a questao
+    if request.method == 'GET':  # Mostrar a questão
         fase = int(request.args.get('fase'))
         if fase <= fase_desbloqueada: 
-            response = make_response(render_template('jogo_trilha.html',questao=fases_trilha[fase-1]['pergunta'],mensagem='')) # a imagem da questão é utilizada no JS para modificar o css do background-image
-            response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada))
+            response = make_response(render_template('jogo_trilha.html', questao=fases_trilha[fase - 1]['pergunta'], mensagem=''))
             response.set_cookie('questao_atual_trilha', str(fase)) 
             return response
         else:
-            mensagem=f'A fase {fase} não não foi desbloqueada! Responda corretamente a fase {fase_desbloqueada}!'
+            mensagem = f'A fase {fase} não foi desbloqueada! Responda corretamente a fase {fase_desbloqueada}!'
             return render_template('fases_trilha.html', mensagem=mensagem)
         
-    else: # verificar se a resposta estar correta ou não
-        resposta = str((request.form.get('resp_trilha')))
-        fase = int(request.cookies.get('questao_atual_trilha',1))
-        if resposta == fases_trilha[fase-1]['resposta']:
-            if fase == fase_desbloqueada: # se a fase respondida for da fase desbloqueada eu posso desbloquear a proxima fase!
-                response = make_response(render_template('fases_trilha.html',resposta='Resposta correta! Parabéns você passou de fase!',fase=fase))
-                response.set_cookie('trilha_desbloqueada',str(fase_desbloqueada+1))
+    else:  # Verificar se a resposta está correta ou não
+        resposta = str(request.form.get('resp_trilha'))
+        fase = int(request.cookies.get('questao_atual_trilha', 1))
+        if resposta == fases_trilha[fase - 1]['resposta']:
+            if fase == fase_desbloqueada:  # Se a fase respondida for a fase desbloqueada
+                response = make_response(render_template('fases_trilha.html', resposta='Resposta correta! Parabéns você passou de fase!', fase=fase))
+                response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
             else:
-                response = make_response(render_template('fases_trilha.html',resposta=f'Resposta correta!',fase=fase))
-                response.set_cookie('trilha_desbloqueada',str(fase_desbloqueada))
+                response = make_response(render_template('fases_trilha.html', resposta='Resposta correta!', fase=fase))
             return response
 
         else:
+            # Mensagem de erro
             if fase == fase_desbloqueada:
-                response = make_response(render_template('fases_trilha.html',resposta='Resposta errada! Tente novamente para passar de fase!',fase=fase)) 
+                response = make_response(render_template('fases_trilha.html', resposta='Resposta errada! Tente novamente para passar de fase!', fase=fase))
             else:
-                response = make_response(render_template('fases_trilha.html',resposta='Resposta errada!',fase=fase)) 
-            response.set_cookie('trilha_desbloqueada',str(fase_desbloqueada))
+                response = make_response(render_template('fases_trilha.html', resposta='Resposta errada!', fase=fase)) 
+            response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada))  # Mantém o cookie
             return response
     
 

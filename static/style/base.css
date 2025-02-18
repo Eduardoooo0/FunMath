@@ -102,6 +102,13 @@ header {
     width: 100%;
     height: 5%;
 }
+#box_voltar_fases {
+    width: 90%;
+    height: 5%;
+    margin-top: 1%;
+    margin-left: -8%;
+}
+
 
 #bt_login:hover{
     background-color: rgb(34, 34, 34);
@@ -494,25 +501,26 @@ input[type="button"] {
 
 /* ---------- PAGINA DAS FASES ----------  */
 /* Estiliza a seção principal da página */
+
+
 #section_fases {
     display: flex;  /* Define o layout da seção como flexbox */
     flex-direction: column;  /* Organiza os itens da seção em uma coluna */
+    align-items: center;
     width: 100%;  /* Define a largura da seção como 100% da largura da viewport */
     height: 90%;  /* Define a altura da seção como 900 pixels */
     overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
     background-color: skyblue;  /* Define a cor de fundo da seção como um azul claro */
 }
-
 /* Estiliza o container de fases */
 .fases {
     display: flex;  /* Define o layout do container de fases como flexbox */
     flex-wrap: wrap;  /* Permite que os itens dentro do container de fases quebrem linha */
     flex-direction: row;  /* Organiza os itens do container de fases em uma linha */
     flex-grow: 0.5;  /* Permite que o container de fases cresça, mas não mais que 0.5 vezes seu tamanho original */
-    width: 50%;  /* Define a largura do container de fases como 50% da largura do seu elemento pai */
-    height: 55%;  /* Define a altura do container de fases como 55% da altura do seu elemento pai */
-    margin-left: 25%;  /* Adiciona uma margem esquerda de 25% da largura do seu elemento pai */
-    margin-top: 5%;  /* Adiciona uma margem superior de 5% da altura do seu elemento pai */
+    width: 65%;  /* Define a largura do container de fases como 50% da largura do seu elemento pai */
+    height: 65%;  /* Define a altura do container de fases como 55% da altura do seu elemento pai */
+    margin-top: 4%;  /* Adiciona uma margem superior de 5% da altura do seu elemento pai */
     justify-content: space-between;  /* Distribui os itens dentro do container de fases com espaço igual entre eles */
 }
 
@@ -532,7 +540,6 @@ input[type="button"] {
     font-size: 18px;
     font-family: 'Courier New', Courier, monospace;
 }
-
 .button_fases_quiz {
     display: flex;  /* Define o layout dos botões de fases como flexbox */
     align-items: center;  /* Alinha o conteúdo dos botões de fases verticalmente ao centro */
@@ -696,11 +703,13 @@ input[type="button"] {
     display: flex;
     flex-wrap: wrap;
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 70%;  /* Define a altura do quadrado como 400 pixels */
+    height: 80%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
 }
+
+
 
 .quest_qcbc {
     width: 100%;
@@ -972,7 +981,18 @@ input[type="button"] {
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
 
+}
 
+.box_inicial_jg_trilha {
+    display: flex; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    align-items: center; /* Alinha os itens horizontalmente ao centro */
+    width: 100%; /* Largura da caixa central */
+    height: 86%;
+    max-width: 1200px; /* Largura máxima da caixa central */
+    margin: 0 auto; /* Centraliza a caixa horizontalmente */
+    margin-top: 0;
+    background-color: white; /* Cor de fundo branca */
 }
 
 /* apagar o css dos botoes da fase da trilha se nçao funcionar - teste chat*/
@@ -986,10 +1006,9 @@ input[type="button"] {
     height: 100%; /* Altura total da div */
     display:inline-block; /* Usar flexbox para organização */
      /* Permitir que os botões quebrem em várias linhas */
-    
 }
 
-.fases {
+.forms_fases_trilha {
     margin: 0;
     padding: 0;
     position: relative;
@@ -1014,44 +1033,52 @@ input[type="button"] {
     border: none; /* Sem borda */
     border-radius: 100%; /* Bordas arredondadas */
     transition: background-color 0.3s; /* Transição suave para a cor de fundo */
-
-    
-
 }
 
-.fases .t1 {
+.bloqueado {
+    opacity: 0.5;
+    filter: grayscale(100%);
+    pointer-events: none; /* Não permite interação */
+}
+
+.desbloqueado {
+    background-color: orange;
+    opacity: 0.5;
+}
+
+.forms_fases_trilha .t1 {
     top: 70px;
     right: 8px;
 }
-.fases .t2 {
+.forms_fases_trilha .t2 {
     top: 35px;
     right: 10px;
 }
-.fases .t3 {
+.forms_fases_trilha .t3 {
     top: -35px;
     right: 38px;
 }
-.fases .t4 {
+.forms_fases_trilha .t4 {
     top: -68px;
     right: 45px;
 }
-.fases .t5 {
+.forms_fases_trilha .t5 {
     top: -4%;
     right: 4%;
 }
-.fases .t6 {
+.forms_fases_trilha .t6 {
     top: 7%;
     right: 6%;
 }
-.fases .t7 {
+.forms_fases_trilha .t7 {
     top: 13%;
     right: 6%;
 }
-.fases .t8 {
+.forms_fases_trilha .t8 {
     top: 40px;
     right: 6%;
 }
-.fases .t9 {
+.forms_fases_trilha .t9 {
     top: -5%;
     right: 5%;
 }

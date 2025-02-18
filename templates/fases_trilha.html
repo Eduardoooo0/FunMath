@@ -4,8 +4,8 @@
     {% endblock %}
 
     {% block conteudo %}
-        <section id="section_inicial_jg">
-            <div id="box_voltar">
+        <section id="section_fases">
+            <div id="box_voltar_fases">
                 <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
             </div>
             {% if mensagem %}
@@ -14,29 +14,31 @@
             {% if resposta %}
             <p style="text-align: center;">{{ resposta }}</p> <!-- Mensagem exibida -->  
             {% endif %}
-            <div class="box_inicial_jg">
-                <!-- Div para o trilha -->
+            <div class="box_inicial_jg_trilha">
                 <div id="div_inicial_jg">
-                    <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1> <!-- Título do quiz -->
+                    <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
                 </div>
-                <!-- Primeira caixa de conteúdo do quiz -->
                 <div id="quad1_jogo_trilha">
                     <div id="fases_trilha">
-                        <form class="fases" action="{{url_for('Questoes_trilha')}}" method="get">
-                            <input class="button_fases_trilha t1" name="fase"  value="1" type="submit">
-                            <input class="button_fases_trilha t2" name="fase"  value="2" type="submit">
-                            <input class="button_fases_trilha t3" name="fase"  value="3" type="submit">
-                            <input class="button_fases_trilha t4" name="fase"  value="4" type="submit">
-                            <input class="button_fases_trilha t5" name="fase"  value="5" type="submit">
-                            <input class="button_fases_trilha t6" name="fase"  value="6" type="submit">
-                            <input class="button_fases_trilha t7" name="fase"  value="7" type="submit">
-                            <input class="button_fases_trilha t8" name="fase"  value="8" type="submit">
-                            <input class="button_fases_trilha t9" name="fase"  value="9" type="submit">
+                        <form class="forms_fases_trilha" action="{{url_for('Questoes_trilha')}}" method="get">
+                            <input class="button_fases_trilha t1" name="fase" value="1" type="submit">
+                            <input class="button_fases_trilha t2" name="fase" value="2" type="submit">
+                            <input class="button_fases_trilha t3" name="fase" value="3" type="submit">
+                            <input class="button_fases_trilha t4" name="fase" value="4" type="submit">
+                            <input class="button_fases_trilha t5" name="fase" value="5" type="submit">
+                            <input class="button_fases_trilha t6" name="fase" value="6" type="submit">
+                            <input class="button_fases_trilha t7" name="fase" value="7" type="submit">
+                            <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
+                            <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
                         </form>
                     </div>
-                                
                 </div>
             </div>
         </section>
 
+    {% endblock %}
+
+    {% block js %}
+        <script src="static/scripts/fases_trilha.js"></script>
+        
     {% endblock %}
