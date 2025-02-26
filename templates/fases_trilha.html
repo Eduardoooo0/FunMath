@@ -8,37 +8,80 @@
             <div id="box_voltar_fases">
                 <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
             </div>
-            {% if mensagem %}
-            <p style="text-align: center;">{{ mensagem }}</p> <!-- Mensagem exibida -->  
+
+            <h4>{{resposta}}</h4>
+            <br>
+            {% if msg: %}
+                <h4>{{msg}}</h4> 
             {% endif %}
-            {% if resposta %}
-            <p style="text-align: center;">{{ resposta }}</p> <!-- Mensagem exibida -->  
-            {% endif %}
-            <div class="box_inicial_jg_trilha">
-                <div id="div_inicial_jg">
-                    <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+
+            <div class="box_conteudo_fases">
+
+                {% if trofeu: %}
+            
+                <div id="box_trofeu">
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                    </div>
+                    <div id="div_img_trofeu">
+                        <img src= "{{ trofeu }}" alt="">
+                    </div>
                 </div>
-                <div id="quad1_jogo_trilha">
-                    <div id="fases_trilha">
-                        <form class="forms_fases_trilha" action="{{url_for('Questoes_trilha')}}" method="get">
-                            <input class="button_fases_trilha t1" name="fase" value="1" type="submit">
-                            <input class="button_fases_trilha t2" name="fase" value="2" type="submit">
-                            <input class="button_fases_trilha t3" name="fase" value="3" type="submit">
-                            <input class="button_fases_trilha t4" name="fase" value="4" type="submit">
-                            <input class="button_fases_trilha t5" name="fase" value="5" type="submit">
-                            <input class="button_fases_trilha t6" name="fase" value="6" type="submit">
-                            <input class="button_fases_trilha t7" name="fase" value="7" type="submit">
-                            <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
-                            <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
-                        </form>
+                {% endif %}
+
+    
+
+                <div id="box_inicial_jg_trilha">
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                    </div>
+                    <div id="quad1_jogo_trilha">
+                        <div id="fases_trilha">
+                            <form class="forms_fases_trilha" action="{{url_for('Questoes_trilha')}}" method="get">
+                                <input class="button_fases_trilha t1" name="fase" value="1" type="submit">
+                                <input class="button_fases_trilha t2" name="fase" value="2" type="submit">
+                                <input class="button_fases_trilha t3" name="fase" value="3" type="submit">
+                                <input class="button_fases_trilha t4" name="fase" value="4" type="submit">
+                                <input class="button_fases_trilha t5" name="fase" value="5" type="submit">
+                                <input class="button_fases_trilha t6" name="fase" value="6" type="submit">
+                                <input class="button_fases_trilha t7" name="fase" value="7" type="submit">
+                                <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
+                                <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
         </section>
 
     {% endblock %}
 
     {% block js %}
         <script src="static/scripts/fases_trilha.js"></script>
+        <script>
+            // Função para mostrar a div e depois o conteúdo
+            function mostrarDiv() {
+                let trofeu = '{{trofeu}}'
+                const div = document.getElementById('box_trofeu');
+                const conteudo = document.getElementById('box_inicial_jg_trilha');
+                if (trofeu){
+                    conteudo.style.display = 'none';
+                    div.style.display = 'flex'; // Mostra a div
+                }else{
+                    conteudo.style.display = 'flex'
+                }
+                
         
+                // Esconde a div após 5 segundos e mostra o conteúdo
+                setTimeout(() => {
+                    div.style.display = 'none'; // Esconde a div
+                    conteudo.style.display = 'flex'; // Mostra o conteúdo
+                }, 3000);
+            }
+        
+            // Chama a função para mostrar a div após o carregamento da página
+            window.onload = mostrarDiv;
+        </script>
     {% endblock %}

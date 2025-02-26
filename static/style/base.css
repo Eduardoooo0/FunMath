@@ -968,9 +968,17 @@ input[type="button"] {
 
 /* TRILHA */
 
+.box_conteudo_fases {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+}
+
 #quad1_jogo_trilha {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 90%;  /* Define a altura do quadrado como 400 pixels */
+    height: 600px;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
@@ -983,7 +991,9 @@ input[type="button"] {
 
 }
 
-.box_inicial_jg_trilha {
+
+
+#box_inicial_jg_trilha {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
@@ -1088,6 +1098,7 @@ input[type="button"] {
 
 
 /* questões da TRILHA */
+
 
 #quad1_trilha {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
@@ -1274,7 +1285,7 @@ input[type="button"] {
      justify-content: space-around;
 }
 
-#title_quiz_trf{
+#title_trf{
     display: flex;
     width: 100%;
     padding: 10px;
