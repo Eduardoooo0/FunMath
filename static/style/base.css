@@ -586,8 +586,22 @@ input[type="button"] {
     padding: 1%;
 }
 
+
 /* Estilo para a caixa central de conteúdo */
 .box_inicial_jg {
+    display: flex; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    align-items: center; /* Alinha os itens horizontalmente ao centro */
+    width: 100%; /* Largura da caixa central */
+    height: 90%;
+    max-width: 1200px; /* Largura máxima da caixa central */
+    margin: 0 auto; /* Centraliza a caixa horizontalmente */
+    margin-top: 0;
+    background-color: white; /* Cor de fundo branca */
+}
+
+/* Estilo para a caixa central de conteúdo */
+#box_inicial_jg_qcbc {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
@@ -1353,6 +1367,15 @@ input[type="button"] {
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     background-color: white; /* Cor de fundo branca */
 }
+
+.box_conteudo_jogo_qcbc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+}
+
 #box_trofeu {
     display: none; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */

@@ -4,23 +4,48 @@
     <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
+
+
     {% block conteudo %}
         <!-- Seção principal do conteúdo -->
         <section id="section_inicial_jg">
             <div id="box_voltar">
                 <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
             </div>
-            <div class="box_inicial_jg">
-                <div id="div_inicial_jg">
-                    <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
+            {%if msg_trofeu: %}
+            <p>{{msg_trofeu}}</p>
+            {% endif %}
+            {%if msg_resposta: %}
+            <p>{{msg_resposta}}</p>
+            {% endif %}
+
+            <div class="box_conteudo_jogo_qcbc">
+
+                {% if trofeu: %}
+            
+                <div id="box_trofeu">
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
+                    </div>
+                    <div id="div_img_trofeu">
+                        <img src= "{{ trofeu }}" alt="">
+                    </div>
                 </div>
-                <div id="quad1_qcbc">
-                    <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get"> <!-- form é sempre method=POST -->
-                        {% for i in range(9)%}
-                            <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
-                        {% endfor %}
-                    </form>
+                {% endif %}
+
+                <div id="box_inicial_jg_qcbc">
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
+                    </div>
+                    <div id="quad1_qcbc">
+                        <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get"> <!-- form é sempre method=POST -->
+                            {% for i in range(9)%}
+                                <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
+                            {% endfor %}
+                        </form>
+                    </div>
                 </div>
+
             </div>
             <div id="botoes_qcbc">
                 <button id="voltar_qcbc">voltar</button>
@@ -28,6 +53,8 @@
             </div>
         </section>
     {% endblock %}
+
+
     {% block js %}
     <script>
         var questao_atual = parseInt('{{questao_atual}}')
@@ -112,7 +139,32 @@
         });
         
         
-        
-        
+        // Função para mostrar a div e depois o conteúdo
+        function mostrarDiv() {
+            let trofeu = '{{trofeu}}'
+            const div = document.getElementById('box_trofeu');
+            const conteudo = document.getElementById('box_inicial_jg_qcbc');
+            if (trofeu){
+                conteudo.style.display = 'none';
+                div.style.display = 'flex'; // Mostra a div
+            }else{
+                conteudo.style.display = 'flex'
+            }
+            
+    
+            // Esconde a div após 5 segundos e mostra o conteúdo
+            setTimeout(() => {
+                div.style.display = 'none'; // Esconde a div
+                conteudo.style.display = 'flex'; // Mostra o conteúdo
+            }, 3000);
+        }
+    
+        // Chama a função para mostrar a div após o carregamento da página
+        window.onload = mostrarDiv;
+    
+
+        console.log("Fase atual:", fase);
+        console.log("Questão atual:", questao_atual);
+        console.log("Resposta recebida:", resposta);
     </script>
     {% endblock %}

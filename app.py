@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash
 from models.user import User
 
 from trilha import fases_trilha
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Supersenha'
@@ -30,10 +31,13 @@ def index():
 def Perfil():
     trofeu_quiz = request.cookies.get('trofeu_quiz',0)
     trofeu_trilha = request.cookies.get('trofeu_trilha',0)
+    trofeu_qcbc = request.cookies.get('trofeu_qcbc',0)
+
     
     trofeu_quiz = int(trofeu_quiz)
     trofeu_trilha = int(trofeu_trilha)
-    return render_template('perfil.html', trofeu_quiz=trofeu_quiz, trofeu_trilha=trofeu_trilha)
+    trofeu_qcbc = int(trofeu_qcbc)
+    return render_template('perfil.html', trofeu_quiz=trofeu_quiz, trofeu_qcbc=trofeu_qcbc, trofeu_trilha=trofeu_trilha)
 
 @app.route('/quiz', methods=['POST', 'GET'])
 def Quiz():
@@ -103,16 +107,23 @@ def Fases_qcbc():
 def Qcbc_jogo():
     if request.method == 'GET':
         fase = request.args.get('fase')
+        fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc',1))
+
         if fase is None:
             return redirect(url_for('Fases_qcbc'))
         else:
-            response = make_response(render_template('jogo_qcbc.html',valor=None,fase=fase))
-            response.set_cookie('fase_atual_qcbc',str(fase))
-            return response
+            if int(fase) > int(fase_desbloqueada_qcbc):
+                return render_template('fases_qcbc.html', messagem=f'Fase Bloqueada! Complete o {fase_desbloqueada_qcbc}° Quebra Cabeça!')
+            else:
+                response = make_response(render_template('jogo_qcbc.html',valor=None,fase=fase))
+                response.set_cookie('fase_atual_qcbc',str(fase))
+                return response
     
 @app.route('/questoes_qcbc',methods=['POST', 'GET'])
 def Questoes_qcbc():
-    fase = int(request.cookies.get('fase_atual', 1))
+    fase = int(request.cookies.get('fase_atual_qcbc', 1))
+    fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc',1))
+
     if request.method == 'GET':
         questao = int(request.args.get('questao'))
         response = make_response(render_template(
@@ -120,17 +131,87 @@ def Questoes_qcbc():
             pergunta=fases[fase-1][questao]['pergunta'],
             opcoes=fases[fase-1][questao]['opcoes'],
             mensagem=''))
+        response.set_cookie('questao_atual_qcbc',str(questao))
+
     else:
+        trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
+
         resposta = request.form.get('resposta')
         # Se o cookie não existir ainda, pega a questão 1 por padrão
-        questao = int(request.cookies.get('questao_atual', 1))  # TODO: Pegar questão que o usuário clicou
+        questao = int(request.cookies.get('questao_atual_qcbc', 0))  # TODO: Pegar questão que o usuário clicou
         acertou = resposta == fases[fase-1][questao]['resposta']
-        response = make_response(render_template(
-            'jogo_qcbc.html',
-            questao_atual=questao,
-            resposta=acertou,
-            fase=fase))
-    response.set_cookie('questao_atual', str(questao))
+
+        if acertou:
+            cookie_tabuleiro = request.cookies.get('tabuleiro-'+str(fase))
+            qcbc_completo = False
+            concluido = 0
+            cont = 0
+            q = 0
+            
+            tabuleiro = json.loads(cookie_tabuleiro)
+            for peca in range(9):
+                if tabuleiro[peca]['bloqueado'] == True:
+                    concluido +=1
+                    q = cont
+                cont +=1
+            if concluido == 1 and q == questao:
+                qcbc_completo = True
+
+            if qcbc_completo == False:
+                response = make_response(render_template(
+                    'jogo_qcbc.html',
+                    questao_atual=questao,
+                    resposta=acertou,
+                    fase=fase,
+                    msg_resposta='Resposta Correta!'))
+                response.set_cookie('questao_atual', str(questao))
+                    
+            else:
+                msg_resposta = f"Parabéns você acertou a fase {fase} do quebra cabeça. Pode avançar de fase."
+                if fase == 1:    
+                    trofeu = "/static/imgs/trofeu1.png"
+                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
+                elif fase == 5:
+                    trofeu = "/static/imgs/trofeu2.png"
+                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
+                elif fase == 9:
+                    trofeu = "/static/imgs/trofeu3.png"
+                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
+                else:
+                    trofeu = ''
+                    msg_trofeu = f""
+
+                if trofeu != '':
+                    response = make_response(render_template(
+                        'jogo_qcbc.html',
+                        questao_atual=questao,
+                        resposta=acertou,
+                        fase=fase,
+                        msg_trofeu=msg_trofeu,
+                        msg_resposta=msg_resposta,
+                        trofeu=trofeu))
+                    response.set_cookie('trofeu_qcbc', str(trofeu_qcbc + 1))
+                    response.set_cookie('questao_atual_qcbc', str(questao))
+                else:
+                    response = make_response(render_template(
+                        'jogo_qcbc.html',
+                        questao_atual=questao,
+                        resposta=acertou,
+                        fase=fase, 
+                        msg_resposta ='Resposta correta! Parabéns você passou de fase do Quebra cabeça!'))
+                    response.set_cookie('questao_atual_qcbc', str(questao))
+                
+                response.set_cookie('fase_desbloqueada_qcbc', str(fase+1))
+                    
+        else: # se a resposta for incorreta
+            response = make_response(render_template(
+                'jogo_qcbc.html',
+                questao_atual=questao,
+                resposta=acertou,
+                fase=fase, 
+                msg_resposta ='Resposta incorreta!'))
+            response.set_cookie('questao_atual_qcbc', str(questao))
+    
     return response
 
         
