@@ -1067,9 +1067,13 @@ input[type="button"] {
 }
 
 .desbloqueado {
-    background-color: orange;
+    background-color: rgb(248, 196, 100);
     color: black;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.fase-atual {
+    background-color: orange; /* Cor de fundo para a fase atual */
 }
 
 .forms_fases_trilha .t1 {

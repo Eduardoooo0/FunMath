@@ -11,10 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inicializa os botões
     buttons.forEach(button => {
         const fase = parseInt(button.value);
-        if (fase > faseAtual) {
-            button.classList.add('bloqueado');
-        } else {
+        if (fase === faseAtual) {
+            button.classList.add('fase-atual');
             button.classList.add('desbloqueado');
+        } else if (fase < faseAtual) {
+            button.classList.add('desbloqueado');
+        } else {
+            button.classList.add('bloqueado');
         }
     });
 
@@ -26,12 +29,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 faseAtual++; // Avança para a próxima fase
                 buttons.forEach(b => {
                     const bFase = parseInt(b.value);
-                    if (bFase > faseAtual) {
+                    b.classList.remove('fase-atual');
+
+                    if (bFase === faseAtual) {
+                        b.classList.add('fase-atual');
+                        b.classList.add('desbloqueado');
+                    } else if (bFase < faseAtual) {
+                        b.classList.add('desbloqueado');
+                    } else {
                         b.classList.add('bloqueado');
                         b.classList.remove('desbloqueado');
-                    } else {
-                        b.classList.remove('bloqueado');
-                        b.classList.add('desbloqueado');
                     }
                 });
             } else {
@@ -40,4 +47,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
