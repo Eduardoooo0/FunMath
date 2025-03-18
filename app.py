@@ -167,7 +167,7 @@ def Questoes_qcbc():
                 response.set_cookie('questao_atual', str(questao))
                     
             else:
-                msg_resposta = f"Parabéns você acertou a fase {fase} do quebra cabeça. Pode avançar de fase."
+                msg_resposta = f"Parabéns você completou a fase {fase} do quebra cabeça. Pode avançar de fase."
                 if fase == 1:    
                     trofeu = "/static/imgs/trofeu1.png"
                     msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
