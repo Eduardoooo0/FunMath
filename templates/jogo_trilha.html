@@ -20,14 +20,12 @@
                 <!-- Primeira caixa de conteúdo do quiz -->
                 <div id="quad1_trilha">
                     <div id="pergunta_trilha"> <!--imagem da pergunta-->
-                        
-                    </div>
-                    <div class="questao_trilha">
-                        <form method="post" action="{{ url_for('Questoes_trilha') }}">
-                            <label for="resp_trilha">Digite sua resposta:</label>
-                            <input type="number" name="resp_trilha" id="resp_trilha" required>
-                            <input class="bt_enviar_trilha" type="submit" name="resposta" value="Enviar">
-                        </form>
+                        <div class="questao_trilha">
+                            <form method="post" action="{{ url_for('Questoes_trilha') }}">
+                                <input type="number" name="resp_trilha" id="resp_trilha" required>
+                                <input class="bt_enviar_trilha" type="submit" name="resposta" value="Enviar">
+                            </form>
+                        </div>
                     </div>
 
                 </div>

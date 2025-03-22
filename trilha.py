@@ -2,11 +2,11 @@
 
 fases_trilha = [
                 {
-                    "pergunta": "../static/imgs/questão_trilha.png",
+                    "pergunta": "../static/imgs/questao1_trilha.png",
                     "resposta": "1"
                 },
                 {
-                    "pergunta": "../static/imgs/trilha_jogo2.png",
+                    "pergunta": "../static/imgs/questao2_trilha.png",
                     "resposta": "2"
                 },
                 {
