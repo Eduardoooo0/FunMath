@@ -1,170 +1,180 @@
 {% extends 'template_base.html' %}
 
-    {% block style %}
-    <link rel="stylesheet" href="static/style/base.css">
-    {% endblock %}
+{% block style %}
+<link rel="stylesheet" href="static/style/base.css">
+{% endblock %}
 
-
-
-    {% block conteudo %}
-        <!-- Seção principal do conteúdo -->
-        <section id="section_inicial_jg">
-            <div id="box_voltar">
-                <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
-            </div>
-            {%if msg_trofeu: %}
-            <p>{{msg_trofeu}}</p>
-            {% endif %}
-            {%if msg_resposta: %}
-            <p>{{msg_resposta}}</p>
-            {% endif %}
-
-            <div class="box_conteudo_jogo_qcbc">
-
-                {% if trofeu: %}
+{% block conteudo %}
+    <!-- Seção principal do conteúdo -->
+    <section id="section_inicial_jg">
+        <div id="box_voltar">
+            <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
+        </div>
+        {%if msg_trofeu: %}
+        <p>{{msg_trofeu}}</p>
+        {% endif %}
+        {%if msg_resposta: %}
+        <p>{{msg_resposta}}</p>
+        {% endif %}
+        
+        <div class="box_de_texto">
+            <p>  </p>
+        </div>
+        <div class="box_conteudo_jogo_qcbc">
             
-                <div id="box_trofeu">
-                    <div id="div_inicial_jg">
-                        <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
-                    </div>
-                    <div id="div_img_trofeu">
-                        <img src= "{{ trofeu }}" alt="">
-                    </div>
+
+            {% if trofeu: %}
+        
+            <div id="box_trofeu">
+                <div id="div_inicial_jg">
+                    <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
                 </div>
-                {% endif %}
-
-                <div id="box_inicial_jg_qcbc">
-                    <div id="div_inicial_jg">
-                        <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
-                    </div>
-                    <div id="quad1_qcbc">
-                        <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get"> <!-- form é sempre method=POST -->
-                            {% for i in range(9)%}
-                                <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
-                            {% endfor %}
-                        </form>
-                    </div>
+                <div id="div_img_trofeu">
+                    <img src= "{{ trofeu }}" alt="">
                 </div>
-
             </div>
-            <div id="botoes_qcbc">
-                <button id="voltar_qcbc">voltar</button>
-                <button id="prox_qcbc">próximo</button>
+            {% endif %}
+
+            <div id="box_inicial_jg_qcbc">
+                <div id="div_inicial_jg">
+                    <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
+                </div>
+                <div id="quad1_qcbc">
+                    <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get"> <!-- form é sempre method=POST -->
+                        {% for i in range(9)%}
+                            <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
+                        {% endfor %}
+                    </form>
+                </div>
             </div>
-        </section>
-    {% endblock %}
 
+        </div>
+        <div id="botoes_qcbc">
+            <button id="voltar_qcbc" onclick="navegarFase('anterior')">Voltar</button>
+            <button id="prox_qcbc" onclick="navegarFase('proxima')">Próximo</button>
+        </div>
+        <div id="resposta">
+            <button id="voltar_qcbc" onclick="navegarFase('anterior')">Voltar</button>
+            <button id="prox_qcbc" onclick="navegarFase('proxima')">Próximo</button>
+        </div>
+        <div id="mensagem_navegacao"></div>
+    </section>
 
-    {% block js %}
-    <script>
-        var questao_atual = parseInt('{{questao_atual}}')
-        var resposta = '{{resposta}}'
-        var fase = parseInt('{{fase}}')
+    
+{% endblock %}
 
-        let cookie_tabuleiro = getCookie('tabuleiro-'+fase);
-        var tabuleiro = []
-        if (cookie_tabuleiro == "") {
-            // O cookie do tabuleiro ainda não existe
-            // Cria um novo tabuleiro
-            for (j=0; j<9; j++) {
-                tabuleiro.push({
-                    "img": "{{ url_for('static', filename='imgs/avatar-perfil.jpg') }}",
-                    "bloqueado": true
-                })
-            }
-            // Cria o cookie
-            setCookie('tabuleiro-'+fase, JSON.stringify(tabuleiro), 1000)
+{% block js %}
+<script>
+    var questao_atual = parseInt("{{ questao_atual|default(0) }}");
+    var resposta = "{{ resposta|default('') }}";
+    var fase = parseInt("{{ fase|default(1) }}");
+    var fase_desbloqueada_qcbc = parseInt("{{ fase_desbloqueada_qcbc|default(1) }}");
+
+    let cookie_tabuleiro = getCookie('tabuleiro-' + fase);
+    var tabuleiro = [];
+    if (!cookie_tabuleiro) {
+        // O cookie do tabuleiro ainda não existe
+        // Cria um novo tabuleiro
+        for (let j = 0; j < 9; j++) {
+            tabuleiro.push({
+                "img": "{{ url_for('static', filename='imgs/avatar-perfil.jpg') }}",
+                "bloqueado": true
+            });
         }
+        // Cria o cookie
+        setCookie('tabuleiro-' + fase, JSON.stringify(tabuleiro), 1000);
+    } else {
+        tabuleiro = JSON.parse(cookie_tabuleiro);
+    }
 
+    if (resposta === "True") {
+        desbloquearImagem(fase, questao_atual, tabuleiro);
+    }
 
-        tabuleiro = JSON.parse(getCookie('tabuleiro-'+fase))
+    atualizarQuebraCabeca(fase, tabuleiro);
 
-        if (resposta === 'True'){
-            desbloquearImagem(fase, questao_atual, tabuleiro)
-        }
+    function desbloquearImagem(fase, questao_atual, tabuleiro) {
+        tabuleiro[questao_atual]['bloqueado'] = false;
+        setCookie('tabuleiro-' + fase, JSON.stringify(tabuleiro), 1000);
+    }
 
-        atualizarQuebraCabeca(fase, tabuleiro)
-
-        function desbloquearImagem(fase, questao_atual, tabuleiro) {
-            tabuleiro[questao_atual]['bloqueado'] = false;
-            setCookie('tabuleiro-'+fase, JSON.stringify(tabuleiro), 1000)
-        }
-
-        function atualizarQuebraCabeca(fase, tabuleiro) {
-            for (i = 0; i < tabuleiro.length; i++) {
-                var quadrado = tabuleiro[i];
-                if (!tabuleiro[i]['bloqueado']){
-                    var id_input = `bt-${fase}-${i}`;
-                    var input = document.getElementById(id_input);
-                    input.style.backgroundImage = `url('${quadrado['img']}')`;
+    function atualizarQuebraCabeca(fase, tabuleiro) {
+        for (let i = 0; i < tabuleiro.length; i++) {
+            if (!tabuleiro[i]['bloqueado']) {
+                var id_input = `bt-${fase}-${i}`;
+                var input = document.getElementById(id_input);
+                if (input) {
+                    input.style.backgroundImage = `url('${tabuleiro[i]['img']}')`;
                 }
             }
         }
+    }
 
-        /* Atribui um cookie. */
-        function setCookie(cname, cvalue, exdays) {
-            const d = new Date();
-            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-            let expires = "expires=" + d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-        }
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
 
-        /* Acessa um cookie. */
-        function getCookie(cname) {
-            let name = cname + "=";
-            let ca = document.cookie.split(';');
-            for(let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == ' ') {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
             }
-            return "";
         }
-             
-        // Seleciona os elementos
-        const jogosButton = document.getElementById('jogos');
-        const botoesJogos = document.querySelector('.botoes-jogos');
+        return "";
+    }
 
-        // Variável para rastrear o estado de visibilidade
-        let isVisible = false;
+    function navegarFase(direcao) {
+        let novaFase = fase;
+        if (direcao === 'anterior' && fase > 1) {
+            novaFase = fase - 1;
+        } else if (direcao === 'proxima' && fase < fase_desbloqueada_qcbc) {
+            novaFase = fase + 1;
+        } else {
+            document.getElementById('mensagem_navegacao').innerText = "Não há mais fases para " + (direcao === 'anterior' ? 'voltar' : 'avançar') + ".";
+            return;
+        }
+        window.location.href = "{{ url_for('Qcbc_jogo') }}?fase=" + novaFase;
+    }
 
-        // Adiciona um event listener para o clique
+    const jogosButton = document.getElementById('jogos');
+    const botoesJogos = document.querySelector('.botoes-jogos');
+
+    let isVisible = false;
+    if (jogosButton) {
         jogosButton.addEventListener('click', () => {
-            isVisible = !isVisible; // Alterna o estado de visibilidade
-            botoesJogos.style.display = isVisible ? 'flex' : 'none'; // Mostra ou esconde os botões
+            isVisible = !isVisible;
+            botoesJogos.style.display = isVisible ? 'flex' : 'none';
         });
-        
-        
-        // Função para mostrar a div e depois o conteúdo
-        function mostrarDiv() {
-            let trofeu = '{{trofeu}}'
-            const div = document.getElementById('box_trofeu');
-            const conteudo = document.getElementById('box_inicial_jg_qcbc');
-            if (trofeu){
-                conteudo.style.display = 'none';
-                div.style.display = 'flex'; // Mostra a div
-            }else{
-                conteudo.style.display = 'flex'
-            }
-            
-    
-            // Esconde a div após 5 segundos e mostra o conteúdo
-            setTimeout(() => {
-                div.style.display = 'none'; // Esconde a div
-                conteudo.style.display = 'flex'; // Mostra o conteúdo
-            }, 3000);
-        }
-    
-        // Chama a função para mostrar a div após o carregamento da página
-        window.onload = mostrarDiv;
-    
+    }
 
-        console.log("Fase atual:", fase);
-        console.log("Questão atual:", questao_atual);
-        console.log("Resposta recebida:", resposta);
-    </script>
-    {% endblock %}
+    function mostrarDiv() {
+        let trofeu = "{{ trofeu|default('') }}";
+        const div = document.getElementById('box_trofeu');
+        const conteudo = document.getElementById('box_inicial_jg_qcbc');
+
+        if (trofeu.trim() !== "") {
+            conteudo.style.display = 'none';
+            div.style.display = 'flex';
+
+            setTimeout(() => {
+                window.location.href = "{{ url_for('Qcbc_jogo', fase=1) }}";
+            }, 5000);
+        } else {
+            conteudo.style.display = 'flex';
+        }
+    }
+
+    window.onload = mostrarDiv;
+
+    console.log("Fase atual:", fase);
+    console.log("Questão atual:", questao_atual);
+    console.log("Resposta recebida:", resposta);
+</script>
+
+{% endblock %}

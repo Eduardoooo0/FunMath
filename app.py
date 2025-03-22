@@ -1,5 +1,5 @@
 from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for, session, flash
-from datetime import datetime
+from datetime import datetime, timedelta
 from quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado ,fases
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from database import session
@@ -103,11 +103,12 @@ def Quebra_cabeca():
 def Fases_qcbc():
     return render_template('fases_qcbc.html')
 
-@app.route('/jogo_qcbc',methods=['POST', 'GET'])
+
+@app.route('/jogo_qcbc', methods=['POST', 'GET'])
 def Qcbc_jogo():
     if request.method == 'GET':
         fase = request.args.get('fase')
-        fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc',1))
+        fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
 
         if fase is None:
             return redirect(url_for('Fases_qcbc'))
@@ -115,34 +116,48 @@ def Qcbc_jogo():
             if int(fase) > int(fase_desbloqueada_qcbc):
                 return render_template('fases_qcbc.html', messagem=f'Fase Bloqueada! Complete o {fase_desbloqueada_qcbc}° Quebra Cabeça!')
             else:
-                response = make_response(render_template('jogo_qcbc.html',valor=None,fase=fase))
-                response.set_cookie('fase_atual_qcbc',str(fase))
+                response = make_response(render_template('jogo_qcbc.html', valor=None, fase=fase, fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
+                response.set_cookie('fase_atual_qcbc', str(fase))
                 return response
-    
-@app.route('/questoes_qcbc',methods=['POST', 'GET'])
+                
+@app.route('/questoes_qcbc', methods=['POST', 'GET'])
 def Questoes_qcbc():
     fase = int(request.cookies.get('fase_atual_qcbc', 1))
-    fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc',1))
+    fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
 
     if request.method == 'GET':
         questao = int(request.args.get('questao'))
         response = make_response(render_template(
             'questoes_qcbc.html',
-            pergunta=fases[fase-1][questao]['pergunta'],
-            opcoes=fases[fase-1][questao]['opcoes'],
+            pergunta=fases[fase - 1][questao]['pergunta'],
+            opcoes=fases[fase - 1][questao]['opcoes'],
             mensagem=''))
-        response.set_cookie('questao_atual_qcbc',str(questao))
+        # Define cookies com expiração de 30 dias
+        expires = datetime.now() + timedelta(days=30)
+        response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
+        return response
 
     else:
         trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
-
         resposta = request.form.get('resposta')
-        # Se o cookie não existir ainda, pega a questão 1 por padrão
-        questao = int(request.cookies.get('questao_atual_qcbc', 0))  # TODO: Pegar questão que o usuário clicou
-        acertou = resposta == fases[fase-1][questao]['resposta']
+        questao = int(request.cookies.get('questao_atual_qcbc', 0))
+        acertou = resposta == fases[fase - 1][questao]['resposta']
 
+        # Se a resposta estiver correta
         if acertou:
-            cookie_tabuleiro = request.cookies.get('tabuleiro-'+str(fase))
+            # Atualiza questao_atual_qcbc imediatamente após resposta correta
+            expires = datetime.now() + timedelta(days=30)
+            response = make_response(render_template(
+                'jogo_qcbc.html',
+                questao_atual=questao,
+                resposta=acertou,
+                fase=fase,
+                msg_resposta='Resposta Correta!'))
+
+            response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
+
+            # Lógica para verificação de troféu
+            cookie_tabuleiro = request.cookies.get('tabuleiro-' + str(fase))
             qcbc_completo = False
             concluido = 0
             cont = 0
@@ -150,69 +165,68 @@ def Questoes_qcbc():
             
             tabuleiro = json.loads(cookie_tabuleiro)
             for peca in range(9):
-                if tabuleiro[peca]['bloqueado'] == True:
-                    concluido +=1
+                if tabuleiro[peca]['bloqueado']:
+                    concluido += 1
                     q = cont
-                cont +=1
+                cont += 1
+            
             if concluido == 1 and q == questao:
                 qcbc_completo = True
 
-            if qcbc_completo == False:
+            if not qcbc_completo:
+                return response
+            
+            # Se o quebra-cabeça foi completado, atribui o troféu
+            msg_resposta = f"Parabéns você completou a fase {fase} do quebra-cabeça. Pode avançar de fase."
+            trofeu, msg_trofeu = '', ''
+            if fase == 1:    
+                trofeu = "/static/imgs/trofeu1.png"
+                msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
+            elif fase == 5:
+                trofeu = "/static/imgs/trofeu2.png"
+                msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
+            elif fase == 9:
+                trofeu = "/static/imgs/trofeu3.png"
+                msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
+
+            if trofeu:
                 response = make_response(render_template(
                     'jogo_qcbc.html',
                     questao_atual=questao,
                     resposta=acertou,
                     fase=fase,
-                    msg_resposta='Resposta Correta!'))
-                response.set_cookie('questao_atual', str(questao))
-                    
-            else:
-                msg_resposta = f"Parabéns você completou a fase {fase} do quebra cabeça. Pode avançar de fase."
-                if fase == 1:    
-                    trofeu = "/static/imgs/trofeu1.png"
-                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
-                elif fase == 5:
-                    trofeu = "/static/imgs/trofeu2.png"
-                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
-                elif fase == 9:
-                    trofeu = "/static/imgs/trofeu3.png"
-                    msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! "
-                else:
-                    trofeu = ''
-                    msg_trofeu = f""
+                    msg_trofeu=msg_trofeu,
+                    msg_resposta=msg_resposta,
+                    trofeu=trofeu))
+                response.set_cookie('trofeu_qcbc', str(trofeu_qcbc + 1), expires=expires)
 
-                if trofeu != '':
-                    response = make_response(render_template(
-                        'jogo_qcbc.html',
-                        questao_atual=questao,
-                        resposta=acertou,
-                        fase=fase,
-                        msg_trofeu=msg_trofeu,
-                        msg_resposta=msg_resposta,
-                        trofeu=trofeu))
-                    response.set_cookie('trofeu_qcbc', str(trofeu_qcbc + 1))
-                    response.set_cookie('questao_atual_qcbc', str(questao))
-                else:
-                    response = make_response(render_template(
-                        'jogo_qcbc.html',
-                        questao_atual=questao,
-                        resposta=acertou,
-                        fase=fase, 
-                        msg_resposta ='Resposta correta! Parabéns você passou de fase do Quebra cabeça!'))
-                    response.set_cookie('questao_atual_qcbc', str(questao))
-                
-                response.set_cookie('fase_desbloqueada_qcbc', str(fase+1))
+                # Atualiza a fase desbloqueada
+                response.set_cookie('fase_desbloqueada_qcbc', str(fase + 1), expires=expires)
+
+                return response
+            else:
+                response = make_response(render_template(
+                    'jogo_qcbc.html',
+                    questao_atual=questao,
+                    resposta=acertou,
+                    fase=fase, 
+                    msg_resposta='Parabéns você passou de fase do Quebra-Cabeça!'))
+
+            # Atualiza a fase desbloqueada
+            response.set_cookie('fase_desbloqueada_qcbc', str(fase + 1), expires=expires)
+            return response
                     
-        else: # se a resposta for incorreta
+        else:  # se a resposta for incorreta
             response = make_response(render_template(
                 'jogo_qcbc.html',
                 questao_atual=questao,
                 resposta=acertou,
                 fase=fase, 
-                msg_resposta ='Resposta incorreta!'))
-            response.set_cookie('questao_atual_qcbc', str(questao))
-    
-    return response
+                msg_resposta='Resposta incorreta!'))
+            expires = datetime.now() + timedelta(days=30)
+            response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
+            return response
+          
 
         
 @app.route('/inicial_quiz')
