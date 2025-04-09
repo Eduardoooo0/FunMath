@@ -5,6 +5,12 @@
     {% endblock %}
 
     {% block conteudo %}
+        <div id="splash-overlay">
+            <div id="splash-modal">
+            <h1>Bem-vindo ao FUNMATH!</h1>
+            </div>
+        </div>
+
         <aside class="aside_inicial">
             
         </aside>
@@ -41,4 +47,7 @@
             </div>
         </section>
 
+    {% endblock %}
+    {% block js %}
+        <script src="static/scripts/index.js"></script>
     {% endblock %}

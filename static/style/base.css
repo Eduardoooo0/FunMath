@@ -1133,7 +1133,6 @@ input[type="button"] {
 
 }
 
-/* apagar o css dos botoes da fase da trilha se nçao funcionar - teste chat*/
 
 #pergunta_trilha {
     width: 90%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
@@ -1172,14 +1171,14 @@ input[type="button"] {
 }
 
 .questao_trilha form{
-    background-color: #ffffff; /* Fundo da caixa */
+    background-color: white; /* Fundo da caixa */
     padding: 10px; /* Espaçamento interno */
     width: 35%; /* Largura da caixa */
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-bottom: 30px;
 
 }
 
@@ -1402,3 +1401,39 @@ input[type="button"] {
     justify-content: center;
     align-items: center;
 }
+
+/* teste index */
+
+/* Fundo escurecido da tela de boas-vindas */
+#splash-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* fundo opaco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+  }
+  
+  /* Janela central com a mensagem */
+  #splash-modal {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    text-align: center;
+    font-size: 1.5rem;
+    color: orange;
+    width: 60%;
+    height: 60%;
+  }
+  
+  /* Conteúdo principal visível normalmente */
+  #main-content {
+    padding: 20px;
+  }
+  
