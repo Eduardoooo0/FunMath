@@ -5,6 +5,9 @@ from datetime import datetime
 PONTUACAO_MINIMA = 2
 
 fases = [
+
+            # fase1:
+
             [
                 {
                     "pergunta": "Quando Felipe tinha 5 anos, o pai dele tinha 36 anos. Agora Felipe tem a metade da idade do pai. Quantos anos Felipe tem?",
@@ -57,26 +60,29 @@ fases = [
                     "resposta": "6"
                 }
             ],
+
+            # fase2:
+
             [
                 {
-                    "pergunta": "1+1?",
-                    "opcoes": ["1", "2", "3", "4"],
-                    "resposta": "2"
+                    "pergunta": "O número em que o algarismo 8 vale 8 centésimos é:",
+                    "opcoes": ["0,0008 ", " 0,008", "0,08", " 0,8"],
+                    "resposta": "0,08"
                 },
                 {
-                    "pergunta": "1+2?",
-                    "opcoes": ["1", "3", "2", "5"],
-                    "resposta": "3"
+                    "pergunta": "O quadrado da metade de (− 6) é:",
+                    "opcoes": ["36", "9", "27", "3"],
+                    "resposta": "9"
                 },
                 {
-                    "pergunta": "1+3?",
-                    "opcoes": ["1", "3", "4", "5"],
-                    "resposta": "4"
+                    "pergunta": "Na multiplicação de potências de mesma base, o produto é obtido mantendo-se a base e _______ os expoentes.",
+                    "opcoes": ["adicionando-se", "subtraindo-se", "multiplicando-se", "dividindo-se"],
+                    "resposta": "adicionando-se"
                 },
                 {
-                    "pergunta": "1+4?",
-                    "opcoes": ["1", "3", "2", "5"],
-                    "resposta": "5"
+                    "pergunta": "Na divisão de potências de mesma base não nula, o quociente é obtido mantendo-se a base e _______ os expoentes.",
+                    "opcoes": ["adicionando-se", "subtraindo-se", "multiplicando-se", "dividindo-se"],
+                    "resposta": "subtraindo-se"
                 },
                 {
                     "pergunta": "1+5?",
@@ -109,6 +115,9 @@ fases = [
                     "resposta": "11"
                 }
             ],
+
+            # fase3:
+
             [
                 {
                     "pergunta": "1+1?",

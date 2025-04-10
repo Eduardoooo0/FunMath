@@ -284,11 +284,11 @@ def Questoes_trilha():
         fase = int(request.cookies.get('questao_atual_trilha', 1))
         if resposta == fases_trilha[fase - 1]['resposta']:
 
-            message = f"Parabéns você acertou a fase {fase}. Pode avançar de fase."
-            if fase == 1:    
+            mensagem = f"Parabéns você acertou a fase {fase}. Pode avançar de fase."
+            if fase == 3:    
                 trofeu = "/static/imgs/trofeu1.png"
                 msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
-            elif fase == 5:
+            elif fase == 6:
                 trofeu = "/static/imgs/trofeu2.png"
                 msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
             elif fase == 9:

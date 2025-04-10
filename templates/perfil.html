@@ -8,23 +8,45 @@
             <div id="box_voltar">
                 <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
             </div>
-            <img src="static/imgs/avatar-perfil.jpg" alt="">
-            <div id="perfil_info">
-                <h3>Informações do Usuário</h3>
-
-                {% if current_user.is_authenticated %}
-                <p>Nome:
-                    {{current_user['nome']}}
-                </p>
-
-                <p>Email:
-                    {{current_user['email']}}
-                </p>
-                {% endif %}
-
-                <p>Pontos:</p>
+        
+            <h1>Escolha seu Avatar</h1>
+            <div style="position: relative; display: inline-block;">
+                <div class="preview" id="avatarPreview" >👤</div>
+                <button id="bt_trocar_foto" onclick="abrirModal()">
+                    ✏️
+                </button>
             </div>
-
+        
+            <div id="perfil_info">
+                <h3>Informações do Usuário:</h3>
+                {% if current_user.is_authenticated %}
+                <p>Nome: {{current_user['nome']}}</p>
+                <p>Email: {{current_user['email']}}</p>
+                <p>Pontos:</p>
+                {% else %}
+                <p style="margin-top: 20px; margin-left: 20px; color: red;">Você ainda não possui cadastro ou não fez login</p>
+                {% endif %}
+            </div>
+        
+            <div id="modal" style="display:none;">
+                <div id="modal_content">
+                    <span onclick="fecharModal()" style="cursor:pointer;">&times;</span>
+                    <h3>Escolha seu Avatar</h3>
+                    <div class="avatar-selection">
+                        <div class="avatar" onclick="selectAvatar('🐶')">🐶</div>
+                        <div class="avatar" onclick="selectAvatar('🐱')">🐱</div>
+                        <div class="avatar" onclick="selectAvatar('🐻')">🐻</div>
+                        <div class="avatar" onclick="selectAvatar('🐢')">🐢</div>
+                    </div>
+                    <h3>Escolha a Cor</h3>
+                    <div class="color-selection">
+                        <div class="color" style="background-color: #FF5733;" onclick="selectColor(this)"></div>
+                        <div class="color" style="background-color: #33FF57;" onclick="selectColor(this)"></div>
+                        <div class="color" style="background-color: #5733FF;" onclick="selectColor(this)"></div>
+                        <div class="color" style="background-color: #FF33A8;" onclick="selectColor(this)"></div>
+                    </div>
+                </div>
+            </div>
             
         </aside>
         <section class="section_perfil">
@@ -116,4 +138,33 @@
             </div>
         </section>
     </div>
+    {% endblock %}
+    {% block js %}
+    <script>
+        let selectedColor = '#00AEEF';
+
+        function abrirModal() {
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function selectAvatar(emoji) {
+            const preview = document.getElementById('avatarPreview');
+            preview.textContent = emoji;
+            preview.style.backgroundColor = selectedColor;
+            fecharModal();
+        }
+
+        function selectColor(element) {
+            const colors = document.querySelectorAll('.color');
+            colors.forEach(color => color.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedColor = element.style.backgroundColor;
+            const preview = document.getElementById('avatarPreview');
+            preview.style.backgroundColor = selectedColor;
+        }
+    </script>
     {% endblock %}
