@@ -1561,3 +1561,51 @@ input[type="button"] {
     padding: 5px;
     margin-top: 10px;
 }
+
+.message_resp {
+    text-align: center;
+    position: absolute;
+    right: 2%;
+    top: 13%;
+    width: auto;
+    height: 7%;
+    padding: 20px;
+    background-color: whitesmoke;
+    border:1px solid rgb(253, 174, 26);
+    border-radius: 10px;
+    color: black;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 3s forwards;
+}
+
+.message_resp_trofeu {
+    text-align: center;
+    position: absolute;
+    right: 35%;
+    top: 13%;
+    width: auto;
+    height: 7%;
+    padding: 20px;
+    background-color: #4CAF50;
+    border:1px solid white;
+    border-radius: 10px;
+    color: black;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 3s forwards;
+}
+.msg_tf_trilha{
+    right: 27%;
+    top: 15%;
+}
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}

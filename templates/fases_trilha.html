@@ -10,10 +10,12 @@
             </div>
         
             <br>
-            {% if msg: %}
-                <h4>{{msg}}</h4> 
+            {% if msg_trofeu %}
+            <div class="message_resp_trofeu msg_tf_trilha">{{ msg_trofeu }}</div>
+            {% elif msg_resp %}
+            <div class="message_resp">{{ msg_resp }}</div>
             {% endif %}
-
+    
             <div class="box_conteudo_fases">
 
                 {% if trofeu: %}
@@ -82,5 +84,13 @@
         
             // Chama a função para mostrar a div após o carregamento da página
             window.onload = mostrarDiv;
+
+
+            setTimeout(() => {
+            const message = document.querySelector('.message_resp');
+            if (message) {
+                message.style.display = 'none';
+            }
+        }, 5000);
         </script>
     {% endblock %}

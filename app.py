@@ -164,7 +164,7 @@ def Questoes_qcbc():
                 questao_atual=questao,
                 resposta=acertou,
                 fase=fase,
-                msg_resposta='Resposta Correta!'))
+                msg_resposta='Parabens! Resposta Correta!'))
 
             response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
 
@@ -234,7 +234,7 @@ def Questoes_qcbc():
                 questao_atual=questao,
                 resposta=acertou,
                 fase=fase, 
-                msg_resposta='Resposta incorreta!'))
+                msg_resposta='Ops! Resposta incorreta.. Tente novamente!'))
             expires = datetime.now() + timedelta(days=30)
             response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
             return response
@@ -289,7 +289,7 @@ def Questoes_trilha():
             return response
         else:
             mensagem = f'A fase {fase} não foi desbloqueada! Responda corretamente a fase {fase_desbloqueada}!'
-            return render_template('fases_trilha.html', mensagem=mensagem)
+            return render_template('fases_trilha.html', msg_resp=mensagem)
         
     else:  # Verificar se a resposta está correta ou não
         resposta = str(request.form.get('resp_trilha'))
@@ -312,23 +312,23 @@ def Questoes_trilha():
 
             if fase == fase_desbloqueada:  # Se a fase respondida for a fase desbloqueada
                 if trofeu != '':
-                    response = make_response(render_template('fases_trilha.html', resposta='Resposta correta! Parabéns você passou de fase!', fase=fase, msg=msg_trofeu, trofeu=trofeu))
+                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase, msg_trofeu=msg_trofeu, trofeu=trofeu))
                     response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
                     response.set_cookie('trofeu_trilha', str(trofeu_trilha + 1))
                 else:
-                    response = make_response(render_template('fases_trilha.html', resposta='Resposta correta! Parabéns você passou de fase!', fase=fase))
+                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase))
                     response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
                 
             else:
-                response = make_response(render_template('fases_trilha.html', resposta='Resposta correta!', fase=fase))
+                response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta!', fase=fase))
             return response
 
         else:
             # Mensagem de erro
             if fase == fase_desbloqueada:
-                response = make_response(render_template('fases_trilha.html', resposta='Resposta errada! Tente novamente para passar de fase!', fase=fase))
+                response = make_response(render_template('fases_trilha.html', msg_resp='Resposta errada! Tente novamente para passar de fase!', fase=fase))
             else:
-                response = make_response(render_template('fases_trilha.html', resposta='Resposta errada!', fase=fase)) 
+                response = make_response(render_template('fases_trilha.html', msg_resp='Resposta errada!', fase=fase)) 
             response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada))  # Mantém o cookie
             return response
     

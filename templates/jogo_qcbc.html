@@ -10,12 +10,15 @@
         <div id="box_voltar">
             <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
         </div>
-        {%if msg_trofeu: %}
-        <p>{{msg_trofeu}}</p>
+
+        
+        {% if msg_trofeu %}
+        <div class="message_resp_trofeu">{{ msg_trofeu }}</div>
+        {% elif msg_resposta %}
+        <div class="message_resp">{{ msg_resposta }}</div>
         {% endif %}
-        {%if msg_resposta: %}
-        <p>{{msg_resposta}}</p>
-        {% endif %}
+    
+
         
         <div class="box_de_texto">
             <p>  </p>
@@ -175,6 +178,15 @@
     console.log("Fase atual:", fase);
     console.log("Questão atual:", questao_atual);
     console.log("Resposta recebida:", resposta);
+    
+
+    setTimeout(() => {
+        const message = document.querySelector('.message_resp');
+        if (message) {
+            message.style.display = 'none';
+        }
+    }, 5000);
+
 </script>
 
 {% endblock %}
