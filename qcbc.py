@@ -8,7 +8,7 @@ fases_qcbc = [
                     "resposta": "B"
                 },
                 {
-                    "pergunta": "9. (Saeb) Fazendo-se as operações indicadas em 0,74 + 0,5 - 1,5, obtém-se:",
+                    "pergunta": "(Saeb) Fazendo-se as operações indicadas em 0,74 + 0,5 - 1,5, obtém-se:",
                     "opcoes": ["-0,64", "-0,26", "0,26", "0,64"],
                     "resposta": "-0,26"
                 },
@@ -41,11 +41,6 @@ fases_qcbc = [
                     "pergunta": "Arrumando 512 cadernos em 12 pacotes de mesma quantidade, sobraram ainda 8 cadernos. Quantos cadernos foram colocados em cada pacote?",
                     "opcoes": ["28", "36", "42", "48"],
                     "resposta": "42"
-                },
-                {
-                    "pergunta": "Um granjeiro tem 3 333 ovos para vender. Se colocar 33 ovos em cada caixa, quantas caixas completas vão formar?",
-                    "opcoes": ["100", "101", "110", "111"],
-                    "resposta": "101"
                 },
                 {
                     "pergunta": "Alvimar pagou uma compra de R$ 3,50 com uma nota de R$ 5,00 e recebeu o troco em moedas de R$ 0,25. Quantas moedas ele recebeu?",
