@@ -1,12 +1,14 @@
 from flask import Flask, request, make_response, render_template, jsonify,redirect,url_for, session, flash
 from datetime import datetime, timedelta
-from quiz import obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado ,fases
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from database import session
 from werkzeug.security import generate_password_hash
 from models.user import User
 
+from quiz import fases, obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado
 from trilha import fases_trilha
+from qcbc import fases_qcbc
+
 import json
 
 app = Flask(__name__)
@@ -119,7 +121,8 @@ def Qcbc_jogo():
                 response = make_response(render_template('jogo_qcbc.html', valor=None, fase=fase, fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
                 response.set_cookie('fase_atual_qcbc', str(fase))
                 return response
-                
+     
+
 @app.route('/questoes_qcbc', methods=['POST', 'GET'])
 def Questoes_qcbc():
     fase = int(request.cookies.get('fase_atual_qcbc', 1))
@@ -127,11 +130,20 @@ def Questoes_qcbc():
 
     if request.method == 'GET':
         questao = int(request.args.get('questao'))
-        response = make_response(render_template(
+        if 'img' in fases_qcbc[fase-1][questao]:
+            response = make_response(render_template(
             'questoes_qcbc.html',
-            pergunta=fases[fase - 1][questao]['pergunta'],
-            opcoes=fases[fase - 1][questao]['opcoes'],
+            pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
+            img=fases_qcbc[fase-1][questao]['img'],
+            opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
             mensagem=''))
+
+        else:
+            response = make_response(render_template(
+                'questoes_qcbc.html',
+                pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
+                opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
+                mensagem=''))
         # Define cookies com expiração de 30 dias
         expires = datetime.now() + timedelta(days=30)
         response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
@@ -141,7 +153,7 @@ def Questoes_qcbc():
         trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
         resposta = request.form.get('resposta')
         questao = int(request.cookies.get('questao_atual_qcbc', 0))
-        acertou = resposta == fases[fase - 1][questao]['resposta']
+        acertou = resposta == fases_qcbc[fase - 1][questao]['resposta']
 
         # Se a resposta estiver correta
         if acertou:

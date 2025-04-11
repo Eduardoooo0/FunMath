@@ -23,3 +23,41 @@
                         {% if questao %}
                         <div id="pt-{{questao}}"></div>
                         {% endif %}
+
+
+
+
+
+@app.route('/questoes_qcbc', methods=['POST', 'GET'])
+def Questoes_qcbc():
+    fase = int(request.cookies.get('fase_atual_qcbc', 1))
+    fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
+
+    if request.method == 'GET':
+        questao = int(request.args.get('questao'))
+        if 'img' in fases_qcbc[fase-1][questao]:
+            response = make_response(render_template(
+            'questoes_qcbc.html',
+            pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
+            img=fases_qcbc[fase-1][questao]['img'],
+            opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
+            mensagem=''))
+
+        else:
+            response = make_response(render_template(
+                'questoes_qcbc.html',
+                pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
+                opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
+                mensagem=''))
+        # Define cookies com expiração de 30 dias
+        expires = datetime.now() + timedelta(days=30)
+        response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
+        return response
+
+    else:
+        trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
+        resposta = request.form.get('resposta')
+        questao = int(request.cookies.get('questao_atual_qcbc', 0))
+        acertou = resposta == fases_qcbc[fase - 1][questao]['resposta']
+
+        # Se a resposta estiver correta

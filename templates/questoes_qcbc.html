@@ -20,6 +20,11 @@
 
                 <p id="pergunta">{{ pergunta }}</p> <!-- Pergunta do quiz -->
                         <!-- Contêiner para as opções de resposta -->
+
+                {% if img %}
+                <img id='quest_qcbc_img' src="{{ img }}" alt="">
+
+                {% endif %}
                     <div class="questao">
                         <form method="post" action="{{url_for('Questoes_qcbc')}}">
                             <!-- Laço para criar botões de resposta para cada opção -->

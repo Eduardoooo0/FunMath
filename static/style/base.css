@@ -870,10 +870,20 @@ input[type="button"] {
     position: relative;  /* Define a posição do quadrado como relativa */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
-
+    justify-content: center;
     padding: 20px; /* Espaçamento interno ao redor do conteúdo */
     margin-top: 20px; /* Espaço acima da área de resposta */
 }
+
+
+#quest_qcbc_img{
+    margin-bottom: -100%;
+    margin-top:10px;
+    width: 70%;
+    height:30%;
+
+}
+
 
 /* Estilo para a pergunta */
 #pergunta {
