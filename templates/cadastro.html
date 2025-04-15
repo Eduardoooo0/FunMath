@@ -5,7 +5,7 @@
     {% block conteudo %}
             <section id="section_login">
                 <div id="box_voltar">
-                    <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
+                    <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
                 </div>
                 <div class="login-cadastro">
                     <div id="box1_login">

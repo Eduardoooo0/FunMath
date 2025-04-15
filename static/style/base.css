@@ -48,18 +48,10 @@ header {
 }
 
 /* Estiliza o primeiro logotipo */
-#logo img {
+.logo a img{
     width: 100%;               /* Define a largura do primeiro logotipo */
     height: 100%;              /* Define a altura do primeiro logotipo */
     margin-left: 15%;          /* Adiciona uma margem esquerda ao logotipo */
-}
-
-/* Estiliza o segundo logotipo */
-#logo2 img {
-    width: 180px;               /* Define a largura do segundo logotipo */
-    height: 180px;              /* Define a altura do segundo logotipo */
-    margin-top: -30px;          /* Adiciona uma margem superior negativa ao logotipo */
-    margin-left: -15px;         /* Adiciona uma margem esquerda negativa ao logotipo */
 }
 
 /* Estilo dos links de navegação */
@@ -83,6 +75,9 @@ header {
     color: black;
 }
 
+a {
+    text-decoration: none;
+}
 #bt_voltar {
     display: flex;
     justify-content: center;
@@ -198,10 +193,9 @@ header {
     flex-direction: row;        /* Organiza os itens do aside em uma linha */
     width: 100%;                /* Define a largura do aside como 100% da largura da viewport */
     height: 40%;                /* Define a altura do aside como 30% da altura da viewport */
-    background-image: url(../imgs/introducao.png);
     background-size: cover;
     background-position: center;  /* Centraliza a imagem de fundo */
-    background-color: rgb(255, 234, 198);
+    background: linear-gradient(to bottom, skyblue, rgb(179, 232, 253), white);
 }
 
 /* Estiliza a seção principal */
@@ -211,7 +205,7 @@ header {
     align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
     width: 100%;                /* Define a largura da seção como 100% da largura da viewport */
     height: 60%;                /* Define a altura da seção como 50% da altura da viewport */
-    border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza */
+    
 }
 
 /* Estiliza a área de jogos */
@@ -250,6 +244,13 @@ header {
     width: 170px;               /* Define a largura da imagem do trilha */
     height: 170px;              /* Define a altura da imagem do trilha */
     margin-top: 5px;            /* Adiciona uma margem superior à imagem */
+    border-radius: 10px;
+}
+#trilha img:hover, #quebra-cabeca img:hover, #quiz img:hover{
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 0 10px orange;
+    transition: 0.3s ease, transform 0.3s ease;
 }
 
 /* Estiliza a seção do quebra-cabeça */
@@ -268,6 +269,7 @@ header {
     width: 170px;               /* Define a largura da imagem do quebra-cabeça */
     height: 170px;              /* Define a altura da imagem do quebra-cabeça */
     margin-top: 5px;            /* Adiciona uma margem superior à imagem */
+    border-radius: 15px;
 }
 
 /* Estiliza a seção do quiz */
@@ -286,6 +288,7 @@ header {
     width: 170px;               /* Define a largura da imagem do quiz */
     height: 170px;              /* Define a altura da imagem do quiz */
     margin-top: 5px;            /* Adiciona uma margem superior à imagem */
+    border-radius: 15px;
 }
 
 /* ---------- PAGINA AJUDA ----------  */
@@ -570,6 +573,9 @@ input[type="button"] {
     font-weight: 700;
     font-size: 18px;
     font-family: 'Courier New', Courier, monospace;
+}
+.button_fases_trilha:hover{
+    background-color: orange;
 }
 
 /* ---------- PAGINAS INICIAIS ----------  */
@@ -1227,7 +1233,7 @@ input[type="button"] {
 }
 .aside_perfil {
     display: flex;              /* Define o layout do aside como flexbox */
-    background-color: skyblue; /* Define a cor de fundo do aside como azul claro */
+    background: linear-gradient(to bottom, skyblue, rgb(179, 232, 253), white);
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     width: 23%;                /* Define a largura do aside como 100% da largura da viewport */
     height: 100%;  
@@ -1305,12 +1311,18 @@ input[type="button"] {
 
 .trofeus-1{
     border: 2px black solid;
-    width: 415px;
+    width: 410px;
     height: 185px;
     background-image: url(../imgs/trofeu1.png);
     background-size: contain;
     background-repeat: no-repeat;
 }
+.trofeus-1:hover, .trofeus-2:hover, .trofeus-3:hover{
+    width: 420px;
+    height: 190px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
 .trofeus-2{
     border: 2px black solid;
     width: 415px;
@@ -1319,6 +1331,7 @@ input[type="button"] {
     background-size:contain;
     background-repeat: no-repeat;
 }
+
 .trofeus-3{
     border: 2px black solid;
     width: 415px;
@@ -1414,7 +1427,7 @@ input[type="button"] {
 /* teste index */
 
 /* Fundo escurecido da tela de boas-vindas */
-#splash-overlay {
+#bloco_bemvindo {
     position: fixed;
     top: 0;
     left: 0;
@@ -1429,7 +1442,7 @@ input[type="button"] {
   }
   
   /* Janela central com a mensagem */
-  #splash-modal {
+#msg_bemvindo {
     background-color: white;
     padding: 40px;
     border-radius: 12px;
@@ -1442,7 +1455,7 @@ input[type="button"] {
   }
   
   /* Conteúdo principal visível normalmente */
-  #main-content {
+#main-content {
     padding: 20px;
   }
   
@@ -1565,7 +1578,7 @@ input[type="button"] {
 .message_resp {
     text-align: center;
     position: absolute;
-    right: 2%;
+    right: 35%;
     top: 13%;
     width: auto;
     height: 7%;

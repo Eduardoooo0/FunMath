@@ -6,7 +6,7 @@
     <div id="perfil_content">
         <aside class="aside_perfil">
             <div id="box_voltar">
-                <button id="bt_voltar" onclick="window.history.back()">Voltar</button>
+                <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
             </div>
         
             <h1>Escolha seu Avatar</h1>
@@ -52,119 +52,94 @@
         <section class="section_perfil">
         
             <div class="box_perfil">
-                
+                <div class="box_trf_quiz" style="width: 100%; height: auto; margin-bottom: 15px;">
+                    {% if trofeu_quiz %}
+                    <div id="title_trf">
+                        <h1>Trofeus QUIZ:</h1>
+                    </div>
+                    <div class="container_trf">
+                        {% if trofeu_quiz == 1 %}
+                            <div class="trofeus-1"></div>
         
+                        {% elif trofeu_quiz == 2 %}
+                            <div class="trofeus-1"></div>
+                            <div class="trofeus-2"></div>
+        
+                        {% elif trofeu_quiz == 3 %}
+                            <div class="trofeus-1"></div>
+                            <div class="trofeus-2"></div>
+                            <div class="trofeus-3"></div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                        <div id="title_trf">
+                            <h1>você ainda não possui troféus do jogo QUIZ</h1>
+                        </div>       
+                    {% endif %}
+                </div>
                 
-                <div id="title_trf">
-                    <h1>Trofeus Quiz</h1>
+                <div class="box_trf_qcbc" style="width: 100%; height: auto; margin-bottom: 15px; padding: 20px;">
+                    {% if trofeu_qcbc %}
+                    <div id="title_trf">
+                        <h1>Trofeus QUEBRA-CABEÇA:</h1>
+                    </div>
+                    <div class="container_trf">
+                        {% if trofeu_qcbc == 1 %}
+                            <div class="trofeus-1"></div>
+        
+                        {% elif trofeu_qcbc == 2 %}
+                            <div class="trofeus-1"></div>
+                            <div class="trofeus-2"></div>
+        
+                        {% elif trofeu_qcbc == 3 %}
+                            <div class="trofeus-1"></div>
+                            <div class="trofeus-2"></div>
+                            <div class="trofeus-3"></div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                        <div id="title_trf">
+                            <h1>você ainda não possui troféus do jogo QUEBRA-CABEÇA</h1>
+                        </div>       
+                    {% endif %}
                 </div>
-                {% if trofeu_quiz %}
-                <div class="container_trf">
-                    {% if trofeu_quiz == 1 %}
-                        <div class="trofeus-1">
-                        </div>
-                    {% endif %}
-                    {% if trofeu_quiz == 2 %}
-                        <div class="trofeus-1">
-                        </div>
-                        <div class="trofeus-2">
-                        </div>
-                    {% endif %}
-                    {% if trofeu_quiz == 3 %}
-                        <div class="trofeus-1">
-                        </div>
-                        <div class="trofeus-2">
-                        </div>
-                        <div class="trofeus-3">
-                        </div>
-                    {% endif %}
-                </div>
-                {% endif %}
-                
 
-                {% if trofeu_qcbc %}
-                <div id="title_trf">
-                    <h1>Trofeus Quebra-Cabeça</h1>
+                <div class="box_trf_qcbc" style="width: 100%; height: auto; margin-bottom: 15px; padding: 20px;">
+                    {% if trofeu_trilha %}
+                    <div id="title_trf">
+                        <h1>Trofeus TRILHA DA RAPOSA:</h1>
+                    </div>
+                    <div class="container_trf">
+                        {% if trofeu_trilha == 1 %}
+                            <div class="trofeus-1">
+                            </div>
+        
+                        {% elif trofeu_trilha == 2 %}
+                            <div class="trofeus-1">
+                            </div>
+                            <div class="trofeus-2">
+                            </div>
+        
+                        {% elif trofeu_trilha == 3 %}
+                            <div class="trofeus-1">
+                            </div>
+                            <div class="trofeus-2">
+                            </div>
+                            <div class="trofeus-3">
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                        <div id="title_trf">
+                            <h1>você ainda não possui troféus do jogo TRILHA DA RAPOSA</h1>
+                        </div>       
+                    {% endif %}
                 </div>
-                <div class="container_trf">
-                    {% if trofeu_qcbc == 1 %}
-                        <div class="trofeus-1">
-                        </div>
-                    {% endif %}
-                    {% if trofeu_qcbc == 2 %}
-                        <div class="trofeus-1">
-                        </div>
-                        <div class="trofeus-2">
-                        </div>
-                    {% endif %}
-                    {% if trofeu_qcbc == 3 %}
-                        <div class="trofeus-1">
-                        </div>
-                        <div class="trofeus-2">
-                        </div>
-                        <div class="trofeus-3">
-                        </div>
-                    {% endif %}
-                </div>
-                {% endif %}
 
-                {% if trofeu_trilha %}
-                <div id="title_trf">
-                    <h1>Trofeus Trilha da Raposa</h1>
-                </div>
-                <div class="container_trf">
-                    {% if trofeu_trilha == 1 %}
-                        <div class="trofeus-1">
-                        </div>
-                    {% endif %}
-                    {% if trofeu_trilha == 2 %}
-                        <div class="trofeus-1">
-                        </div>
-                        <div class="trofeus-2">
-                        </div>
-                    {% endif %}
-                    {% if trofeu_trilha == 3 %}
-                        <div class="trofeus-1">
-                        </div>
-                        <div class="trofeus-2">
-                        </div>
-                        <div class="trofeus-3">
-                        </div>
-                    {% endif %}
-                </div>
-                {% endif %}
-
-                </div>
             </div>
         </section>
     </div>
     {% endblock %}
     {% block js %}
-    <script>
-        let selectedColor = '#00AEEF';
-
-        function abrirModal() {
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function fecharModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-
-        function selectAvatar(emoji) {
-            const preview = document.getElementById('avatarPreview');
-            preview.textContent = emoji;
-            preview.style.backgroundColor = selectedColor;
-            fecharModal();
-        }
-
-        function selectColor(element) {
-            const colors = document.querySelectorAll('.color');
-            colors.forEach(color => color.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedColor = element.style.backgroundColor;
-            const preview = document.getElementById('avatarPreview');
-            preview.style.backgroundColor = selectedColor;
-        }
-    </script>
+    <script src="static/scripts/perfil.js"></script>
     {% endblock %}
