@@ -12,4 +12,10 @@ class User(Base, UserMixin):
     nome: Mapped[str] = mapped_column()
     email: Mapped[str] = mapped_column(unique=True)
     senha: Mapped[str] = mapped_column()
-    
+
+    fase_quiz: Mapped[int] = mapped_column()
+    trofeu_quiz: Mapped[int] = mapped_column()
+    fase_qcbc: Mapped[int] = mapped_column()
+    trofeu_qcbc: Mapped[int] = mapped_column()
+    fase_trilha: Mapped[int] = mapped_column()
+    trofeu_trilha: Mapped[int] = mapped_column()

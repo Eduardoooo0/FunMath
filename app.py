@@ -353,8 +353,38 @@ def Login():
         user = session.query(User).filter_by(email=email).first()
         senha_hash = session.query(User).filter_by(senha=generate_password_hash(senha))
         if user and senha_hash:
+    
+        # fazer ajustes - se quiser salvar novas conquistas, permanecer com as salvas anteriormente
+        # atualizar o avanço do user, caso ele tenha avançado sem estar logado, ao logar o seu progresso ficará salvo no seu login
+            fase_quiz = int(request.cookies.get('fase_desbloqueada', 1))
+            trofeu_quiz = int(request.cookies.get('trofeu_quiz', 0))
+            fase_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
+            trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
+            fase_trilha = int(request.cookies.get('trilha_desbloqueada', 1))
+            trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
+            if user.fase_quiz < fase_quiz:
+                user.fase_quiz = fase_quiz
+                user.trofeu_quiz = trofeu_quiz
+            if user.fase_qcbc < fase_qcbc:
+                user.fase_qcbc = fase_qcbc
+                user.trofeu_qcbc = trofeu_qcbc
+            if user.fase_trilha < fase_trilha:
+                user.fase_trilha = fase_trilha
+                user.trofeu_trilha = trofeu_trilha
+            session.commit()
+
+            # Cria uma resposta para definir os cookies
+            response = make_response(redirect(url_for('index')))
+            response.set_cookie('fase_desbloqueada', str(user.fase_quiz))
+            response.set_cookie('trofeu_quiz', str(user.trofeu_quiz))
+            response.set_cookie('fase_desbloqueada_qcbc', str(user.fase_qcbc))
+            response.set_cookie('trofeu_qcbc', str(user.trofeu_qcbc))
+            response.set_cookie('trilha_desbloqueada', str(user.fase_trilha))
+            response.set_cookie('trofeu_trilha', str(user.trofeu_trilha))
+
             login_user(user)
-            return redirect(url_for('index'))
+            return response
+
         else:
             flash('email ou senha incorreto')
             return redirect(url_for('Login'))
@@ -370,11 +400,33 @@ def Cadastro():
         email = request.form['email']
         senha = request.form['senha']
         senha_hash = generate_password_hash(senha)
-        user = User(nome=nome,email=email,senha=senha_hash)
+
+        # Verifica se o usuário já existe antes de criar uma nova instância
         usuario_existente = session.query(User).filter_by(email=email).first()
         if usuario_existente:
-            flash('email já cadastrado')
+            flash('Email já cadastrado')
             return redirect(url_for('Cadastro'))
+
+        # Recupera valores de cookies
+        fase_quiz = int(request.cookies.get('fase_desbloqueada', 1))
+        trofeu_quiz = int(request.cookies.get('trofeu_quiz', 0))
+        fase_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
+        trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
+        fase_trilha = int(request.cookies.get('trilha_desbloqueada', 1))
+        trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
+
+        user = User(
+            nome=nome,
+            email=email,
+            senha=senha_hash,
+            fase_quiz=fase_quiz,
+            trofeu_quiz=trofeu_quiz,
+            fase_qcbc=fase_qcbc,
+            trofeu_qcbc=trofeu_qcbc,
+            fase_trilha=fase_trilha,
+            trofeu_trilha=trofeu_trilha
+        )
+
         session.add(user)
         session.commit()
         if current_user.is_authenticated:
@@ -388,6 +440,29 @@ def Cadastro():
 @app.route('/logout', methods = ['POST'])
 @login_required
 def Logout():
+    user_id = current_user.id
+
+    user = session.query(User).filter(User.id == user_id).first()
+    fase_quiz = int(request.cookies.get('fase_desbloqueada', 1))
+    trofeu_quiz = int(request.cookies.get('trofeu_quiz', 0))
+    fase_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
+    trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
+    fase_trilha = int(request.cookies.get('trilha_desbloqueada', 1))
+    trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
+
+    user.fase_quiz = fase_quiz
+    user.trofeu_quiz = trofeu_quiz
+    user.fase_qcbc = fase_qcbc
+    user.trofeu_qcbc = trofeu_qcbc
+    user.fase_trilha = fase_trilha
+    user.trofeu_trilha = trofeu_trilha
+    session.commit()
+    
+    response = make_response(redirect(url_for('index')))
+    cookies = ['fase_desbloqueada','trofeu_quiz','fase_desbloqueada_qcbc','trofeu_qcbc','trilha_desbloqueada','trofeu_trilha']
+    for cookie in cookies:
+        response.set_cookie(cookie, '', expires=0)
+
     logout_user()
-    return redirect(url_for('index'))
+    return response
 
