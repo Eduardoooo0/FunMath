@@ -66,8 +66,8 @@
                             </a>
                         {% endif %}
                         <!-- Seção de perfil com a imagem de perfil -->
-                        <a href="{{url_for('Perfil')}}" class="perfil">
-                            <img src="static/imgs/avatar-perfil.jpg" alt=""> <!-- Imagem de perfil do usuário -->
+                        <a href="{{ url_for('Perfil') }}" class="perfil">
+                            <span id="perfilAvatar" style="font-size: 30px; background-color: skyblue;">🐶</span> <!-- Imagem padrão do avatar -->
                         </a>
                 </div>
             </nav>

@@ -68,6 +68,8 @@ header {
     margin-right: 70px;
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre os itens */
     font-size: 15px;
+    background-color: white;
+    border: 1px solid rgb(165, 165, 165);
 }
 
 #bt_login {
@@ -118,8 +120,7 @@ a {
 }
 
 .links-button:hover {
-    background-color: orange;
-    color: white;
+    color: orange;
     box-shadow: 0 0 10px gray;
     transition: 0.3s ease, transform 0.5s ease;
 
@@ -153,7 +154,8 @@ a {
     border-bottom: 1px solid rgb(197, 197, 197);
     border-top: 1px solid rgb(197, 197, 197);
     font-size: 15px;
-
+    background-color: white;
+    border: 1px solid rgb(165, 165, 165);
 }
 
 .bt_jogo a {
@@ -163,8 +165,7 @@ a {
 }
 
 .bt_jogo:hover {
-    background-color: orange;
-    color: white;
+    color: orange;
     box-shadow: 0 0 10px gray;
     transition: 0.3s ease, transform 0.3s ease;
 }
