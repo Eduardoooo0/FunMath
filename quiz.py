@@ -284,7 +284,10 @@ def exibir_fase(fase_atual,app):
         response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
         return response
     else:
-        return redirect(url_for('Fases_quiz'))
+        app.config['pergunta_atual'] = 0
+        response = make_response(render_template('fases_quiz.html', messagem=f'Fase Bloqueada! Complete a {fase_desbloqueada}° fase do Quiz!'))
+        response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+        return response
     
 # reune códigos parecidos, quando a fase é fracassada e quando é concluída
 def verificar_resultado(pontuacao: int, fase_atual: int, fase_desbloqueada: int, trofeu_quiz: int, app):

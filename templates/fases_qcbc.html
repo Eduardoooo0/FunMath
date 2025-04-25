@@ -8,9 +8,11 @@
         <div id="box_voltar_fases">
             <a href="{{ url_for('Quebra_cabeca' ) }}"><button id="bt_voltar">Voltar</button></a>
         </div>
-        {% if messagem: %}
-        <h2>{{messagem}}</h2>
-        {% endif %}
+        {% if messagem %}
+            <h2>{{ messagem }}</h2>
+            {% else %}
+             <h2>Fases do Quebra-Cabeça</h2>
+            {% endif %}
         <form class="fases" action="{{url_for('Qcbc_jogo')}}" method="get">
             <input class="button_fases" name="fase"  value="1" type="submit">
             <input class="button_fases" name="fase"  value="2" type="submit">
