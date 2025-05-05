@@ -270,7 +270,8 @@ def Trilha():
 
 @app.route('/fases_trilha')
 def Fases_trilha():
-    return render_template('fases_trilha.html')
+    fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 0))
+    return render_template('fases_trilha.html', fase=fase_desbloqueada)
 
 @app.route('/trilha_jogo')
 def Trilha_jogo():
@@ -282,7 +283,12 @@ def Questoes_trilha():
     fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 1))
     trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
     if request.method == 'GET':  # Mostrar a questão
-        fase = int(request.args.get('fase'))
+        fase_get = request.args.get('fase')
+    
+        if fase_get is not None:  # Verifica se o parâmetro 'fase' existe
+            fase = int(fase_get)
+        else:
+            return render_template('fases_trilha.html', fase=fase_desbloqueada)
         if fase <= fase_desbloqueada: 
             response = make_response(render_template('jogo_trilha.html', questao=fases_trilha[fase - 1]['pergunta'], mensagem=''))
             response.set_cookie('questao_atual_trilha', str(fase)) 
@@ -294,7 +300,7 @@ def Questoes_trilha():
     else:  # Verificar se a resposta está correta ou não
         resposta = str(request.form.get('resp_trilha'))
         fase = int(request.cookies.get('questao_atual_trilha', 1))
-        if resposta == fases_trilha[fase - 1]['resposta']:
+        if resposta == fases_trilha[fase-1]['resposta']:
 
             mensagem = f"Parabéns você acertou a fase {fase}. Pode avançar de fase."
             if fase == 3:    

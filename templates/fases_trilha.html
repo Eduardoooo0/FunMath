@@ -49,6 +49,7 @@
                                 <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
                                 <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
                             </form>
+                            <img src="/static/imgs/avatar-perfil.jpg" class="img_fase_trilha" alt="Imagem da raposinha">
                         </div>
                     </div>
                 </div>
@@ -92,5 +93,25 @@
                 message.style.display = 'none';
             }
         }, 5000);
+
+        var faseAtual = parseInt('{{fase}}', 10);
+        console.log(faseAtual)
+
+        // Mova a imagem com base na fase atual
+        const imagem = document.querySelector('.img_fase_trilha');
+        const posicoes = [
+            { top: '50%', left: '6%' },
+            { top: '45%', left: '16%' },
+            { top: '33%', left: '24%' },
+            { top: '27%', left: '33%' },
+            { top: '33%', left: '44%' },
+            { top: '45%', left: '53%' },
+            { top: '50%', left: '63%' },
+            { top: '45%', left: '73%' },
+            { top: '33%', left: '84%' },
+        ];
+        
+        imagem.style.top = posicoes[faseAtual].top;
+        imagem.style.left = posicoes[faseAtual].left;
         </script>
     {% endblock %}
