@@ -1164,6 +1164,8 @@ input[type="button"] {
     top: 50%; /* Pode ser ajustado conforme necessário */
     left: 50%; /* Pode ser ajustado conforme necessário */
     /* Adicione outras propriedades conforme necessário */
+ /* Centraliza a imagem */
+    transition: top 0.5s; /* Suaviza a transição */
 }
 
 

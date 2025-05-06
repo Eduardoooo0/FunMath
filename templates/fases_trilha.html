@@ -49,7 +49,7 @@
                                 <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
                                 <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
                             </form>
-                            <img src="/static/imgs/avatar-perfil.jpg" class="img_fase_trilha" alt="Imagem da raposinha">
+                            <img src="/static/imgs/avatar-perfil.jpg" class="img_fase_trilha" id="img_trilha_raposa" alt="Imagem da raposinha">
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,27 @@
             { top: '33%', left: '84%' },
         ];
         
-        imagem.style.top = posicoes[faseAtual].top;
-        imagem.style.left = posicoes[faseAtual].left;
+        imagem.style.top = posicoes[faseAtual-1].top;
+        imagem.style.left = posicoes[faseAtual-1].left;
+
+        const img = document.getElementById('img_trilha_raposa');
+        const deslocamento = 12; // Deslocamento em pixels
+        let animacaoAtiva = false;
+
+        setInterval(() => {
+            if (!animacaoAtiva) {
+                animacaoAtiva = true;
+
+                // Mover para cima
+                img.style.top = `${parseFloat(posicoes[faseAtual - 1].top) - (deslocamento / window.innerHeight * 100)}%`;
+
+                setTimeout(() => {
+                    // Volta para a posição inicial
+                    img.style.top = posicoes[faseAtual - 1].top;
+                    animacaoAtiva = false;
+
+                }, 500); // Tempo para voltar
+            }
+        }, 2000); // Intervalo de 2 segundos
         </script>
     {% endblock %}

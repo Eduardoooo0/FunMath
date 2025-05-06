@@ -270,7 +270,7 @@ def Trilha():
 
 @app.route('/fases_trilha')
 def Fases_trilha():
-    fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 0))
+    fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 1))
     return render_template('fases_trilha.html', fase=fase_desbloqueada)
 
 @app.route('/trilha_jogo')
@@ -318,11 +318,11 @@ def Questoes_trilha():
 
             if fase == fase_desbloqueada:  # Se a fase respondida for a fase desbloqueada
                 if trofeu != '':
-                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase, msg_trofeu=msg_trofeu, trofeu=trofeu))
+                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase+1, msg_trofeu=msg_trofeu, trofeu=trofeu))
                     response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
                     response.set_cookie('trofeu_trilha', str(trofeu_trilha + 1))
                 else:
-                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase))
+                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase+1))
                     response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
                 
             else:
