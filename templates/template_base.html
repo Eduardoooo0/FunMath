@@ -67,7 +67,7 @@
                         {% endif %}
                         <!-- Seção de perfil com a imagem de perfil -->
                         <a href="{{ url_for('Perfil') }}" class="perfil">
-                            <span id="perfilAvatar" style="font-size: 30px; background-color: skyblue;">🐶</span> <!-- Imagem padrão do avatar -->
+                            <span id="perfilAvatar" style="font-size: 30px; background-color: skyblue; border-radius: 18px;">🐶</span> <!-- Imagem padrão do avatar -->
                         </a>
                 </div>
             </nav>
@@ -113,6 +113,21 @@
                 isVisible = !isVisible; // Alterna o estado de visibilidade
                 botoesJogos.style.display = isVisible ? 'flex' : 'none'; // Mostra ou esconde os botões
             });
+
+
+            // Pega as informações do localStorage
+            let Color = localStorage.getItem('selectedColor') || '#00AEEF';
+            let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
+            // Função para carregar a seleção salva ao iniciar a página
+            function carregarSelecoes() {
+                const perfilAvatar = document.getElementById('perfilAvatar');
+
+                perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
+                perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
+            }
+
+            // Chame a função ao carregar a página
+            window.onload = carregarSelecoes;
 
         </script>
         {% endblock %}

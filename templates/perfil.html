@@ -141,5 +141,28 @@
     </div>
     {% endblock %}
     {% block js %}
-    <script src="static/scripts/perfil.js"></script>
+        <script src="static/scripts/perfil.js"></script>
+        <script>
+            // Pega as informações do localStorage
+            let Color = localStorage.getItem('selectedColor') || '#00AEEF';
+            let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
+            
+            // Função para carregar a seleção salva ao iniciar a página
+            function carregarSelecoes() {
+                const perfilAvatar = document.getElementById('perfilAvatar');
+                const preview = document.getElementById('avatarPreview');
+
+                // Atualiza o avatar e a cor
+                perfilAvatar.textContent = selectedAvatar;
+                perfilAvatar.style.backgroundColor = selectedColor;
+
+                preview.textContent = selectedAvatar;
+                preview.style.backgroundColor = selectedColor;
+            }
+
+            // Chame a função ao carregar a página
+            window.onload = carregarSelecoes;
+        </script>
+
+
     {% endblock %}

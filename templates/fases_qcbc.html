@@ -28,3 +28,24 @@
     </section>
 
     {% endblock %}
+
+    {% block js %}
+
+        <script>
+            // Pega as informações do localStorage
+            let Color = localStorage.getItem('selectedColor') || '#00AEEF';
+            let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
+            // Função para carregar a seleção salva ao iniciar a página
+            function carregarSelecoes() {
+                const perfilAvatar = document.getElementById('perfilAvatar');
+
+                perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
+                perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
+            }
+
+            // Chame a função ao carregar a página
+            window.onload = carregarSelecoes;
+
+        </script>
+        
+    {% endblock %}
