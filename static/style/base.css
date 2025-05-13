@@ -638,7 +638,7 @@ input[type="button"] {
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
     width: 100%; /* Largura da caixa central */
-    height: 90%;
+    height: 100%;
     max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     margin-top: 0;
@@ -659,7 +659,7 @@ input[type="button"] {
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
     justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
-    background-image: url(../imgs/img_inicial_qcb.png);
+    background-image: url(../imgs/img_inicial_qcbc.png);
     background-size: cover;  /* Faz com que a imagem de fundo cubra todo o quadrado */
     background-position: center;  /* Centraliza a imagem de fundo */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
@@ -752,10 +752,8 @@ input[type="button"] {
     height: 80%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
-    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+    padding: 5px;
 }
-
-
 
 .quest_qcbc {
     width: 100%;
@@ -764,99 +762,99 @@ input[type="button"] {
 
 .button_quest {
     width: 33%;
-    height: 33.4%;
+    height: 37%;
     border: 1px solid black;
     cursor: pointer;
 }
 
 #bt-1-0 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_black/img1_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-1 {
-    background-image: url('../imgs/img2_qcbc.png');
+    background-image: url('../imgs/img_black/img2_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-2 {
-    background-image: url('../imgs/img3_qcbc.png');
+    background-image: url('../imgs/img_black/img3_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-3 {
-    background-image: url('../imgs/img4_qcbc.png');
+    background-image: url('../imgs/img_black/img4_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-4 {
-    background-image: url('../imgs/img5_qcbc.png');
+    background-image: url('../imgs/img_black/img5_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-5 {
-    background-image: url('../imgs/img6_qcbc.png');
+    background-image: url('../imgs/img_black/img6_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-6 {
-    background-image: url('../imgs/img7_qcbc.png');
+    background-image: url('../imgs/img_black/img7_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-7 {
-    background-image: url('../imgs/img8_qcbc.png');
+    background-image: url('../imgs/img_black/img8_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 #bt-1-8 {
-    background-image: url('../imgs/img9_qcbc.png');
+    background-image: url('../imgs/img_black/img9_qcbc_black.jpg');
     background-size: cover;
     background-position: center;
 }
 
 #bt-2-0 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img1_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-1 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img2_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-2 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img3_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-3 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img4_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-4 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img5_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-5 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img6_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-6 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img7_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-7 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img8_qcbc.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-8 {
-    background-image: url('../imgs/img1_qcbc.png');
+    background-image: url('../imgs/img_colorida/img9_qcbc.png');
     background-size: cover;
     background-position: center;
 }
@@ -1338,6 +1336,8 @@ input[type="button"] {
      display: flex;
      flex-direction: row;
      justify-content: space-around;
+     width: 50%;
+     margin-left: 25%;
 }
 
 #title_trf{
@@ -1348,33 +1348,30 @@ input[type="button"] {
 }
 
 .trofeus-1{
-    border: 2px black solid;
-    width: 410px;
+    width: 210px;
     height: 185px;
-    background-image: url(../imgs/trofeu1.png);
+    background-image: url(../imgs/trofeus/trofeu1_trilha.svg);
     background-size: contain;
     background-repeat: no-repeat;
 }
 .trofeus-1:hover, .trofeus-2:hover, .trofeus-3:hover{
-    width: 420px;
-    height: 190px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    width: 230px;
+    height: 200px;
+    box-shadow: #78797b;
 }
 
 .trofeus-2{
-    border: 2px black solid;
-    width: 415px;
+    width: 210px;
     height: 185px;
-    background-image: url(../imgs/trofeu2.png);
+    background-image: url(../imgs/trofeus/trofeu2_trilha.svg);
     background-size:contain;
     background-repeat: no-repeat;
 }
 
 .trofeus-3{
-    border: 2px black solid;
-    width: 415px;
+    width: 210px;
     height: 185px;
-    background-image: url(../imgs/trofeu3.png);
+    background-image: url(../imgs/trofeus/trofeu3_trilha.svg);
     background-size: contain;
     background-repeat: no-repeat;
 }

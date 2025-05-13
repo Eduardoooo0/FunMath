@@ -52,89 +52,49 @@
         <section class="section_perfil">
         
             <div class="box_perfil">
-                <div class="box_trf_quiz" style="width: 100%; height: auto; margin-bottom: 15px;">
+                <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px;">
+                    {% set trofeus_existentes = trofeu_quiz or trofeu_qcbc or trofeu_trilha %}
+                    
                     {% if trofeu_quiz %}
-                    <div id="title_trf">
-                        <h1>Trofeus QUIZ:</h1>
-                    </div>
-                    <div class="container_trf">
-                        {% if trofeu_quiz == 1 %}
-                            <div class="trofeus-1"></div>
-        
-                        {% elif trofeu_quiz == 2 %}
-                            <div class="trofeus-1"></div>
-                            <div class="trofeus-2"></div>
-        
-                        {% elif trofeu_quiz == 3 %}
-                            <div class="trofeus-1"></div>
-                            <div class="trofeus-2"></div>
-                            <div class="trofeus-3"></div>
-                        {% endif %}
-                    </div>
-                    {% else %}
                         <div id="title_trf">
-                            <h1>você ainda não possui troféus do jogo QUIZ</h1>
-                        </div>       
+                            <h1>Trofeus do jogo QUIZ:</h1>
+                        </div>
+                        <div class="container_trf">
+                            {% for i in range(1, trofeu_quiz + 1) %}
+                                <div class="trofeus-{{ i }}"></div>
+                            {% endfor %}
+                        </div>
                     {% endif %}
-                </div>
-                
-                <div class="box_trf_qcbc" style="width: 100%; height: auto; margin-bottom: 15px; padding: 20px;">
+            
                     {% if trofeu_qcbc %}
-                    <div id="title_trf">
-                        <h1>Trofeus QUEBRA-CABEÇA:</h1>
-                    </div>
-                    <div class="container_trf">
-                        {% if trofeu_qcbc == 1 %}
-                            <div class="trofeus-1"></div>
-        
-                        {% elif trofeu_qcbc == 2 %}
-                            <div class="trofeus-1"></div>
-                            <div class="trofeus-2"></div>
-        
-                        {% elif trofeu_qcbc == 3 %}
-                            <div class="trofeus-1"></div>
-                            <div class="trofeus-2"></div>
-                            <div class="trofeus-3"></div>
-                        {% endif %}
-                    </div>
-                    {% else %}
                         <div id="title_trf">
-                            <h1>você ainda não possui troféus do jogo QUEBRA-CABEÇA</h1>
-                        </div>       
+                            <h1>Trofeus do jogo QUEBRA-CABEÇA:</h1>
+                        </div>
+                        <div class="container_trf">
+                            {% for i in range(1, trofeu_qcbc + 1) %}
+                                <div class="trofeus-{{ i }}"></div>
+                            {% endfor %}
+                        </div>
                     {% endif %}
-                </div>
-
-                <div class="box_trf_qcbc" style="width: 100%; height: auto; margin-bottom: 15px; padding: 20px;">
+            
                     {% if trofeu_trilha %}
-                    <div id="title_trf">
-                        <h1>Trofeus TRILHA DA RAPOSA:</h1>
-                    </div>
-                    <div class="container_trf">
-                        {% if trofeu_trilha == 1 %}
-                            <div class="trofeus-1">
-                            </div>
-        
-                        {% elif trofeu_trilha == 2 %}
-                            <div class="trofeus-1">
-                            </div>
-                            <div class="trofeus-2">
-                            </div>
-        
-                        {% elif trofeu_trilha == 3 %}
-                            <div class="trofeus-1">
-                            </div>
-                            <div class="trofeus-2">
-                            </div>
-                            <div class="trofeus-3">
-                            </div>
-                        {% endif %}
-                    </div>
-                    {% else %}
                         <div id="title_trf">
-                            <h1>você ainda não possui troféus do jogo TRILHA DA RAPOSA</h1>
-                        </div>       
+                            <h1>Trofeus do jogo TRILHA DA RAPOSA:</h1>
+                        </div>
+                        <div class="container_trf">
+                            {% for i in range(1, trofeu_trilha + 1) %}
+                                <div class="trofeus-{{ i }}"></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+            
+                    {% if not trofeus_existentes %}
+                        <div id="title_trf">
+                            <h1 style="color: red;">Você ainda não possui troféus!</h1>
+                        </div>
                     {% endif %}
                 </div>
+            </div>
 
             </div>
         </section>

@@ -75,12 +75,25 @@
 
     let cookie_tabuleiro = getCookie('tabuleiro-' + fase);
     var tabuleiro = [];
+    // imagens para cada questão
+    const imagens = [
+        "{{ url_for('static', filename='imgs/img_colorida/img1_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img2_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img3_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img4_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img5_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img6_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img7_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img8_qcbc.png') }}",
+        "{{ url_for('static', filename='imgs/img_colorida/img9_qcbc.png') }}"
+    ];
+
     if (!cookie_tabuleiro) {
         // O cookie do tabuleiro ainda não existe
         // Cria um novo tabuleiro
         for (let j = 0; j < 9; j++) {
             tabuleiro.push({
-                "img": "{{ url_for('static', filename='imgs/avatar-perfil.jpg') }}",
+                "img": imagens[j], // Usa a imagem correspondente à questão
                 "bloqueado": true
             });
         }
