@@ -103,7 +103,7 @@ a {
 }
 
 #box_voltar {
-    width: 100%;
+    width: 5%;
     height: 5%;
 }
 #box_voltar_fases {
@@ -209,7 +209,7 @@ a {
     height: 40%;                /* Define a altura do aside como 30% da altura da viewport */
     background-size: cover;
     background-position: center;  /* Centraliza a imagem de fundo */
-    background: linear-gradient(to bottom, skyblue, rgb(179, 232, 253), white);
+    background-image: url(../imgs/introducao.svg);
 }
 
 /* Estiliza a seção principal */
@@ -321,7 +321,7 @@ a {
 
 .aside_ajuda {
     display: flex;              /* Define o layout do aside como flexbox */
-    background-color: skyblue; /* Define a cor de fundo do aside como azul claro */
+    background-color: #8ed3df; /* Define a cor de fundo do aside como azul claro */
     color: white;              /* Define a cor do texto dentro do aside como branca */
     flex-direction: row;        /* Organiza os itens do aside em uma linha */
     width: 100%;                /* Define a largura do aside como 100% da largura da viewport */
@@ -405,10 +405,9 @@ a {
 #section_login {
     display: flex;                    /* Define o layout da seção como flexbox */
     flex-direction: column;
-    align-items: center;             /* Centraliza o conteúdo verticalmente */
     width: 100%;                      /* Define a largura da seção como 100% da largura da viewport */
     height: 90%;                      /* Define a altura da seção como 80% da altura da viewport */
-    background-color: skyblue;
+    background-color: #8ed3df;
     padding: 1%;
 }
 
@@ -419,6 +418,7 @@ a {
     height: 60%;                      /* Define a altura da área como 90% da altura da seção */
     background-color: white;         /* Define a cor de fundo da área como branca */
     margin-top: 100px;
+    margin-left: 20%;
 }
 
 /* Estilo da primeira metade da área de login e cadastro */
@@ -1269,13 +1269,17 @@ input[type="button"] {
 }
 .aside_perfil {
     display: flex;              /* Define o layout do aside como flexbox */
-    background: linear-gradient(to bottom, skyblue, rgb(179, 232, 253), white);
+    background-color: #8ed3df;
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     width: 23%;                /* Define a largura do aside como 100% da largura da viewport */
     height: 100%;  
-    align-items: center;  
     color: black;   
     padding: 1%;      
+}
+
+#box_avatar {
+    text-align: center;
+    margin-top: 10px;
 }
 
 .aside_perfil img {
