@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <!-- Este é o arquivo de áudio. Não é renderizado na tela. -->
+        <audio id="plim" src="static/audio/plim.wav"></audio>
+
+        <!-- Botão que dispara o evento. -->
+        <button onclick="tocar()">Plim!</button>
+    </body>
+    <script>
+        function tocar() {
+            // Acessa o elemento audio
+            audio = document.getElementById('plim')
+            audio.play() // E toca :)
+        }
+    </script>
+</html>

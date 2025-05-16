@@ -472,3 +472,7 @@ def Logout():
     logout_user()
     return response
 
+@app.route('/play')
+def play():
+    pagina = render_template('play.html')
+    return pagina
