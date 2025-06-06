@@ -7,36 +7,46 @@
     box-sizing: border-box; /* Inclui padding e bordas na largura e altura dos elementos */
 }
 
+html, body {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    box-sizing: border-box; /* Inclui padding e bordas na largura e altura dos elementos */
+    scroll-behavior: smooth;
+}
+
 /* Estiliza o corpo da página, centralizando seu conteúdo */
 body {
-    display: flex;              /* Define o layout do corpo como flexbox */
-    justify-content: center;    /* Centraliza o conteúdo horizontalmente */
-    align-items: center;        /* Centraliza o conteúdo verticalmente */
-    height: 100vh;              /* Define a altura do corpo como 100% da altura da viewport */
-    width: 100%;                /* Define a largura do corpo como 100% da largura da viewport */
+    height: 100%;
+    width: 100%;
+    overflow-y: auto; /* permite rolagem */
+    overflow-x: hidden;    /* Esconde a barra horizontal */
+    scroll-behavior: smooth; /* rolagem suave */
+    font-family: Arial, sans-serif;
 }
 
 /* Estiliza o contêiner principal que ocupa toda a tela */
 .container {
-    display: flex;              /* Define o layout do contêiner como flexbox */
-    position: fixed;            /* Fixa o contêiner na posição da tela */
-    flex-direction: column;     /* Organiza os itens do contêiner em uma coluna */
-    width: 100%;                /* Define a largura do contêiner como 100% da largura da viewport */
-    height: 100%;               /* Define a altura do contêiner como 100% da altura da viewport */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh; /* ✅ permite crescer conforme o conteúdo */
 }
+
 
 /* Estiliza o cabeçalho da página */
 header {
     display: flex;              /* Define o layout do cabeçalho como flexbox */
     flex-direction: row;        /* Organiza os itens do cabeçalho em uma linha */
     align-items: center;        /* Alinha os itens do cabeçalho verticalmente ao centro */
-    background-color: white;    /* Define a cor de fundo do cabeçalho como branca */
-    border-bottom: 1px solid rgb(124, 124, 124); /* Adiciona uma borda inferior cinza ao cabeçalho */
+    background-image: url(../imgs/img_header.png);    /* Define a cor de fundo do cabeçalho como branca */
     font-family: Arial, sans-serif; /* Define a fonte dos textos no cabeçalho */
     width: 100%;                /* Define a largura do cabeçalho como 100% da largura da viewport */
-    height: 12%;                /* Define a altura do cabeçalho como 12% da altura da viewport */
+    height: 10%;                /* Define a altura do cabeçalho como 12% da altura da viewport */
     padding: 10px;
 }
+
 
 /* Estiliza a área para os logotipos dentro do cabeçalho */
 .logo {
@@ -68,8 +78,12 @@ header {
     margin-right: 70px;
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre os itens */
     font-size: 15px;
-    background-color: white;
-    border: 1px solid rgb(165, 165, 165);
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+#bt_home:hover, #jogos:hover, #bt_sobre:hover, #bt_ajuda:hover, #bt_login:hover {
+    color: black;
 }
 
 #bt_login {
@@ -93,6 +107,7 @@ a {
     text-decoration: none;
     margin-left: 20px;
     cursor: pointer;
+    border: 1px solid rgb(201, 201, 201);
 }
 
 #bt_voltar:hover {
@@ -105,12 +120,13 @@ a {
 #box_voltar {
     width: 5%;
     height: 5%;
+    margin-left: -95%;
 }
 #box_voltar_fases {
-    width: 90%;
+    width: 5%;
     height: 5%;
-    margin-top: 1%;
-    margin-left: -8%;
+    margin-left: -92%;
+    margin-top: 1.5%;
 }
 
 
@@ -120,7 +136,7 @@ a {
 }
 
 .links-button:hover {
-    color: orange;
+    color: rgb(255, 166, 0);
     box-shadow: 0 0 10px gray;
     transition: 0.3s ease, transform 0.5s ease;
 
@@ -200,122 +216,138 @@ a {
 
 /* -------- PAGINA INICIAL --------- */
 
-/* Estiliza o elemento aside */
+/* SEÇÃO HERO (semelhante à imagem da Intelipost) */
 .aside_inicial {
-    display: flex;              /* Define o layout do aside como flexbox */
-    color: white;              /* Define a cor do texto dentro do aside como branca */
-    flex-direction: row;        /* Organiza os itens do aside em uma linha */
-    width: 100%;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 40%;                /* Define a altura do aside como 30% da altura da viewport */
-    background-size: cover;
-    background-position: center;  /* Centraliza a imagem de fundo */
-    background-image: url(../imgs/introducao.svg);
-}
-
-/* Estiliza a seção principal */
-#section_inicial {
-    display: flex;              /* Define o layout da seção como flexbox */
-    flex-direction: column;     /* Organiza os itens da seção em uma coluna */
-    align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
-    width: 100%;                /* Define a largura da seção como 100% da largura da viewport */
-    height: 60%;                /* Define a altura da seção como 50% da altura da viewport */
-}
-
-/* Estiliza a área de jogos */
-.jogos {
-    display: flex;              /* Define o layout da área de jogos como flexbox */
-    flex-direction: row;        /* Organiza os itens da área de jogos em uma linha */
-    justify-content: center;    /* Centraliza os itens da área de jogos horizontalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;                /* Define a largura da área de jogos como 100% da largura da viewport */
-    height: 100%;               /* Define a altura da área de jogos como 100% da altura da viewport */
-    padding: 10px;             /* Adiciona padding ao redor do conteúdo da área de jogos */
-    font-family: cursive;
+    width: 100vw;
+    height: 90vh;
+    background-image: url('../imgs/img_introducao.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+    overflow: hidden;
+    border-top: 1px solid rgb(197, 197, 197);
 }
 
-#box-texto{
+
+/* Conteúdo centralizado acima da imagem */
+.aside_inicial .hero-content {
+    z-index: 1;
+    max-width: 800px;
+}
+
+.aside_inicial h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.aside_inicial p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+/* Botão de chamada para ação */
+.cta-button {
+    background-color: #00aeef;
+    color: white;
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #008dc2;
+}
+
+/* Seção dos jogos */
+#section_inicial {
+    background-color: #f4f4f4;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Layout dos jogos */
+.jogos {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Estilo comum para cada jogo */
+#trilha, #quebra-cabeca, #quiz {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
-    font-family: arial; /* Define a fonte do texto */
-    color: black;               /* Define a cor do texto como preto */
+    width: 260px;
+    transition: transform 0.3s ease;
+}
+
+#trilha:hover, #quebra-cabeca:hover, #quiz:hover {
+    transform: translateY(-10px);
+}
+
+/* Imagens dos jogos */
+#trilha img, #quebra-cabeca img, #quiz img {
+    width: 170px;
+    height: 170px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    transition: 0.3s ease;
+}
+
+#trilha img:hover, #quebra-cabeca img:hover, #quiz img:hover {
+    box-shadow: 0 0 15px #00aeef;
+}
+
+/* Título e descrição dos jogos */
+#trilha h2, #quebra-cabeca h2, #quiz h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#box-texto {
+    color: #666;
+    font-size: 0.95rem;
     margin-top: 10px;
-    width: 250px;
 }
 
-/* Estiliza a seção do trilha */
-#trilha {
-    display: flex;              /* Define o layout do trilha como flexbox */
-    flex-direction: column;     /* Organiza os itens do trilha em uma coluna */
-    align-items: center;        /* Alinha os itens do trilha ao centro horizontalmente */
-    color: orange;              /* Define a cor do texto do trilha como laranja */
-    width: 20%;                 /* Define a largura do trilha como 25% da largura do contêiner pai */
-    height: 70%;               /* Define a altura do trilha como 100% da altura do contêiner pai */
-    margin: 30px;               /* Adiciona uma margem ao redor do trilha */
-    text-align: center;
+/* Responsividade */
+@media (max-width: 768px) {
+    .aside_inicial h1 {
+        font-size: 2rem;
+    }
+
+    .aside_inicial p {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        font-size: 1rem;
+        padding: 12px 25px;
+    }
+
+    .jogos {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
-#trilha h2{
-    margin-bottom: 15px;
-}
-
-/* Estiliza as imagens dentro da seção trilha */
-#trilha img {
-    width: 170px;               /* Define a largura da imagem do trilha */
-    height: 170px;              /* Define a altura da imagem do trilha */
-    margin-top: 5px;            /* Adiciona uma margem superior à imagem */
-    border-radius: 10px;
-}
-#trilha img:hover, #quebra-cabeca img:hover, #quiz img:hover{
-    width: 200px;
-    height: 200px;
-    box-shadow: 0 0 10px orange;
-    transition: 0.3s ease, transform 0.3s ease;
-}
-
-/* Estiliza a seção do quebra-cabeça */
-#quebra-cabeca {
-    display: flex;              /* Define o layout do quebra-cabeça como flexbox */
-    flex-direction: column;     /* Organiza os itens do quebra-cabeça em uma coluna */
-    align-items: center;        /* Alinha os itens do quebra-cabeça ao centro horizontalmente */
-    color: orange;              /* Define a cor do texto do quebra-cabeça como laranja */
-    width: 20%;                 /* Define a largura do quebra-cabeça como 25% da largura do contêiner pai */
-    height: 70%;               /* Define a altura do quebra-cabeça como 100% da altura do contêiner pai */
-    margin: 25px;               /* Adiciona uma margem ao redor do quebra-cabeça */
-}
-
-#quebra-cabeca h2{
-    margin-bottom: 15px;
-}
-
-/* Estiliza as imagens dentro da seção quebra-cabeça */
-#quebra-cabeca img {
-    width: 170px;               /* Define a largura da imagem do quebra-cabeça */
-    height: 170px;              /* Define a altura da imagem do quebra-cabeça */
-    margin-top: 5px;            /* Adiciona uma margem superior à imagem */
-    border-radius: 15px;
-}
-
-/* Estiliza a seção do quiz */
-#quiz {
-    display: flex;              /* Define o layout do quiz como flexbox */
-    flex-direction: column;     /* Organiza os itens do quiz em uma coluna */
-    align-items: center;        /* Alinha os itens do quiz ao centro horizontalmente */
-    color: orange;              /* Define a cor do texto do quiz como laranja */
-    width: 20%;                 /* Define a largura do quiz como 25% da largura do contêiner pai */
-    height: 70%;               /* Define a altura do quiz como 100% da altura do contêiner pai */
-    margin: 25px;               /* Adiciona uma margem ao redor do quiz */
-}
-
-#quiz h2{
-    margin-bottom: 15px;
-}
-
-/* imagem do quiz na pag inicial */
-#quiz img {
-    width: 170px;               /* Define a largura da imagem do quiz */
-    height: 170px;              /* Define a altura da imagem do quiz */
-    margin-top: 5px;            /* Adiciona uma margem superior à imagem */
-    border-radius: 15px;
-}
 
 /* ---------- PAGINA AJUDA ----------  */
 
@@ -537,9 +569,10 @@ input[type="button"] {
     flex-direction: column;  /* Organiza os itens da seção em uma coluna */
     align-items: center;
     width: 100%;  /* Define a largura da seção como 100% da largura da viewport */
-    height: 90%;  /* Define a altura da seção como 900 pixels */
+    height: 100vh;  /* Define a altura da seção como 900 pixels */
     overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
-    background-color: skyblue;  /* Define a cor de fundo da seção como um azul claro */
+    background-color: #92aeb2;  /* Define a cor de fundo da seção como um azul claro */
+    border-top: 1px solid rgb(197, 197, 197);
 }
 /* Estiliza o container de fases */
 .fases {
@@ -614,8 +647,9 @@ input[type="button"] {
     height: 100vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
-    background-color: skyblue; /* Cor de fundo azul claro */
+    background-color: #92aeb2; /* Cor de fundo azul claro */
     padding: 1%;
+    border-top: 1px solid rgb(197, 197, 197);
 }
 
 
@@ -625,7 +659,7 @@ input[type="button"] {
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
     width: 100%; /* Largura da caixa central */
-    height: 90%;
+    height: 80vh;
     max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     margin-top: 0;
@@ -1263,18 +1297,28 @@ input[type="button"] {
 
 #perfil_content {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 88%;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 30px;
+    overflow-y: hidden;
+    background-color: #92aeb2;
+    border-top: 1px solid rgb(197, 197, 197);
 }
+
+
 .aside_perfil {
     display: flex;              /* Define o layout do aside como flexbox */
-    background-color: #8ed3df;
+    background-color: #dbffff;
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
-    width: 23%;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 100%;  
+    align-items: center;
+    width: 50vw;                /* Define a largura do aside como 100% da largura da viewport */
+    height: 40vh;  
     color: black;   
-    padding: 1%;      
+    padding: 1%;   
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+
 }
 
 #box_avatar {
@@ -1317,23 +1361,24 @@ input[type="button"] {
 .section_perfil {
     display: flex;              /* Define o layout da seção como flexbox */
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
-    align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
-    width: 77%;                /* Define a largura da seção como 100% da largura da viewport */
-    height: 100%;                /* Define a altura da seção como 50% da altura da viewport */
-    color: orange;
-    
+    align-items: center;        /* Alinha os itens da seção ao centro */
+    width: 50vw;                /* Define a largura da seção como 100% da largura da viewport */
+    height: 30vh;                /* Define a altura da seção como 50% da altura da viewport */
+    color: black;
 }
 
 .box_perfil {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
-    background-color: white;
+    background-color:#dbffff;
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    overflow-y: scroll;
+    margin-top: 20px;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
 }
 
 .container_trf {

@@ -4,10 +4,10 @@
     {% endblock %}
     {% block conteudo %}
     <div id="perfil_content">
+        <div id="box_voltar">
+            <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
+        </div>
         <aside class="aside_perfil">
-            <div id="box_voltar">
-                <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
-            </div>
             
             <div id="box_avatar">
                 <h1>Escolha seu Avatar</h1>
@@ -26,7 +26,7 @@
                 <p>Email: {{current_user['email']}}</p>
                 <p>Pontos:</p>
                 {% else %}
-                <p style="margin-top: 20px; margin-left: 20px; color: red;">Você ainda não possui cadastro ou não fez login</p>
+                <p style="margin-top: 20px; margin-left: 30%; color: red;">Você ainda não possui cadastro ou não fez login</p>
                 {% endif %}
             </div>
         
@@ -54,6 +54,7 @@
         <section class="section_perfil">
         
             <div class="box_perfil">
+                <h1>Seus troféus:</h1>
                 <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px;">
                     {% set trofeus_existentes = trofeu_quiz or trofeu_qcbc or trofeu_trilha %}
                     
@@ -92,7 +93,7 @@
             
                     {% if not trofeus_existentes %}
                         <div id="title_trf">
-                            <h1 style="color: red;">Você ainda não possui troféus!</h1>
+                            <p style="color: red; font-size: 17px;">Você ainda não possui troféus!</p>
                         </div>
                     {% endif %}
                 </div>

@@ -19,7 +19,7 @@
         <header>
             <!-- Div para a logo -->
             <div class="logo">
-                <a href="{{ url_for('index' ) }}"><img src="static/imgs/logo.png" alt=""></a><!-- Imagem do nome do site -->
+                <a href="{{ url_for('index' ) }}"><img src="../static/imgs/logo2.png" alt=""></a><!-- Imagem do nome do site -->
             </div>
             <!-- botões -->
             <nav class="botoes">
@@ -128,6 +128,13 @@
 
             // Chame a função ao carregar a página
             window.onload = carregarSelecoes;
+            
+              function scrollToSection() {
+                const section = document.getElementById("section_inicial");
+                if (section) {
+                section.scrollIntoView({ behavior: "smooth" });
+                }
+            }
 
         </script>
         {% endblock %}

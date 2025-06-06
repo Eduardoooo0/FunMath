@@ -12,43 +12,46 @@
             </div>
         </div> -->
 
-        <aside class="aside_inicial">
-            
+        <aside class="aside_inicial" id="hero">
+            <div class="hero-content">
+                <h1>Aprenda Matemática Brincando</h1>
+                <p>Explore jogos interativos que tornam a matemática divertida.</p>
+                <button class="cta-button" onclick="scrollToSection()">Comece Agora</button>
+            </div>
         </aside>
-        
+
         <section id="section_inicial">
-            <!-- Seção principal para exibir os jogos disponíveis -->
             <div class="jogos">
-                <!-- Primeiro jogo: Trilha da raposa -->
+                <!-- Trilha -->
                 <div id="trilha">
-                    <h2>Trilha da raposa</h2> <!-- Título do jogo -->
+                    <h2>Trilha da raposa</h2>
                     <a href="{{url_for('Trilha')}}">
-                        <img src="../static/imgs/jogo-trilha.svg" alt=""> <!-- Imagem do jogo -->
+                        <img src="../static/imgs/jogo-trilha.svg" alt="">
                     </a>
                     <div id="box-texto">
-                        <h4>Trilha: Ajude Nikki a chegar nas suas amigas galinhas.</h4> <!-- Descrição do jogo -->
+                        <h4>Trilha: Ajude Nikki a chegar nas galinhas.</h4>
                     </div>
                 </div>
-        
-                <!-- Segundo jogo: Quebra-cabeça -->
+
+                <!-- Quebra-cabeça -->
                 <div id="quebra-cabeca">
-                    <h2>Quebra-cabeça</h2> <!-- Título do jogo -->
+                    <h2>Quebra-cabeça</h2>
                     <a href="{{url_for('Quebra_cabeca')}}">
-                        <img src="../static/imgs/jogo-quebra-c.svg" alt=""> <!-- Imagem do jogo -->
+                        <img src="../static/imgs/jogo-quebra-c.svg" alt="">
                     </a>
                     <div id="box-texto">
-                        <h4>Quebra-Cabeça: Resolva problemas matemáticos para desbloquear imagens</h4> <!-- Descrição do jogo -->
+                        <h4>Resolva problemas para desbloquear imagens</h4>
                     </div>
                 </div>
-        
-                <!-- Terceiro jogo: Quiz matemático -->
+
+                <!-- Quiz -->
                 <div id="quiz">
-                    <h2>Quiz matemático</h2> <!-- Título do jogo -->
-                    <a href="{{url_for('Inicial_quiz')}}"> <!-- Link para a página do quiz -->
-                        <img src="../static/imgs/jogo-quiz.svg" alt=""> <!-- Imagem do jogo -->
+                    <h2>Quiz matemático</h2>
+                    <a href="{{url_for('Inicial_quiz')}}">
+                        <img src="../static/imgs/jogo-quiz.svg" alt="">
                     </a>
                     <div id="box-texto">
-                        <h4>Quiz matemático: Responda o máximo de questões corretamente.</h4> <!-- Descrição do jogo -->
+                        <h4>Responda o máximo de questões corretamente.</h4>
                     </div>
                 </div>
             </div>
