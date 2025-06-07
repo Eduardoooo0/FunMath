@@ -30,7 +30,8 @@ body {
 .container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100vw;
+
     min-height: 100vh; /* ✅ permite crescer conforme o conteúdo */
 }
 
@@ -83,7 +84,7 @@ header {
     border: 1px solid white;
 }
 #bt_home:hover, #jogos:hover, #bt_sobre:hover, #bt_ajuda:hover, #bt_login:hover {
-    color: black;
+    color: orange;
 }
 
 #bt_login {
@@ -153,7 +154,7 @@ a {
     height: 50px; 
     font-size: 18px;
     padding: 1rem;
-    margin-left: 50%;
+    margin-left: 40%;
 }
 
 .botao-jogo {
@@ -167,11 +168,11 @@ a {
     position:relative;
     width: 90px;
     height: 40px;
-    border-bottom: 1px solid rgb(197, 197, 197);
     border-top: 1px solid rgb(197, 197, 197);
     font-size: 15px;
-    background-color: white;
-    border: 1px solid rgb(165, 165, 165);
+    background-color: #0e284c;
+    color: white;
+    border: 1px solid white;
 }
 
 .bt_jogo a {
@@ -223,8 +224,8 @@ a {
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 90vh;
-    background-image: url('../imgs/img_introducao.png');
+    height: 91vh;
+    background-image: url('../imgs/img_aside_inicial.png');
     background-size: cover;
     background-position: center;
     color: white;
@@ -351,17 +352,6 @@ a {
 
 /* ---------- PAGINA AJUDA ----------  */
 
-.aside_ajuda {
-    display: flex;              /* Define o layout do aside como flexbox */
-    background-color: #8ed3df; /* Define a cor de fundo do aside como azul claro */
-    color: white;              /* Define a cor do texto dentro do aside como branca */
-    flex-direction: row;        /* Organiza os itens do aside em uma linha */
-    width: 100%;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 36%;                /* Define a altura do aside como 30% da altura da viewport */
-    flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
-    padding: 1%;
-
-}
 
 .aside_ajuda #box_voltar {
     height: 12%;
@@ -371,49 +361,59 @@ a {
     display: flex;              /* Define o layout da seção como flexbox */
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
     align-items: center;        /* Alinha os itens da seção ao centro horizontalmente */
+    justify-content: center;
     width: 100%;                /* Define a largura da seção como 100% da largura da viewport */
-    height: 49%;                /* Define a altura da seção como 50% da altura da viewport */
+    height: 85vh;                /* Define a altura da seção como 50% da altura da viewport */
     border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza à área de jogos */
+    background-color: white;
 }
 
 .box_ajuda {
     display: flex;
     flex-direction: row;
-    width: 60%;
-    height: 70%;
-    background-color: rgb(255, 208, 137);
+    width: 100%;
+    height: 80%;
+    
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
 }
 .box_ajuda img {
     margin-left: 80px;
+    width: 50%;
+    height: 90%;
 }
 .form_ajuda {
     display: flex;
     flex-direction: column;
-    width: 60%;
-    height: 100%;
+    width: 50%;
+    height: 70%;
+    margin-left: 12%;
 }
 
 .form_ajuda h4{
     margin-left: 15px;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #input_ajuda {
-    width: 50%;
+    width: 80%;
     padding: 8px;
     margin: 8px;
     border: 1px solid gray;
     border-radius: 10px;
+    font-size: 25px;
 }
 
 #mensagem_ajuda {
     height: 100px;
+    width: 80%;
     border: 1px solid gray;
     border-radius: 10px;
     margin: 8px;
     padding: 3px 15px 13px 8px;
+    font-size: 25px;
 }
 
 #enviar_ajuda {
@@ -425,6 +425,7 @@ a {
     cursor: pointer;
     background-color: skyblue;
     color: white;
+    font-size: 25px;
 }
 #enviar_ajuda:hover {
     background-color: rgb(255, 194, 81);
@@ -1299,40 +1300,44 @@ input[type="button"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
-    height: 100vh;
-    padding: 30px;
-    overflow-y: hidden;
-    background-color: #92aeb2;
+    justify-content: center;
+    width: 100%;
+    height: 90vh;
+    padding: 5px;
+    overflow: hidden;
+    background-color: #0e284c;
     border-top: 1px solid rgb(197, 197, 197);
 }
 
+.box_conteudo_perfil {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80vw;
+    height: 70vh;
+}
 
 .aside_perfil {
     display: flex;              /* Define o layout do aside como flexbox */
-    background-color: #dbffff;
+    background-color: white;
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     align-items: center;
-    width: 50vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 40vh;  
+    width: 40vw;                /* Define a largura do aside como 100% da largura da viewport */
+    height: 100%;  
     color: black;   
-    padding: 1%;   
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-
+    padding: 1%;
+    margin: 10px;
+    box-shadow: 0 6px 12px rgba(26, 25, 25, 0.945);
+    border-radius: 20px;
 }
 
 #box_avatar {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 60px;
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.aside_perfil img {
-    width: 120px;
-    height: 120px;
-    border-radius: 60px;
-    margin: 30px;
-
-}
 
 #perfil_info {
     width: 100%;
@@ -1342,6 +1347,7 @@ input[type="button"] {
 
 #perfil_info h3 {
     text-align: center;
+    font-size: 22px;
     
 }
 #perfil_info p {
@@ -1362,9 +1368,11 @@ input[type="button"] {
     display: flex;              /* Define o layout da seção como flexbox */
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
     align-items: center;        /* Alinha os itens da seção ao centro */
-    width: 50vw;                /* Define a largura da seção como 100% da largura da viewport */
-    height: 30vh;                /* Define a altura da seção como 50% da altura da viewport */
+    width: 40vw;                /* Define a largura do aside como 100% da largura da viewport */
+    height: 100%;  
     color: black;
+    margin: 10px;
+    margin-left: 40px;
 }
 
 .box_perfil {
@@ -1373,12 +1381,12 @@ input[type="button"] {
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color:#dbffff;
+    background-color:white;
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    margin-top: 20px;
-    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    box-shadow: 0 6px 12px rgba(26, 25, 25, 0.945);
+    border-radius: 20px;
 }
 
 .container_trf {
@@ -1391,9 +1399,10 @@ input[type="button"] {
 
 #title_trf{
     display: flex;
+    flex-direction: column;
     width: 100%;
     padding: 10px;
-    justify-content: center;
+    align-items: center;
 }
 
 .trofeus-1{
@@ -1543,32 +1552,6 @@ input[type="button"] {
     padding: 20px;
   }
   
-
-  /* teste perfil */
-
-/* .avatar-selection {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-}
-.avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: border 0.3s;
-    background-color: white;
-}
-.avatar:hover {
-    border: 2px solid #007BFF;
-}
 .color-selection {
     display: flex;
     margin-top: 20px;
@@ -1587,18 +1570,6 @@ input[type="button"] {
 .selected {
     border: 2px solid #007BFF;
 }
-.preview {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    background-color: #00AEEF;
-    font-size: 40px;
-    color: white;
-} */
 
 #modal {
     position: fixed;
@@ -1616,15 +1587,17 @@ input[type="button"] {
     padding: 20px;
     border-radius: 5px;
     text-align: center;
+    font-size: 17px;
+    width: 400px;
 }
 .avatar-selection .avatar {
-    font-size: 50px;
+    font-size: 70px;
     cursor: pointer;
-    margin: 10px;
+    margin: 5px;
 }
 .color-selection .color {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     display: inline-block;
     margin: 5px;
     cursor: pointer;
@@ -1634,30 +1607,33 @@ input[type="button"] {
     border: 2px solid black;
 }
 .preview {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
     background-color: #00AEEF;
-    font-size: 40px;
+    font-size: 100px;
     color: white;
-    border: 4px solid white;
+    border: 4px solid rgb(204, 204, 204);
 
 }
 
 #bt_trocar_foto{
     position: absolute; 
-    top: 5px; 
-    right: 5px; 
+    top: 30px; 
+    right: 17px; 
+    width: 40px;
+    height: 40px;
     background: white; 
     border: none; 
     border-radius: 50%; 
     cursor: pointer; 
     padding: 5px;
-    margin-top: 10px;
+    font-size: 20px;
+   
 }
 
 .message_resp {

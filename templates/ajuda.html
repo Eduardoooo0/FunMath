@@ -4,17 +4,11 @@
     <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
-    {% block conteudo %}
-        <aside class="aside_ajuda">
+    {% block section %}
+        <section class="section_ajuda">
             <div id="box_voltar">
                 <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
             </div>
-    
-        </aside>
-        <section class="section_ajuda">
-            <br>
-            <h1>Algum problema?</h1>
-            <h4>Relate aqui o seu problema. Entraremos em contato assim que possivel</h4>
             <br>
             <div class="box_ajuda">
                 <form class="form_ajuda" action="">
@@ -26,7 +20,7 @@
                     <input id="mensagem_ajuda" type="text" name="mensagem" placeholder="Insira sua mensagem">
                     <button id="enviar_ajuda">Enviar</button> 
                 </form>
-                <img src="../static/imgs/img_ajuda.png" alt="">
+                <img src="../static/imgs/img_ajuda2.png" alt="">
             </div>
         </section>
     {% endblock %}

@@ -2,105 +2,109 @@
     {% block style %}
         <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
-    {% block conteudo %}
+    {% block section %}
     <div id="perfil_content">
-        <div id="box_voltar">
-            <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
+        <div class="box_conteudo_perfil">
+            <aside class="aside_perfil">
+                <div id="box_avatar">
+                    <h1>Escolha seu Avatar</h1>
+                    <div style="position: relative; display: inline-block;">
+                        <div class="preview" id="avatarPreview" >👤</div>
+                        <button id="bt_trocar_foto" onclick="abrirModal()">
+                            ✏️
+                        </button>
+                    </div>
+                </div>
+            
+                <div id="perfil_info">
+                    <h3>Informações do Usuário:</h3>
+                    {% if current_user.is_authenticated %}
+                    <p>Nome: {{current_user['nome']}}</p>
+                    <p>Email: {{current_user['email']}}</p>
+                    <p>Pontos:</p>
+                    {% else %}
+                    <p style="margin-top: 20px; margin-left: 15%; color: red; font-size: 22px;">Você ainda não possui cadastro ou não fez login</p>
+                    {% endif %}
+                </div>
+            
+                <div id="modal" style="display:none;">
+                    <div id="modal_content">
+                        <span onclick="fecharModal()" style="cursor:pointer;">&times;</span>
+                        <h3>Escolha seu Avatar</h3>
+                        <div class="avatar-selection">
+                            <div class="avatar" onclick="selectAvatar('🐶')">🐶</div>
+                            <div class="avatar" onclick="selectAvatar('🐱')">🐱</div>
+                            <div class="avatar" onclick="selectAvatar('🐻')">🐻</div>
+                            <div class="avatar" onclick="selectAvatar('🐢')">🐢</div>
+                        </div>
+                        <h3>Escolha a Cor</h3>
+                        <div class="color-selection">
+                            <div class="color" style="background-color: #FF5733;" onclick="selectColor(this)"></div>
+                            <div class="color" style="background-color: #33FF57;" onclick="selectColor(this)"></div>
+                            <div class="color" style="background-color: #5733FF;" onclick="selectColor(this)"></div>
+                            <div class="color" style="background-color: #FF33A8;" onclick="selectColor(this)"></div>
+                            <div class="color" style="background-color: #fffc33;" onclick="selectColor(this)"></div>
+                            <div class="color" style="background-color: #dc85ff;" onclick="selectColor(this)"></div>
+                        </div>
+                    </div>
+                </div>
+                
+            </aside>
+            <section class="section_perfil">
+            
+                <div class="box_perfil">
+                    <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px;">
+                        {% set trofeus_existentes = trofeu_quiz or trofeu_qcbc or trofeu_trilha %}
+                        
+                        {% if trofeu_quiz %}
+                            <div id="title_trf">
+                                <h1>Trofeus do jogo QUIZ:</h1>
+                            </div>
+                            <div class="container_trf">
+                                {% for i in range(1, trofeu_quiz + 1) %}
+                                    <div class="trofeus-{{ i }}"></div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                
+                        {% if trofeu_qcbc %}
+                            <div id="title_trf">
+                                <h1>Trofeus do jogo QUEBRA-CABEÇA:</h1>
+                            </div>
+                            <div class="container_trf">
+                                {% for i in range(1, trofeu_qcbc + 1) %}
+                                    <div class="trofeus-{{ i }}"></div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                
+                        {% if trofeu_trilha %}
+                            <div id="title_trf">
+                                <h1>Trofeus do jogo TRILHA DA RAPOSA:</h1>
+                            </div>
+                            <div class="container_trf">
+                                {% for i in range(1, trofeu_trilha + 1) %}
+                                    <div class="trofeus-{{ i }}"></div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                
+                        {% if not trofeus_existentes %}
+                            
+                            <div id="title_trf">
+                                <img src="../static/imgs/sem_trofeus.png" alt="" style="border-radius: 150px; width: 300px; height: 300px; margin-top: 10px;">
+                                <p style="color: red; font-size: 30px; margin-top: 20px;">Você ainda não possui troféus!</p>
+                                <p style="margin-top: 20px; font-size: 20px;">Que tal começar um desafio e conquistar o seu primeiro?</p>
+                                <button class="cta-button" onclick="scrollToSection()" style="margin-top: 20px; background-color: orange;">Jogar agora</button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+    
+                </div>
+            </section>
         </div>
-        <aside class="aside_perfil">
-            
-            <div id="box_avatar">
-                <h1>Escolha seu Avatar</h1>
-                <div style="position: relative; display: inline-block;">
-                    <div class="preview" id="avatarPreview" >👤</div>
-                    <button id="bt_trocar_foto" onclick="abrirModal()">
-                        ✏️
-                    </button>
-                </div>
-            </div>
-        
-            <div id="perfil_info">
-                <h3>Informações do Usuário:</h3>
-                {% if current_user.is_authenticated %}
-                <p>Nome: {{current_user['nome']}}</p>
-                <p>Email: {{current_user['email']}}</p>
-                <p>Pontos:</p>
-                {% else %}
-                <p style="margin-top: 20px; margin-left: 30%; color: red;">Você ainda não possui cadastro ou não fez login</p>
-                {% endif %}
-            </div>
-        
-            <div id="modal" style="display:none;">
-                <div id="modal_content">
-                    <span onclick="fecharModal()" style="cursor:pointer;">&times;</span>
-                    <h3>Escolha seu Avatar</h3>
-                    <div class="avatar-selection">
-                        <div class="avatar" onclick="selectAvatar('🐶')">🐶</div>
-                        <div class="avatar" onclick="selectAvatar('🐱')">🐱</div>
-                        <div class="avatar" onclick="selectAvatar('🐻')">🐻</div>
-                        <div class="avatar" onclick="selectAvatar('🐢')">🐢</div>
-                    </div>
-                    <h3>Escolha a Cor</h3>
-                    <div class="color-selection">
-                        <div class="color" style="background-color: #FF5733;" onclick="selectColor(this)"></div>
-                        <div class="color" style="background-color: #33FF57;" onclick="selectColor(this)"></div>
-                        <div class="color" style="background-color: #5733FF;" onclick="selectColor(this)"></div>
-                        <div class="color" style="background-color: #FF33A8;" onclick="selectColor(this)"></div>
-                    </div>
-                </div>
-            </div>
-            
-        </aside>
-        <section class="section_perfil">
-        
-            <div class="box_perfil">
-                <h1>Seus troféus:</h1>
-                <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px;">
-                    {% set trofeus_existentes = trofeu_quiz or trofeu_qcbc or trofeu_trilha %}
-                    
-                    {% if trofeu_quiz %}
-                        <div id="title_trf">
-                            <h1>Trofeus do jogo QUIZ:</h1>
-                        </div>
-                        <div class="container_trf">
-                            {% for i in range(1, trofeu_quiz + 1) %}
-                                <div class="trofeus-{{ i }}"></div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-            
-                    {% if trofeu_qcbc %}
-                        <div id="title_trf">
-                            <h1>Trofeus do jogo QUEBRA-CABEÇA:</h1>
-                        </div>
-                        <div class="container_trf">
-                            {% for i in range(1, trofeu_qcbc + 1) %}
-                                <div class="trofeus-{{ i }}"></div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-            
-                    {% if trofeu_trilha %}
-                        <div id="title_trf">
-                            <h1>Trofeus do jogo TRILHA DA RAPOSA:</h1>
-                        </div>
-                        <div class="container_trf">
-                            {% for i in range(1, trofeu_trilha + 1) %}
-                                <div class="trofeus-{{ i }}"></div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-            
-                    {% if not trofeus_existentes %}
-                        <div id="title_trf">
-                            <p style="color: red; font-size: 17px;">Você ainda não possui troféus!</p>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
 
-            </div>
-        </section>
     </div>
     {% endblock %}
     {% block js %}
@@ -125,6 +129,14 @@
 
             // Chame a função ao carregar a página
             window.onload = carregarSelecoes;
+            
+              function scrollToSection() {
+                const section = document.getElementById("section_inicial");
+                if (section) {
+                section.scrollIntoView({ behavior: "smooth" });
+                }
+            }
+
         </script>
 
 

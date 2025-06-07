@@ -67,7 +67,7 @@
                         {% endif %}
                         <!-- Seção de perfil com a imagem de perfil -->
                         <a href="{{ url_for('Perfil') }}" class="perfil">
-                            <span id="perfilAvatar" style="font-size: 30px; background-color: skyblue; border-radius: 30px;padding: 5px;">🐶</span> <!-- Imagem padrão do avatar -->
+                            <span id="perfilAvatar" style="font-size: 30px; background-color: skyblue; border-radius: 40px;padding: 5px;">🐶</span> <!-- Imagem padrão do avatar -->
                         </a>
                 </div>
             </nav>
@@ -75,8 +75,14 @@
         </header>
         
         <!-- Bloco que irá mostrar o conteudo das paginas! < Herança de Templates > -->
-        {% block conteudo %}
-        {% endblock %}
+         <aside>
+            {% block aside %}
+            {% endblock %}
+         </aside>
+         <section>
+            {% block section %}
+            {% endblock %}
+         </section>
         
         <!-- Script JavaScript para interatividade do cabeçalho -->
         {% block js %}

@@ -4,23 +4,19 @@
     <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
-    {% block conteudo %}
-        <!-- <div id="bloco_bemvindo">
-            <div id="msg_bemvindo">
-                <span onclick="fecharModal()" style="cursor:pointer;">&times;</span>
-                <h1>Bem-vindo ao FUNMATH!</h1>
-            </div>
-        </div> -->
-
-        <aside class="aside_inicial" id="hero">
+    {% block aside %}
+        <div class="aside_inicial" id="hero">
             <div class="hero-content">
                 <h1>Aprenda Matemática Brincando</h1>
                 <p>Explore jogos interativos que tornam a matemática divertida.</p>
                 <button class="cta-button" onclick="scrollToSection()">Comece Agora</button>
             </div>
-        </aside>
+        </div>
 
-        <section id="section_inicial">
+    {% endblock %}
+
+    {% block section %}
+        <div id="section_inicial">
             <div class="jogos">
                 <!-- Trilha -->
                 <div id="trilha">
@@ -55,6 +51,5 @@
                     </div>
                 </div>
             </div>
-        </section>
-
+        </div>
     {% endblock %}
