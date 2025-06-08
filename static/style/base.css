@@ -32,7 +32,7 @@ body {
     flex-direction: column;
     width: 100vw;
 
-    min-height: 100vh; /* ✅ permite crescer conforme o conteúdo */
+    min-height: 100vh; /* permite crescer conforme o conteúdo */
 }
 
 
@@ -41,7 +41,8 @@ header {
     display: flex;              /* Define o layout do cabeçalho como flexbox */
     flex-direction: row;        /* Organiza os itens do cabeçalho em uma linha */
     align-items: center;        /* Alinha os itens do cabeçalho verticalmente ao centro */
-    background-image: url(../imgs/img_header.png);    /* Define a cor de fundo do cabeçalho como branca */
+    background: linear-gradient(0deg,#071932 0%,  #05142b 100%);
+    
     font-family: Arial, sans-serif; /* Define a fonte dos textos no cabeçalho */
     width: 100%;                /* Define a largura do cabeçalho como 100% da largura da viewport */
     height: 10%;                /* Define a altura do cabeçalho como 12% da altura da viewport */
@@ -225,14 +226,14 @@ a {
     align-items: center;
     width: 100vw;
     height: 91vh;
-    background-image: url('../imgs/img_aside_inicial.png');
+    background-image: url('../imgs/img_aside_inicial2.png');
     background-size: cover;
     background-position: center;
     color: white;
     text-align: center;
     padding: 0 20px;
     overflow: hidden;
-    border-top: 1px solid rgb(197, 197, 197);
+    /* border-top: 1px solid rgb(197, 197, 197); */
 }
 
 
@@ -255,18 +256,20 @@ a {
 
 /* Botão de chamada para ação */
 .cta-button {
-    background-color: #00aeef;
-    color: white;
-    font-size: 1.1rem;
+    background-color: orange;
+    color: black;
+    font-size: 18px;
     padding: 15px 30px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px gray;
 }
 
 .cta-button:hover {
-    background-color: #008dc2;
+    background-color: black;
+    color: orange;
 }
 
 /* Seção dos jogos */
@@ -1305,7 +1308,7 @@ input[type="button"] {
     height: 90vh;
     padding: 5px;
     overflow: hidden;
-    background-color: #0e284c;
+    background-color: rgb(219, 219, 219);
     border-top: 1px solid rgb(197, 197, 197);
 }
 

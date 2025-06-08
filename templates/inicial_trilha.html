@@ -3,9 +3,9 @@
     <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
-    {% block conteudo %}
+    {% block section %}
         <!-- Seção principal do conteúdo -->
-        <section id="section_inicial_jg">
+        <div id="section_inicial_jg">
             <div id="box_voltar">
                 <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
             </div>
@@ -32,6 +32,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
     {% endblock %}
