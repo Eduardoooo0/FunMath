@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
-    {% block conteudo %}
-    <section id="section_inicial_jg">
+    {% block section %}
+    <div id="section_inicial_jg">
         <div id="box_voltar">
             <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
         </div>
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>  
-    </section>
+    </div>
     
 <script>
     // Função para mostrar a div e depois o conteúdo

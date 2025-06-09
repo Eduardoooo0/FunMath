@@ -3,8 +3,8 @@
         <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
-    {% block conteudo %}
-        <section id="section_fases">
+    {% block section %}
+        <div id="section_fases">
             <div id="box_voltar_fases">
                 <a href="{{ url_for('Inicial_quiz') }}"><button id="bt_voltar">Voltar</button></a>
             </div>
@@ -24,7 +24,7 @@
                 <input class="button_fases_quiz" name="fase"  value="8" type="submit">
                 <input class="button_fases_quiz" name="fase"  value="9" type="submit">
             </form>
-        </section>
+        </div>
 
     {% endblock %}
     {% block js %}

@@ -4,8 +4,8 @@
     <link rel="stylesheet" href="static/style/base.css">
     {% endblock %}
 
-    {% block conteudo %}
-        <section id="section_login">
+    {% block section %}
+        <div id="section_login">
             <div id="box_voltar">
                 <a href="{{ url_for('index') }}"><button id="bt_voltar">Voltar</button></a>
             </div>
@@ -38,6 +38,6 @@
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    
 {% endblock %}

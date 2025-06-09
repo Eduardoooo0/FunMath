@@ -34,8 +34,6 @@ def Perfil():
     trofeu_quiz = request.cookies.get('trofeu_quiz',0)
     trofeu_trilha = request.cookies.get('trofeu_trilha',0)
     trofeu_qcbc = request.cookies.get('trofeu_qcbc',0)
-
-    
     trofeu_quiz = int(trofeu_quiz)
     trofeu_trilha = int(trofeu_trilha)
     trofeu_qcbc = int(trofeu_qcbc)
