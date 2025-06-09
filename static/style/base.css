@@ -39,13 +39,13 @@ body {
 /* Estiliza o cabeçalho da página */
 header {
     display: flex;              /* Define o layout do cabeçalho como flexbox */
+    position: fixed;
     flex-direction: row;        /* Organiza os itens do cabeçalho em uma linha */
     align-items: center;        /* Alinha os itens do cabeçalho verticalmente ao centro */
     background: linear-gradient(0deg,#071932 0%,  #05142b 100%);
-    
     font-family: Arial, sans-serif; /* Define a fonte dos textos no cabeçalho */
     width: 100%;                /* Define a largura do cabeçalho como 100% da largura da viewport */
-    height: 10%;                /* Define a altura do cabeçalho como 12% da altura da viewport */
+    height: 12%;                /* Define a altura do cabeçalho como 12% da altura da viewport */
     padding: 10px;
 }
 
@@ -171,7 +171,7 @@ a {
     height: 40px;
     border-top: 1px solid rgb(197, 197, 197);
     font-size: 15px;
-    background-color: #0e284c;
+    background-color:#071932;
     color: white;
     border: 1px solid white;
 }
@@ -226,6 +226,7 @@ a {
     align-items: center;
     width: 100vw;
     height: 91vh;
+    margin-top: 5%;
     background-image: url('../imgs/img_aside_inicial2.png');
     background-size: cover;
     background-position: center;
@@ -239,7 +240,6 @@ a {
 
 /* Conteúdo centralizado acima da imagem */
 .aside_inicial .hero-content {
-    z-index: 1;
     max-width: 800px;
 }
 
@@ -304,6 +304,7 @@ a {
 
 #trilha:hover, #quebra-cabeca:hover, #quiz:hover {
     transform: translateY(-10px);
+    box-shadow: 0 0 15px orange;
 }
 
 /* Imagens dos jogos */
@@ -315,9 +316,6 @@ a {
     transition: 0.3s ease;
 }
 
-#trilha img:hover, #quebra-cabeca img:hover, #quiz img:hover {
-    box-shadow: 0 0 15px #00aeef;
-}
 
 /* Título e descrição dos jogos */
 #trilha h2, #quebra-cabeca h2, #quiz h2 {
@@ -327,7 +325,7 @@ a {
 
 #box-texto {
     color: #666;
-    font-size: 0.95rem;
+    font-size: 17px;
     margin-top: 10px;
 }
 
@@ -369,6 +367,7 @@ a {
     height: 85vh;                /* Define a altura da seção como 50% da altura da viewport */
     border-top: 1px solid rgb(124, 124, 124); /* Adiciona uma borda superior cinza à área de jogos */
     background-color: white;
+    margin-top: 5%;
 }
 
 .box_ajuda {
@@ -441,28 +440,32 @@ a {
 #section_login {
     display: flex;                    /* Define o layout da seção como flexbox */
     flex-direction: column;
+    align-items: center;
     width: 100%;                      /* Define a largura da seção como 100% da largura da viewport */
-    height: 90%;                      /* Define a altura da seção como 80% da altura da viewport */
-    background-color: #8ed3df;
+    height: 89vh;                      /* Define a altura da seção como 80% da altura da viewport */
+    background-color: rgb(219, 219, 219);
     padding: 1%;
+    margin-top: 5%;
 }
 
 /* Estilo da área de login e cadastro */
 .login-cadastro {
     display: flex;                    /* Define o layout da área como flexbox */
-    width: 60%;                       /* Define a largura da área como 70% da largura da seção */
-    height: 60%;                      /* Define a altura da área como 90% da altura da seção */
-    background-color: white;         /* Define a cor de fundo da área como branca */
-    margin-top: 100px;
-    margin-left: 20%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 70%;                       /* Define a largura da área como 70% da largura da seção */
+    height: 80%;                      /* Define a altura da área como 90% da altura da seção */
+    background: linear-gradient(100deg, white, #2c569b, #05142b);        /* Define a cor de fundo da área como branca */
+    margin-top: 3%;
+    box-shadow: 0 12px 12px rgb(43, 42, 42);
+    border-radius: 20px;
 }
 
-/* Estilo da primeira metade da área de login e cadastro */
-#box1_login {
-    display: flex;                    /* Define o layout da caixa como flexbox */
-    width: 50%;                       /* Define a largura da caixa como 50% da largura da área */
-    height: 100%;                     /* Define a altura da caixa como 100% da altura da área */
-    /*background-color: rgb(255, 223, 223);*/ /* Cor de fundo opcional para a caixa */
+.login-cadastro img{
+    width: 30%;
+    height: 65%;
+    margin-right: 10%;
 }
 
 /* Estilo da segunda metade da área de login e cadastro */
@@ -473,19 +476,22 @@ a {
     justify-content: center;         /* Centraliza os itens verticalmente */
     width: 50%;                       /* Define a largura da caixa como 50% da largura da área */
     height: 100%;                     /* Define a altura da caixa como 100% da altura da área */
-    background-color: white;         /* Define a cor de fundo da caixa como branca */
     font-family: Arial;              /* Define a fonte do texto na caixa */
+    font-size: 20px;
+    color: white;
+    margin-right: -5%;
 }
 
 /* Estilo dos formulários */
 .form_login {
     height: 60%;                     /* Define a altura do formulário como 60% da altura da caixa */
-    width: 80%;                      /* Define a largura do formulário como 80% da largura da caixa */
+    width: 90%;                      /* Define a largura do formulário como 80% da largura da caixa */
     display: flex;                   /* Define o layout do formulário como flexbox */
     flex-direction: column;          /* Organiza os itens do formulário em uma coluna */
     align-items: center;             /* Alinha os itens ao centro horizontalmente */
     border-radius: 10px;             /* Adiciona bordas arredondadas ao formulário */
     margin-top: 20px;                /* Adiciona uma margem superior ao formulário */
+    padding: 5%;
 }
 
 /* Estilo do bloco de login */
@@ -496,9 +502,10 @@ a {
     position: relative;              /* Define o posicionamento relativo para o bloco de login */
     font-family: Arial;              /* Define a fonte do texto no bloco de login */
     font-size: 15px;                 /* Define o tamanho da fonte do texto no bloco de login */
-    width: 300px;                    /* Define a largura do bloco de login */
-    height: 200px;                   /* Define a altura do bloco de login */
+    width: 100%;                    /* Define a largura do bloco de login */
+    height: 400px;                   /* Define a altura do bloco de login */
     margin-bottom: 170px;            /* Adiciona uma margem inferior ao bloco de login */
+    
 }
 
 /* Estilo dos campos de entrada */
@@ -507,11 +514,13 @@ a {
     background-color: rgb(224, 223, 223); /* Define a cor de fundo dos campos de entrada */
     color: black;                     /* Define a cor do texto nos campos de entrada */
     margin-bottom: 10px;             /* Adiciona uma margem inferior aos campos de entrada */
-    border-radius: 4px;              /* Adiciona bordas arredondadas aos campos de entrada */
+    border-radius: 10px;              /* Adiciona bordas arredondadas aos campos de entrada */
     outline: none;                   /* Remove o contorno padrão dos campos de entrada */
+    height: 50px;
 }
 #input_login::placeholder {
     color: gray;                     /* Define a cor do texto de espaço reservado (placeholder) como cinza */
+    font-size: 17px;
 }
 input[type="button"] {
     background-color: rgb(253, 174, 26); /* Define a cor de fundo do botão de entrada como laranja */
@@ -521,22 +530,18 @@ input[type="button"] {
 }
 
 #entrar_login {
-    padding: 10px;
+    padding: 8px;
+    height: 50px;
+    width: 40%;
+    border-radius: 20px;
+    font-size: 18px;
+    background-color: orange;
+    color: white;
 }
 
 #entrar_login:hover {
     background-color: rgb(146, 145, 145); /* Muda a cor de fundo para cinza ao passar o mouse sobre o botão de entrada */
     color: white;                    /* Mantém a cor do texto como branca ao passar o mouse */
-}
-
-/* Estilo da opção de lembrar-se de mim */
-.lembrar {
-    display: flex;                    /* Define o layout da opção como flexbox */
-    position: relative;              /* Define o posicionamento relativo para a opção */
-    bottom: 150px;                   /* Define a distância da parte inferior da página */
-    right: 98px;                     /* Define a distância da borda direita da página */
-    font-family: Arial;              /* Define a fonte do texto na opção */
-    font-size: 12px;                 /* Define o tamanho da fonte do texto na opção */
 }
 
 .cadastrar {
@@ -545,20 +550,19 @@ input[type="button"] {
     justify-content: flex-start;              /* Organiza os itens da opção em uma linha */
     position: relative;              /* Define o posicionamento relativo para a opção */
     bottom: 145px;
-    width: 290px;                   /* Define a distância da parte inferior da página */
+    width: 100%;                   /* Define a distância da parte inferior da página */
     right: 2px;                      /* Define a distância da borda direita da página */
     font-family: Arial;              /* Define a fonte do texto na opção */
-    font-size: 12px;                 /* Define o tamanho da fonte do texto na opção */
+    font-size: 20px;                 /* Define o tamanho da fonte do texto na opção */
 }
 
 .cadastrar #link-cadastro{
-    background-color: white;         /* Define a cor de fundo do botão de cadastro como branca */
-    color: orange;
+    color: rgb(255, 196, 0);
     text-decoration: none;            /* Define a cor do texto do botão de cadastro como laranja */
-    padding: 5px;                    /* Adiciona preenchimento interno ao botão de cadastro */
+    padding: 10px;                    /* Adiciona preenchimento interno ao botão de cadastro */
     border-radius: 20px;             /* Adiciona bordas arredondadas ao botão de cadastro */
-    margin-left: 20px;               /* Adiciona uma margem esquerda ao botão de cadastro */
-    margin-top: -5px;                /* Adiciona uma margem superior negativa ao botão de cadastro */
+    margin-left: 22%;               /* Adiciona uma margem esquerda ao botão de cadastro */
+    margin-top: -6px;                /* Adiciona uma margem superior negativa ao botão de cadastro */
     border: 1px solid orange;        /* Adiciona uma borda laranja ao botão de cadastro */
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre o botão */
 }
@@ -1294,9 +1298,6 @@ input[type="button"] {
 }
 
 
-
-
-
 /* ---------- PAGINA PERFIL ----------  */
 
 #perfil_content {
@@ -1310,6 +1311,7 @@ input[type="button"] {
     overflow: hidden;
     background-color: rgb(219, 219, 219);
     border-top: 1px solid rgb(197, 197, 197);
+    margin-top: 4.5%;
 }
 
 .box_conteudo_perfil {

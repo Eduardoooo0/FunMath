@@ -8,9 +8,7 @@
                     <a href="{{ url_for('index' ) }}"><button id="bt_voltar">Voltar</button></a>
                 </div>
                 <div class="login-cadastro">
-                    <div id="box1_login">
-                        <img src="../static/imgs/login.png" alt="">
-                    </div>
+                    <img src="../static/imgs/img_ajuda.png" alt="">
                     <div id="box2_login">
                         <h1>Cadastro</h1>
                         <div class="form_login">
@@ -25,13 +23,9 @@
                                 {% endwith %}
                                 <input id="entrar_login" type="submit" value="Enviar">
                             </form>
-                            <div class="lembrar">
-                                <input type="checkbox" id="checkId">
-                                <label for="checkId">Lembrar senha</label>
-                            </div>
                             <div class="cadastrar">
-                                <h4>Já tem conta?</h4>
-                                <a id="link-cadastro" href="{{url_for('Login')}}">Login</a>
+                                <h4>Já possui uma conta?</h4>
+                                <a id="link-cadastro" href="{{url_for('Login')}}" style="margin-left: 43%;">Login</a>
                             </div>
                             
                         </div>
