@@ -652,9 +652,10 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     width: 100%; /* Largura da seção é 100% da largura disponível */
-    height: 100vh;
+    height: 91vh;
+    margin-top: 4.5%;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
-    overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
+    overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
     background-color: #92aeb2; /* Cor de fundo azul claro */
     padding: 1%;
     border-top: 1px solid rgb(197, 197, 197);
@@ -679,8 +680,8 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
-    width: 100%; /* Largura da caixa central */
-    height: 100%;
+    width: 80%; /* Largura da caixa central */
+    height: 90%;
     max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     margin-top: 0;
@@ -789,6 +790,7 @@ input[type="button"] {
 
 #quad1_qcbc {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
     height: 80%;  /* Define a altura do quadrado como 400 pixels */
@@ -803,7 +805,7 @@ input[type="button"] {
 }
 
 .button_quest {
-    width: 33%;
+    width: 30%;
     height: 37%;
     border: 1px solid black;
     cursor: pointer;
@@ -1327,8 +1329,8 @@ input[type="button"] {
     background-color: white;
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     align-items: center;
-    width: 40vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 100%;  
+    width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
+    height: 90%;  
     color: black;   
     padding: 1%;
     margin: 10px;
@@ -1373,8 +1375,8 @@ input[type="button"] {
     display: flex;              /* Define o layout da seção como flexbox */
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
     align-items: center;        /* Alinha os itens da seção ao centro */
-    width: 40vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 100%;  
+    width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
+    height: 90%;  
     color: black;
     margin: 10px;
     margin-left: 40px;
