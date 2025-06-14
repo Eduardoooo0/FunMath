@@ -57,9 +57,10 @@
                             <button class="links-button" id="bt_ajuda">Ajuda</button>
                         </a>
                         {% if current_user.is_authenticated %}
-                            <form class="links" action="{{url_for('Logout')}}" method="post">
-                                <button class="links-button" id="bt_login">Sair</button>
-                            </form>
+                            <form class="links" action="{{ url_for('Logout') }}" method="post" onsubmit="return confirmLogout(event);">
+                            <input type="hidden" name="user_choice" id="user_choice" value="">
+                            <button class="links-button" id="bt_login">Sair</button>
+                        </form>
                         {% else %}
                             <a class="links"  href="{{url_for('Login')}}">
                                 <button class="links-button" id="bt_login">Login</button>
@@ -140,6 +141,20 @@
                 if (section) {
                 section.scrollIntoView({ behavior: "smooth" });
                 }
+            }
+
+            function confirmLogout(event) {
+                event.preventDefault(); // Evita o envio do formulário imediato
+
+                // Pergunta ao usuário se deseja recuperar o progresso
+                const userChoice = confirm('Deseja recuperar seu progresso quando não estava logado?');
+
+                // Atualiza o valor do campo oculto com a escolha do usuário
+                const choiceField = document.getElementById('user_choice');
+                choiceField.value = userChoice ? 'recuperar' : 'reiniciar';
+
+                // Envia o formulário
+                event.target.submit(); // Envia o formulário
             }
 
         </script>

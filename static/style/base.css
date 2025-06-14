@@ -1526,6 +1526,57 @@ input[type="button"] {
     align-items: center;
 }
 
+
+
+
+/* trilha concluida */
+
+#box_trilha_concluido {
+    display: none; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    align-items: center;
+    justify-content: center; /* Alinha os itens horizontalmente ao centro */
+    width: 85%; /* Largura da caixa central */
+    max-width: 1000px; /* Largura máxima da caixa central */
+    margin: 0 auto; /* Centraliza a caixa horizontalmente */
+    background-color: white; 
+    }
+
+
+#div_trilha_concluido {
+    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 400px;  /* Define a altura do quadrado como 400 pixels */
+ /* Define a posição do quadrado como relativa */
+    display: flex;  /* Define o layout do quadrado como flexbox */
+    align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
+    justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
+    background-color: white;  /* Define a imagem de fundo do quadrado */
+    
+    background-position: center;  
+    /* Centraliza a imagem de fundo */
+    margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
+    border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+
+}
+#div_trilha_concluido h2 {
+    color: #ff5722; /* Cor da mensagem de conclusão */
+    font-size: 1.8em; /* Tamanho da fonte */
+    margin-bottom: 20px; /* Espaçamento abaixo do texto */
+}
+#bt_trilha_concluido {
+    background-color: #4caf50; /* Cor do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Remove borda padrão */
+    border-radius: 5px; /* Bordas arredondadas do botão */
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    font-size: 1.2em; /* Tamanho da fonte do botão */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    transition: background-color 0.3s; /* Efeito de transição */
+}
+#bt_trilha_concluido:hover {
+    background-color: #45a049; /* Cor do botão ao passar o mouse */
+}
+
 /* teste index */
 
 /* Fundo escurecido da tela de boas-vindas */

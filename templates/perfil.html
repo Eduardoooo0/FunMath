@@ -31,14 +31,14 @@
                     <div id="modal_content">
                         <span onclick="fecharModal()" style="cursor:pointer;">&times;</span>
                         <h3>Escolha seu Avatar</h3>
-                        <div class="avatar-selection">
+                        <div class="avatar-selection" onclick="window.location.reload()">
                             <div class="avatar" onclick="selectAvatar('🐶')">🐶</div>
                             <div class="avatar" onclick="selectAvatar('🐱')">🐱</div>
                             <div class="avatar" onclick="selectAvatar('🐻')">🐻</div>
                             <div class="avatar" onclick="selectAvatar('🐢')">🐢</div>
                         </div>
                         <h3>Escolha a Cor</h3>
-                        <div class="color-selection">
+                        <div class="color-selection" onclick="window.location.reload()">
                             <div class="color" style="background-color: #FF5733;" onclick="selectColor(this)"></div>
                             <div class="color" style="background-color: #33FF57;" onclick="selectColor(this)"></div>
                             <div class="color" style="background-color: #5733FF;" onclick="selectColor(this)"></div>
@@ -136,6 +136,21 @@
                 section.scrollIntoView({ behavior: "smooth" });
                 }
             }
+
+            function confirmLogout(event) {
+                event.preventDefault(); // Evita o envio do formulário imediato
+
+                // Pergunta ao usuário se deseja recuperar o progresso
+                const userChoice = confirm('Deseja recuperar seu progresso de quando não estava logado?');
+
+                // Atualiza o valor do campo oculto com a escolha do usuário
+                const choiceField = document.getElementById('user_choice');
+                choiceField.value = userChoice ? 'recuperar' : 'reiniciar';
+
+                // Envia o formulário
+                event.target.submit(); // Envia o formulário
+            }
+
 
         </script>
 
