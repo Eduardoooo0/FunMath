@@ -29,16 +29,16 @@
             
                 <div id="modal" style="display:none;">
                     <div id="modal_content">
-                        <span onclick="fecharModal()" style="cursor:pointer;">&times;</span>
+                        <span onclick="fecharModal()" style="cursor:pointer; font-size: 30px;">&times;</span>
                         <h3>Escolha seu Avatar</h3>
-                        <div class="avatar-selection" onclick="window.location.reload()">
+                        <div class="avatar-selection">
                             <div class="avatar" onclick="selectAvatar('🐶')">🐶</div>
                             <div class="avatar" onclick="selectAvatar('🐱')">🐱</div>
                             <div class="avatar" onclick="selectAvatar('🐻')">🐻</div>
                             <div class="avatar" onclick="selectAvatar('🐢')">🐢</div>
                         </div>
                         <h3>Escolha a Cor</h3>
-                        <div class="color-selection" onclick="window.location.reload()">
+                        <div class="color-selection">
                             <div class="color" style="background-color: #FF5733;" onclick="selectColor(this)"></div>
                             <div class="color" style="background-color: #33FF57;" onclick="selectColor(this)"></div>
                             <div class="color" style="background-color: #5733FF;" onclick="selectColor(this)"></div>
@@ -95,8 +95,47 @@
                                 <img src="../static/imgs/sem_trofeus.png" alt="" style="border-radius: 150px; width: 280px; height: 280px; margin-top: 10px;">
                                 <p style="color: red; font-size: 30px; margin-top: 20px;">Você ainda não possui troféus!</p>
                                 <p style="margin-top: 20px; font-size: 20px;">Que tal começar um desafio e conquistar o seu primeiro?</p>
-                                <button class="cta-button" onclick="scrollToSection()" style="margin-top: 20px;">Jogar agora</button>
+                                <button class="cta-button" onclick="abriuModalJogos()" style="margin-top: 20px;">Jogar Agora</button>
+
                             </div>
+
+                            <!-- Novo modal para os jogos -->
+                            <div id="modalJogos" style="display: none">
+                                <div id="modalJogosContent">
+                                    <span onclick="fecharModalJogos()" style="cursor: pointer">&times;</span>
+                                    <h3>Jogos disponiveis:</h3>
+                                    <div class="jogos-selection">
+                                        <div id="trilha">
+                                            <h2>Trilha da raposa</h2>
+                                            <a href="{{url_for('Trilha')}}">
+                                                <img src="../static/imgs/jogo-trilha.svg" alt="">
+                                            </a>
+                                            <div id="box-texto">
+                                                <h4>Trilha: Ajude Nikki a chegar nas galinhas.</h4>
+                                            </div>
+                                        </div>
+                                        <div id="quebra-cabeca">
+                                            <h2>Quebra-cabeça</h2>
+                                            <a href="{{url_for('Quebra_cabeca')}}">
+                                                <img src="../static/imgs/jogo-quebra-c.svg" alt="">
+                                            </a>
+                                            <div id="box-texto">
+                                                <h4>Resolva problemas para desbloquear imagens</h4>
+                                            </div>
+                                        </div>
+                                        <div id="quiz">
+                                            <h2>Quiz matemático</h2>
+                                            <a href="{{url_for('Inicial_quiz')}}">
+                                                <img src="../static/imgs/jogo-quiz.svg" alt="">
+                                            </a>
+                                            <div id="box-texto">
+                                                <h4>Responda o máximo de questões corretamente.</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         {% endif %}
                     </div>
                 </div>
@@ -110,6 +149,19 @@
     {% block js %}
         <script src="static/scripts/perfil.js"></script>
         <script>
+            const jogosButton = document.getElementById('jogos');
+            const botoesJogos = document.querySelector('.botoes-jogos');
+
+            // Variável para rastrear o estado de visibilidade
+            let isVisible = false;
+
+            // Adiciona um event listener para o clique
+            jogosButton.addEventListener('click', () => {
+                isVisible = !isVisible; // Alterna o estado de visibilidade
+                botoesJogos.style.display = isVisible ? 'flex' : 'none';
+            });
+
+
             // Pega as informações do localStorage
             let Color = localStorage.getItem('selectedColor') || '#00AEEF';
             let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
@@ -137,20 +189,13 @@
                 }
             }
 
-            function confirmLogout(event) {
-                event.preventDefault(); // Evita o envio do formulário imediato
-
-                // Pergunta ao usuário se deseja recuperar o progresso
-                const userChoice = confirm('Deseja recuperar seu progresso de quando não estava logado?');
-
-                // Atualiza o valor do campo oculto com a escolha do usuário
-                const choiceField = document.getElementById('user_choice');
-                choiceField.value = userChoice ? 'recuperar' : 'reiniciar';
-
-                // Envia o formulário
-                event.target.submit(); // Envia o formulário
+            function abriuModalJogos(){
+                document.getElementById("modalJogos").style.display = "flex";
             }
 
+            function fecharModalJogos(){
+                document.getElementById("modalJogos").style.display = "none";
+            }
 
         </script>
 

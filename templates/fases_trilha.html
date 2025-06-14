@@ -1,94 +1,101 @@
 {% extends 'template_base.html' %}
-{% block style %}
-    <link rel="stylesheet" href="static/style/base.css">
-{% endblock %}
+    {% block style %}
+        <link rel="stylesheet" href="static/style/base.css">
+    {% endblock %}
 
-{% block section %}
-    <div id="section_fases">
-        <div id="box_voltar_fases">
-            <a href="{{ url_for('Trilha') }}"><button id="bt_voltar">Voltar</button></a>
-        </div>
-        
-        <br>
-        {% if msg_trofeu %}
-        <div class="message_resp_trofeu msg_tf_trilha">{{ msg_trofeu }}</div>
-        {% elif msg_resp %}
-        <div class="message_resp">{{ msg_resp }}</div>
-        {% endif %}
-
-        <div class="box_conteudo_fases">
-
-            {% if concluido %}
-            <div id="box_trilha_concluido">
-                <div id="div_inicial_jg">
-                    <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
-                </div>
-                <div id="div_trilha_concluido">
-                    <h2>Parabéns! Você concluiu a trilha da raposa!</h2>
-                    <form action="{{ url_for('Fases_trilha') }}" method="post">
-                        <input id="bt_trilha_concluido" name="bt_trilha_concluido" value="CLICK PARA REINICIAR A TRILHA!" type="submit">
-                    </form>
-                </div>
+    {% block section %}
+        <div id="section_fases">
+            <div id="box_voltar_fases">
+                <a href="{{ url_for('Trilha' ) }}"><button id="bt_voltar">Voltar</button></a>
             </div>
+        
+            <br>
+            {% if msg_trofeu %}
+            <div class="message_resp_trofeu msg_tf_trilha">{{ msg_trofeu }}</div>
+            {% elif msg_resp %}
+            <div class="message_resp">{{ msg_resp }}</div>
             {% endif %}
+    
+            <div class="box_conteudo_fases">
 
-            <div id="box_inicial_jg_trilha">
-                <div id="div_inicial_jg">
-                    <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                {% if trofeu: %}
+            
+                <div id="box_trofeu">
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                    </div>
+                    <div id="div_img_trofeu">
+                        <img src= "{{ trofeu }}" alt="">
+                    </div>
                 </div>
-                <div id="quad1_jogo_trilha">
-                    <div id="fases_trilha">
-                        <form class="forms_fases_trilha" action="{{ url_for('Questoes_trilha') }}" method="get">
-                            <input class="button_fases_trilha t1" name="fase" value="1" type="submit">
-                            <input class="button_fases_trilha t2" name="fase" value="2" type="submit">
-                            <input class="button_fases_trilha t3" name="fase" value="3" type="submit">
-                            <input class="button_fases_trilha t4" name="fase" value="4" type="submit">
-                            <input class="button_fases_trilha t5" name="fase" value="5" type="submit">
-                            <input class="button_fases_trilha t6" name="fase" value="6" type="submit">
-                            <input class="button_fases_trilha t7" name="fase" value="7" type="submit">
-                            <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
-                            <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
-                        </form>
-                        <img src="/static/imgs/avatar-perfil.jpg" class="img_fase_trilha" id="img_trilha_raposa" alt="Imagem da raposinha">
+                {% endif %}
+
+    
+
+                <div id="box_inicial_jg_trilha">
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                    </div>
+                    <div id="quad1_jogo_trilha">
+                        <div id="fases_trilha">
+                            <form class="forms_fases_trilha" action="{{url_for('Questoes_trilha')}}" method="get">
+                                <input class="button_fases_trilha t1" name="fase" value="1" type="submit">
+                                <input class="button_fases_trilha t2" name="fase" value="2" type="submit">
+                                <input class="button_fases_trilha t3" name="fase" value="3" type="submit">
+                                <input class="button_fases_trilha t4" name="fase" value="4" type="submit">
+                                <input class="button_fases_trilha t5" name="fase" value="5" type="submit">
+                                <input class="button_fases_trilha t6" name="fase" value="6" type="submit">
+                                <input class="button_fases_trilha t7" name="fase" value="7" type="submit">
+                                <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
+                                <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
+                            </form>
+                            <img src="/static/imgs/raposa_trilha.png" class="img_fase_trilha" id="img_trilha_raposa" alt="Imagem da raposinha">
+                        </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
-    </div>
-{% endblock %}
 
-{% block js %}
-    <script src="static/scripts/fases_trilha.js"></script>
-    <script>
-        // Função para mostrar a div de conclusão
-        function mostrarDiv() {
-            let concluido = '{{ concluido }}' === 'True'; // Verifica se concluído é verdadeiro
+    {% endblock %}
 
-            const conteudo = document.getElementById('box_inicial_jg_trilha');
-            const divConcluido = document.getElementById('box_trilha_concluido');
-
-            if (concluido) {
-                conteudo.style.display = 'none'; // Oculta o conteúdo principal
-                divConcluido.style.display = 'flex'; // Mostra a div de conclusão
-            } else {
-                conteudo.style.display = 'flex'; // Mostra o conteúdo principal
-                divConcluido.style.display = 'none'; // Garante que a div de conclusão esteja oculta
+    {% block js %}
+        <script src="static/scripts/fases_trilha.js"></script>
+        <script>
+            // Função para mostrar a div e depois o conteúdo
+            function mostrarDiv() {
+                let trofeu = '{{trofeu}}'
+                const div = document.getElementById('box_trofeu');
+                const conteudo = document.getElementById('box_inicial_jg_trilha');
+                if (trofeu){
+                    conteudo.style.display = 'none';
+                    div.style.display = 'flex'; // Mostra a div
+                }else{
+                    conteudo.style.display = 'flex'
+                }
+                
+        
+                // Esconde a div após 5 segundos e mostra o conteúdo
+                setTimeout(() => {
+                    div.style.display = 'none'; // Esconde a div
+                    conteudo.style.display = 'flex'; // Mostra o conteúdo
+                }, 3000);
             }
-        }
+        
+            // Chama a função para mostrar a div após o carregamento da página
+            window.onload = mostrarDiv;
 
-        // Chama a função para mostrar a div após o carregamento da página
-        window.onload = mostrarDiv;
 
-        // Oculta mensagens após 5 segundos
-        setTimeout(() => {
+            setTimeout(() => {
             const message = document.querySelector('.message_resp');
             if (message) {
                 message.style.display = 'none';
             }
         }, 5000);
 
-        var faseAtual = parseInt('{{ fase }}', 10);
-        console.log(faseAtual);
+        var faseAtual = parseInt('{{fase}}', 10);
+        console.log(faseAtual)
 
         // Mova a imagem com base na fase atual
         const imagem = document.querySelector('.img_fase_trilha');
@@ -103,9 +110,9 @@
             { top: '45%', left: '73%' },
             { top: '33%', left: '84%' },
         ];
-
-        imagem.style.top = posicoes[faseAtual - 1].top;
-        imagem.style.left = posicoes[faseAtual - 1].left;
+        
+        imagem.style.top = posicoes[faseAtual-1].top;
+        imagem.style.left = posicoes[faseAtual-1].left;
 
         const img = document.getElementById('img_trilha_raposa');
         const deslocamento = 12; // Deslocamento em pixels
@@ -122,9 +129,11 @@
                     // Volta para a posição inicial
                     img.style.top = posicoes[faseAtual - 1].top;
                     animacaoAtiva = false;
+
                 }, 500); // Tempo para voltar
             }
         }, 2000); // Intervalo de 2 segundos
+
 
         // Pega as informações do localStorage
         let Color = localStorage.getItem('selectedColor') || '#00AEEF';
@@ -132,6 +141,7 @@
         // Função para carregar a seleção salva ao iniciar a página
         function carregarSelecoes() {
             const perfilAvatar = document.getElementById('perfilAvatar');
+
             perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
             perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
         }
@@ -139,19 +149,5 @@
         // Chame a função ao carregar a página
         window.onload = carregarSelecoes;
 
-                  function confirmLogout(event) {
-                event.preventDefault(); // Evita o envio do formulário imediato
-
-                // Pergunta ao usuário se deseja recuperar o progresso
-                const userChoice = confirm('Deseja recuperar seu progresso quando não estava logado?');
-
-                // Atualiza o valor do campo oculto com a escolha do usuário
-                const choiceField = document.getElementById('user_choice');
-                choiceField.value = userChoice ? 'recuperar' : 'reiniciar';
-
-                // Envia o formulário
-                event.target.submit(); // Envia o formulário
-            }
-
-    </script>
-{% endblock %}
+        </script>
+    {% endblock %}
