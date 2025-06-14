@@ -23,7 +23,7 @@
                     <p>Email: {{current_user['email']}}</p>
                     <p>Pontos:</p>
                     {% else %}
-                    <p style="margin-top: 20px; margin-left: 15%; color: red; font-size: 22px;">Você ainda não possui cadastro ou não fez login</p>
+                    <p style="margin-top: 20px; color: red; font-size: 22px;">Você ainda não possui cadastro ou não fez login</p>
                     {% endif %}
                 </div>
             
@@ -53,7 +53,7 @@
             <section class="section_perfil">
             
                 <div class="box_perfil">
-                    <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px;">
+                    <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px; text-align: center;">
                         {% set trofeus_existentes = trofeu_quiz or trofeu_qcbc or trofeu_trilha %}
                         
                         {% if trofeu_quiz %}
@@ -92,7 +92,7 @@
                         {% if not trofeus_existentes %}
                             
                             <div id="title_trf">
-                                <img src="../static/imgs/sem_trofeus.png" alt="" style="border-radius: 150px; width: 300px; height: 300px; margin-top: 10px;">
+                                <img src="../static/imgs/sem_trofeus.png" alt="" style="border-radius: 150px; width: 280px; height: 280px; margin-top: 10px;">
                                 <p style="color: red; font-size: 30px; margin-top: 20px;">Você ainda não possui troféus!</p>
                                 <p style="margin-top: 20px; font-size: 20px;">Que tal começar um desafio e conquistar o seu primeiro?</p>
                                 <button class="cta-button" onclick="scrollToSection()" style="margin-top: 20px;">Jogar agora</button>

@@ -652,7 +652,7 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     width: 100%; /* Largura da seção é 100% da largura disponível */
-    height: 91vh;
+    height: 90.3vh;
     margin-top: 4.5%;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
@@ -681,7 +681,7 @@ input[type="button"] {
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
     width: 80%; /* Largura da caixa central */
-    height: 90%;
+    height: 80vh;
     max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     margin-top: 0;
@@ -790,13 +790,13 @@ input[type="button"] {
 
 #quad1_qcbc {
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
-    width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
-    height: 80%;  /* Define a altura do quadrado como 400 pixels */
+    width: 90%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
+    height: 100%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
+    justify-content: center;
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
-    padding: 5px;
+    margin-left: 9%;
 }
 
 .quest_qcbc {
@@ -806,9 +806,10 @@ input[type="button"] {
 
 .button_quest {
     width: 30%;
-    height: 37%;
+    height: 33%;
     border: 1px solid black;
     cursor: pointer;
+    margin-bottom: 3px;
 }
 
 #bt-1-0 {
@@ -1096,7 +1097,7 @@ input[type="button"] {
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
     width: 100%; /* Largura da caixa central */
-    height: 86%;
+    height: 80vh;
     max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     margin-top: 0;
@@ -1330,7 +1331,7 @@ input[type="button"] {
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     align-items: center;
     width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 90%;  
+    height: 100%;  
     color: black;   
     padding: 1%;
     margin: 10px;
@@ -1350,6 +1351,7 @@ input[type="button"] {
     width: 100%;
     height: 50%;
     padding: 15px;
+    text-align: center;
 }
 
 #perfil_info h3 {
@@ -1376,7 +1378,7 @@ input[type="button"] {
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
     align-items: center;        /* Alinha os itens da seção ao centro */
     width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 90%;  
+    height: 100%;  
     color: black;
     margin: 10px;
     margin-left: 40px;
@@ -1483,7 +1485,7 @@ input[type="button"] {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 90%;
+    height: 85vh;
 }
 
 #box_trofeu {
