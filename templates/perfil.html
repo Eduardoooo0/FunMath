@@ -197,6 +197,19 @@
                 document.getElementById("modalJogos").style.display = "none";
             }
 
+            function confirmLogout(event) {
+                event.preventDefault(); // Evita o envio do formulário imediato
+
+                // Pergunta ao usuário se deseja recuperar o progresso
+                const userChoice = confirm('Deseja recuperar seu progresso quando não estava logado?');
+
+                // Atualiza o valor do campo oculto com a escolha do usuário
+                const choiceField = document.getElementById('user_choice');
+                choiceField.value = userChoice ? 'recuperar' : 'reiniciar';
+
+                // Envia o formulário
+                event.target.submit(); // Envia o formulário
+            }
         </script>
 
 

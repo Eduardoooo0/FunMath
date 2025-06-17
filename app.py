@@ -2,7 +2,7 @@ from flask import Flask, request, make_response, render_template, jsonify,redire
 from datetime import datetime, timedelta
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from database import session
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash                    
 from models.user import User
 
 from quiz import fases, obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado
@@ -368,45 +368,46 @@ def Sobre():
 def Jogos():
     return render_template ('jogos.html')
 
-@app.route('/login', methods = ['POST','GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def Login():
     if request.method == 'POST':
         email = request.form['email']
         senha = request.form['senha']
         user = session.query(User).filter_by(email=email).first()
-        senha_hash = session.query(User).filter_by(senha=generate_password_hash(senha))
-        if user and senha_hash:
-    
-        # fazer ajustes - se quiser salvar novas conquistas, permanecer com as salvas anteriormente
-        # atualizar o avanço do user, caso ele tenha avançado sem estar logado, ao logar o seu progresso ficará salvo no seu login
+        
+        # Verifica a senha usando a função correta
+        if user and check_password_hash(user.senha, senha):
+            # Atualiza o progresso do usuário com base nos cookies
             fase_quiz = int(request.cookies.get('fase_desbloqueada', 1))
             trofeu_quiz = int(request.cookies.get('trofeu_quiz', 0))
             fase_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
             trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
             fase_trilha = int(request.cookies.get('trilha_desbloqueada', 1))
             trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
-            if user.fase_quiz < fase_quiz:
-                user.fase_quiz = fase_quiz
-                user.trofeu_quiz = trofeu_quiz
-            if user.fase_qcbc < fase_qcbc:
-                user.fase_qcbc = fase_qcbc
-                user.trofeu_qcbc = trofeu_qcbc
-            if user.fase_trilha < fase_trilha:
-                user.fase_trilha = fase_trilha
-                user.trofeu_trilha = trofeu_trilha
+
+            jogos_backup = request.cookies.get('jogos_backup', '{}')
+
+            # guardar progresso de não logado
+            jogos_backup = json.dumps({
+                'fase_quiz': fase_quiz,
+                'trofeu_quiz': trofeu_quiz,
+                'fase_qcbc': fase_qcbc,
+                'trofeu_qcbc': trofeu_qcbc,
+                'fase_trilha': fase_trilha,
+                'trofeu_trilha': trofeu_trilha
+            })
+
+            
+            # Atualiza os dados do usuário se o progresso for maior
+            user.fase_quiz = max(user.fase_quiz, fase_quiz)
+            user.trofeu_quiz = max(user.trofeu_quiz, trofeu_quiz)
+            user.fase_qcbc = max(user.fase_qcbc, fase_qcbc)
+            user.trofeu_qcbc = max(user.trofeu_qcbc, trofeu_qcbc)
+            user.fase_trilha = max(user.fase_trilha, fase_trilha)
+            user.trofeu_trilha = max(user.trofeu_trilha, trofeu_trilha)
             session.commit()
 
-            # COOKIES DE BACKUP DO PROGRESSO DO USER, SEM ESTAR LOGADO
-            backup_fase_quiz = int(request.cookies.get('backup_fase_desbloqueada', fase_quiz))
-            backup_trofeu_quiz = int(request.cookies.get('backup_trofeu_quiz', trofeu_quiz))
-            backup_fase_qcbc = int(request.cookies.get('backup_fase_desbloqueada_qcbc', fase_qcbc))
-            backup_trofeu_qcbc = int(request.cookies.get('backup_trofeu_qcbc', trofeu_qcbc))
-            backup_fase_trilha = int(request.cookies.get('backup_trilha_desbloqueada', fase_trilha))
-            backup_trofeu_trilha = int(request.cookies.get('backup_trofeu_trilha', trofeu_trilha))
-             #falta cookie de concluir senha?
-
-
-            # Cria uma resposta para definir os cookies
+            # Define os cookies com os dados do usuário
             response = make_response(redirect(url_for('index')))
             response.set_cookie('fase_desbloqueada', str(user.fase_quiz))
             response.set_cookie('trofeu_quiz', str(user.trofeu_quiz))
@@ -415,18 +416,19 @@ def Login():
             response.set_cookie('trilha_desbloqueada', str(user.fase_trilha))
             response.set_cookie('trofeu_trilha', str(user.trofeu_trilha))
 
+            response.set_cookie('jogos_backup', jogos_backup)
+
             login_user(user)
             return response
-
         else:
-            flash('email ou senha incorreto')
+            flash('Email ou senha incorretos')
             return redirect(url_for('Login'))
     else:
         if current_user.is_authenticated:
             return redirect(url_for('index'))
         return render_template('login.html')
 
-@app.route('/cadastro', methods = ['POST', 'GET'])
+@app.route('/cadastro', methods=['POST', 'GET'])
 def Cadastro():
     if request.method == 'POST':
         nome = request.form['nome']
@@ -434,9 +436,8 @@ def Cadastro():
         senha = request.form['senha']
         senha_hash = generate_password_hash(senha)
 
-        # Verifica se o usuário já existe antes de criar uma nova instância
-        usuario_existente = session.query(User).filter_by(email=email).first()
-        if usuario_existente:
+        # Verifica se o usuário já existe
+        if session.query(User).filter_by(email=email).first():
             flash('Email já cadastrado')
             return redirect(url_for('Cadastro'))
 
@@ -460,31 +461,20 @@ def Cadastro():
             trofeu_trilha=trofeu_trilha
         )
 
-        # COOKIES DE BACKUP DO PROGRESSO DO USER, SEM ESTAR LOGADO
-
-        backup_fase_quiz = int(request.cookies.get('backup_fase_desbloqueada', fase_quiz))
-        backup_trofeu_quiz = int(request.cookies.get('backup_trofeu_quiz', trofeu_quiz))
-        backup_fase_qcbc = int(request.cookies.get('backup_fase_desbloqueada_qcbc', fase_qcbc))
-        backup_trofeu_qcbc = int(request.cookies.get('backup_trofeu_qcbc', trofeu_qcbc))
-        backup_fase_trilha = int(request.cookies.get('backup_trilha_desbloqueada', fase_trilha))
-        backup_trofeu_trilha = int(request.cookies.get('backup_trofeu_trilha', trofeu_trilha))  # falta cookie de concluir senha?
-        
         session.add(user)
         session.commit()
-        if current_user.is_authenticated:
-            return redirect(url_for('index'))
-        else:
-            login_user(user)
-            return redirect(url_for('index'))
+        login_user(user)
+        return redirect(url_for('index'))
+    
     return render_template('cadastro.html')
 
-
-@app.route('/logout', methods = ['POST'])
+@app.route('/logout', methods=['POST'])
 @login_required
 def Logout():
     user_id = current_user.id
-
     user = session.query(User).filter(User.id == user_id).first()
+
+    # Recupera o progresso atual antes de deslogar
     fase_quiz = int(request.cookies.get('fase_desbloqueada', 1))
     trofeu_quiz = int(request.cookies.get('trofeu_quiz', 0))
     fase_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
@@ -492,47 +482,39 @@ def Logout():
     fase_trilha = int(request.cookies.get('trilha_desbloqueada', 1))
     trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
 
-    user.fase_quiz = fase_quiz
-    user.trofeu_quiz = trofeu_quiz
-    user.fase_qcbc = fase_qcbc
-    user.trofeu_qcbc = trofeu_qcbc
-    user.fase_trilha = fase_trilha
-    user.trofeu_trilha = trofeu_trilha
+    # Atualiza o progresso do usuário
+    user.fase_quiz = max(user.fase_quiz, fase_quiz)
+    user.trofeu_quiz = max(user.trofeu_quiz, trofeu_quiz)
+    user.fase_qcbc = max(user.fase_qcbc, fase_qcbc)
+    user.trofeu_qcbc = max(user.trofeu_qcbc, trofeu_qcbc)
+    user.fase_trilha = max(user.fase_trilha, fase_trilha)
+    user.trofeu_trilha = max(user.trofeu_trilha, trofeu_trilha)
     session.commit()
-    
+
     user_choice = request.form.get('user_choice')
+    response = make_response(redirect(url_for('index')))
+
     if user_choice != 'recuperar':
-    # se o user deslogado não quiser recuperar o progresso no jogo sem estar logado
-        response = make_response(redirect(url_for('index')))
-        cookies = ['fase_desbloqueada','trofeu_quiz','fase_desbloqueada_qcbc','trofeu_qcbc','trilha_desbloqueada','trofeu_trilha']
-        for cookie in cookies:
-            response.set_cookie(cookie, '', expires=0)
+        response.set_cookie('jogos_backup', '', expires=0)
 
-    # se o user deslogado quiser recuperar o progresso de quando não estava logado
+        response.set_cookie('fase_desbloqueada', str(1))
+        response.set_cookie('trofeu_quiz', str(0))
+        response.set_cookie('fase_desbloqueada_qcbc', str(1))
+        response.set_cookie('trofeu_qcbc', str(0))
+        response.set_cookie('trilha_desbloqueada', str(1))
+        response.set_cookie('trofeu_trilha', str(0))
+
     else:
-        backup_fase_quiz = int(request.cookies.get('backup_fase_desbloqueada', 1))
-        backup_trofeu_quiz = int(request.cookies.get('backup_trofeu_quiz', 0))
-        backup_fase_qcbc = int(request.cookies.get('backup_fase_desbloqueada_qcbc', 1))
-        backup_trofeu_qcbc = int(request.cookies.get('backup_trofeu_qcbc', 0))
-        backup_fase_trilha = int(request.cookies.get('backup_trilha_desbloqueada', 1))
-        backup_trofeu_trilha = int(request.cookies.get('backup_trofeu_trilha', 0)) #falta cookie de concluir senha?
+        jogos_backup = request.cookies.get('jogos_backup', '{}')
+        dados = json.loads(jogos_backup)
 
-        response = make_response(redirect(url_for('index')))
-      
-        response = make_response(redirect(url_for('index')))
-        response.set_cookie('fase_desbloqueada', str(backup_fase_quiz))
-        response.set_cookie('trofeu_quiz', str(backup_trofeu_quiz))
-        response.set_cookie('fase_desbloqueada_qcbc', str(backup_fase_qcbc))
-        response.set_cookie('trofeu_qcbc', str(backup_trofeu_qcbc))
-        response.set_cookie('trilha_desbloqueada', str(backup_fase_trilha))
-        response.set_cookie('trofeu_trilha', str(backup_trofeu_trilha))
-
-        cookies = ['backup_fase_desbloqueada','backup_trofeu_quiz','backup_fase_desbloqueada_qcbc','backup_trofeu_qcbc','backup_trilha_desbloqueada','backup_trofeu_trilha']
-        for cookie in cookies:
-            response.set_cookie(cookie, '', expires=0)
-
-
+        # Se o usuário quiser recuperar o progresso
+        response.set_cookie('fase_desbloqueada', str(dados.get('fase_quiz',1)))
+        response.set_cookie('trofeu_quiz', str(dados.get('trofeu_quiz',0)))
+        response.set_cookie('fase_desbloqueada_qcbc', str(dados.get('fase_qcbc',1)))
+        response.set_cookie('trofeu_qcbc', str(dados.get('trofeu_qcbc',0)))
+        response.set_cookie('trilha_desbloqueada', str(dados.get('fase_trilha',1)))
+        response.set_cookie('trofeu_trilha', str(dados.get('trofeu_trilha',0)))
 
     logout_user()
     return response
-
