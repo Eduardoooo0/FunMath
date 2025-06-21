@@ -2,59 +2,85 @@
 
 {% block style %}
 <link rel="stylesheet" href="static/style/base.css">
+<style>
+    .botoes-fase {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px auto;
+    }
+
+    .botao-seta-esquerda,
+    .botao-seta-direita {
+        background-color: #FFD700;
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .botao-seta-esquerda:hover,
+    .botao-seta-direita:hover {
+        transform: scale(1.1);
+    }
+
+    .mensagem-navegacao {
+        text-align: center;
+        color: red;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+</style>
 {% endblock %}
 
 {% block section %}
-    <!-- Seção principal do conteúdo -->
-    <div id="section_inicial_jg">
-        <div id="box_voltar">
-            <a href="{{ url_for('Qcbc_jogo' ) }}"><button id="bt_voltar">Voltar</button></a>
-        </div>
+<div id="section_inicial_jg">
+    <div id="box_voltar">
+        <a href="{{ url_for('Quebra_cabeca') }}"><button id="bt_voltar">Voltar</button></a>
+    </div>
 
-        
-        {% if msg_trofeu %}
+    {% if msg_trofeu %}
         <div class="message_resp_trofeu">{{ msg_trofeu }}</div>
-        {% elif msg_resposta %}
+    {% elif msg_resposta %}
         <div class="message_resp">{{ msg_resposta }}</div>
-        {% endif %}
-    
+    {% endif %}
 
-        
-        <div class="box_de_texto">
-            <p>  </p>
-        </div>
-        <div class="box_conteudo_jogo_qcbc">
-            
-
-            {% if trofeu: %}
-        
+    <div class="box_conteudo_jogo_qcbc">
+        {% if trofeu %}
             <div id="box_trofeu">
                 <div id="div_inicial_jg">
                     <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
                 </div>
                 <div id="div_img_trofeu">
-                    <img src= "{{ trofeu }}" alt="">
+                    <img src="{{ trofeu }}" alt="Troféu">
                 </div>
             </div>
-            {% endif %}
+        {% endif %}
 
-            <div id="box_inicial_jg_qcbc">
-                <div id="div_inicial_jg">
-                    <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
-                </div>
-                <div id="quad1_qcbc">
-                    <form class="quest_qcbc" action="{{url_for('Questoes_qcbc')}}" method="get"> <!-- form é sempre method=POST -->
-                        {% for i in range(9)%}
-                            <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
-                        {% endfor %}
-                    </form>
-                </div>
+        <div id="box_inicial_jg_qcbc">
+            <div id="div_inicial_jg">
+                <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
             </div>
-
+            <div id="quad1_qcbc">
+                <form class="quest_qcbc" action="{{ url_for('Questoes_qcbc') }}" method="get">
+                    {% for i in range(9) %}
+                        <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
+                    {% endfor %}
+                </form>
+            </div>
         </div>
-    </div>
 
-    
+        <!-- Botões de navegação entre fases -->
+        <div class="botoes-fase">
+            <button onclick="navegarFase('anterior')" class="botao-seta-esquerda">⟨⟨</button>
+            <button onclick="navegarFase('proxima')" class="botao-seta-direita">⟩⟩</button>
+        </div>
+        <p id="mensagem_navegacao" class="mensagem-navegacao"></p>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}
@@ -66,7 +92,7 @@
 
     let cookie_tabuleiro = getCookie('tabuleiro-' + fase);
     var tabuleiro = [];
-    // imagens para cada questão
+
     const imagens = [
         "{{ url_for('static', filename='imgs/img_colorida/img1_qcbc.png') }}",
         "{{ url_for('static', filename='imgs/img_colorida/img2_qcbc.png') }}",
@@ -80,15 +106,12 @@
     ];
 
     if (!cookie_tabuleiro) {
-        // O cookie do tabuleiro ainda não existe
-        // Cria um novo tabuleiro
         for (let j = 0; j < 9; j++) {
             tabuleiro.push({
-                "img": imagens[j], // Usa a imagem correspondente à questão
+                "img": imagens[j],
                 "bloqueado": true
             });
         }
-        // Cria o cookie
         setCookie('tabuleiro-' + fase, JSON.stringify(tabuleiro), 1000);
     } else {
         tabuleiro = JSON.parse(cookie_tabuleiro);
@@ -143,21 +166,11 @@
         } else if (direcao === 'proxima' && fase < fase_desbloqueada_qcbc) {
             novaFase = fase + 1;
         } else {
-            document.getElementById('mensagem_navegacao').innerText = "Não há mais fases para " + (direcao === 'anterior' ? 'voltar' : 'avançar') + ".";
+            document.getElementById('mensagem_navegacao').innerText =
+                "Não há mais fases para " + (direcao === 'anterior' ? 'voltar' : 'avançar') + ".";
             return;
         }
         window.location.href = "{{ url_for('Qcbc_jogo') }}?fase=" + novaFase;
-    }
-
-    const jogosButton = document.getElementById('jogos');
-    const botoesJogos = document.querySelector('.botoes-jogos');
-
-    let isVisible = false;
-    if (jogosButton) {
-        jogosButton.addEventListener('click', () => {
-            isVisible = !isVisible;
-            botoesJogos.style.display = isVisible ? 'flex' : 'none';
-        });
     }
 
     function mostrarDiv() {
@@ -168,7 +181,6 @@
         if (trofeu.trim() !== "") {
             conteudo.style.display = 'none';
             div.style.display = 'flex';
-
             setTimeout(() => {
                 window.location.href = "{{ url_for('Qcbc_jogo', fase=1) }}";
             }, 5000);
@@ -177,13 +189,6 @@
         }
     }
 
-    window.onload = mostrarDiv;
-
-    console.log("Fase atual:", fase);
-    console.log("Questão atual:", questao_atual);
-    console.log("Resposta recebida:", resposta);
-    
-
     setTimeout(() => {
         const message = document.querySelector('.message_resp');
         if (message) {
@@ -191,22 +196,19 @@
         }
     }, 5000);
 
-
-    // Pega as informações do localStorage
+    // Avatar e cor
     let Color = localStorage.getItem('selectedColor') || '#00AEEF';
-    let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
-    // Função para carregar a seleção salva ao iniciar a página
+    let Avatar = localStorage.getItem('selectedAvatar') || '🐶';
+
     function carregarSelecoes() {
         const perfilAvatar = document.getElementById('perfilAvatar');
-
-        perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
-        perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
+        perfilAvatar.textContent = Avatar;
+        perfilAvatar.style.backgroundColor = Color;
     }
 
-    // Chame a função ao carregar a página
-    window.onload = carregarSelecoes;
-
-
+    window.onload = function () {
+        carregarSelecoes();
+        mostrarDiv();
+    };
 </script>
-
 {% endblock %}

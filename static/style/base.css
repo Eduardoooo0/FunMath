@@ -1198,16 +1198,12 @@ input[type="button"] {
     right: 5%;
 }
 
-
 .img_fase_trilha {
     position: absolute;
     width: 50px;
     height: 50px;
-    /* Ajuste a posição inicial da imagem */
     top: 50%; /* Pode ser ajustado conforme necessário */
-    left: 50%; /* Pode ser ajustado conforme necessário */
-    /* Adicione outras propriedades conforme necessário */
- /* Centraliza a imagem */
+    left: 6%; /* Pode ser ajustado conforme necessário */
     transition: top 0.5s; /* Suaviza a transição */
 }
 
