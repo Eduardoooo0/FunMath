@@ -45,7 +45,7 @@ header {
     background: linear-gradient(0deg,#071932 0%,  #05142b 100%);
     font-family: Arial, sans-serif; /* Define a fonte dos textos no cabeçalho */
     width: 100%;                /* Define a largura do cabeçalho como 100% da largura da viewport */
-    height: 12%;                /* Define a altura do cabeçalho como 12% da altura da viewport */
+    height: 12vh;                /* Define a altura do cabeçalho como 12% da altura da viewport */
     padding: 10px;
 }
 
@@ -652,8 +652,8 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     width: 100%; /* Largura da seção é 100% da largura disponível */
-    height: 90.3vh;
-    margin-top: 4.5%;
+    height: 88vh;
+    margin-top: 12vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
     background-color: #92aeb2; /* Cor de fundo azul claro */
@@ -790,13 +790,14 @@ input[type="button"] {
 
 #quad1_qcbc {
     display: flex;
+    position: relative;
     flex-wrap: wrap;
     width: 90%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
     height: 100%;  /* Define a altura do quadrado como 400 pixels */
     position: relative;  /* Define a posição do quadrado como relativa */
     justify-content: center;
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
-    margin-left: 9%;
+    
 }
 
 .quest_qcbc {
@@ -805,12 +806,14 @@ input[type="button"] {
 }
 
 .button_quest {
-    width: 30%;
-    height: 33%;
+    width: 33%;
+    height: 29.5%;
     border: 1px solid black;
     cursor: pointer;
     margin-bottom: 3px;
 }
+
+/* FASE1 QUEBRA-CABEÇA */
 
 #bt-1-0 {
     background-image: url('../imgs/img_black/img1_qcbc_black.jpg');
@@ -858,48 +861,98 @@ input[type="button"] {
     background-position: center;
 }
 
+/* FASE2 QUEBRA-CABEÇA */
+
 #bt-2-0 {
-    background-image: url('../imgs/img_colorida/img1_qcbc.png');
+    background-image: url('../imgs/img_black/img1_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-1 {
-    background-image: url('../imgs/img_colorida/img2_qcbc.png');
+    background-image: url('../imgs/img_black/img2_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-2 {
-    background-image: url('../imgs/img_colorida/img3_qcbc.png');
+    background-image: url('../imgs/img_black/img3_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-3 {
-    background-image: url('../imgs/img_colorida/img4_qcbc.png');
+    background-image: url('../imgs/img_black/img4_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-4 {
-    background-image: url('../imgs/img_colorida/img5_qcbc.png');
+    background-image: url('../imgs/img_black/img5_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-5 {
-    background-image: url('../imgs/img_colorida/img6_qcbc.png');
+    background-image: url('../imgs/img_black/img6_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-6 {
-    background-image: url('../imgs/img_colorida/img7_qcbc.png');
+    background-image: url('../imgs/img_black/img7_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-7 {
-    background-image: url('../imgs/img_colorida/img8_qcbc.png');
+    background-image: url('../imgs/img_black/img8_qcbc2_black.png');
     background-size: cover;
     background-position: center;
 }
 #bt-2-8 {
-    background-image: url('../imgs/img_colorida/img9_qcbc.png');
+    background-image: url('../imgs/img_black/img9_qcbc2_black.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* FASE3 QUEBRA-CABEÇA */
+
+#bt-3-0 {
+    background-image: url('../imgs/img_black/img1_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-1 {
+    background-image: url('../imgs/img_black/img2_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-2 {
+    background-image: url('../imgs/img_black/img3_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-3 {
+    background-image: url('../imgs/img_black/img4_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-4 {
+    background-image: url('../imgs/img_black/img5_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-5 {
+    background-image: url('../imgs/img_black/img6_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-6 {
+    background-image: url('../imgs/img_black/img7_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-7 {
+    background-image: url('../imgs/img_black/img8_qcbc3_black.png');
+    background-size: cover;
+    background-position: center;
+}
+#bt-3-8 {
+    background-image: url('../imgs/img_black/img9_qcbc3_black.png');
     background-size: cover;
     background-position: center;
 }
@@ -1073,6 +1126,7 @@ input[type="button"] {
     align-items: center;
     width: 100%;
     height: 90%;
+    margin-top: 7vh;
 }
 
 #quad1_jogo_trilha {
@@ -1481,7 +1535,7 @@ input[type="button"] {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 85vh;
+    height: 88vh;
 }
 
 #box_trofeu {
@@ -1743,3 +1797,31 @@ input[type="button"] {
     object-fit: cover;
     border: 5px solid #fff;
 }
+
+#overlay-mensagem {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    z-index: 10;
+    font-weight: bold;
+    color: #b22222;
+    text-align: center;
+}
+
+
+#mensagem-bloqueio {
+  background: #fff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  color: #ff0000;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* deixa o form com opacidade menor e sem clique quando bloqueado */
+#quad1_qcbc.bloqueado form {
+  pointer-events: none;
+}
+

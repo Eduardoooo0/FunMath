@@ -99,9 +99,10 @@ def Quiz():
 def Quebra_cabeca():
     return render_template('inicial_qcbc.html')
 
-@app.route('/fases_qcbc')
-def Fases_qcbc():
-    return render_template('fases_qcbc.html')
+@app.route('/comecar_qcbc', methods=['GET'])
+def comecar_qcbc():
+    fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
+    return redirect(url_for('Qcbc_jogo', fase=fase_desbloqueada_qcbc))
 
 
 @app.route('/jogo_qcbc', methods=['POST', 'GET'])
@@ -111,20 +112,37 @@ def Qcbc_jogo():
         fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
 
         if fase is None:
-            return redirect(url_for('Fases_qcbc'))
-        else:
-            if int(fase) > int(fase_desbloqueada_qcbc):
-                return render_template('fases_qcbc.html', messagem=f'Fase Bloqueada! Complete o {fase_desbloqueada_qcbc}° Quebra Cabeça!')
-            else:
-                response = make_response(render_template('jogo_qcbc.html', valor=None, fase=fase, fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
-                response.set_cookie('fase_atual_qcbc', str(fase))
-                return response
+            return redirect(url_for('comecar_qcbc'))
+
+        fase = int(fase)
+
+        # Verifica se a fase está bloqueada
+        fase_bloqueada = fase > fase_desbloqueada_qcbc
+
+        response = make_response(render_template(
+            'jogo_qcbc.html',
+            valor=None,
+            fase=fase,
+            fase_desbloqueada_qcbc=fase_desbloqueada_qcbc,
+            fase_bloqueada=fase_bloqueada,
+            msg_resposta=f"Fase Bloqueada! Complete o {fase_desbloqueada_qcbc}º Quebra-Cabeça!" if fase_bloqueada else ""
+        ))
+        response.set_cookie('fase_atual_qcbc', str(fase))
+        return response
+
+
      
 
 @app.route('/questoes_qcbc', methods=['POST', 'GET'])
 def Questoes_qcbc():
     fase = int(request.cookies.get('fase_atual_qcbc', 1))
     fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
+
+    if request.method == 'GET':
+        if fase > fase_desbloqueada_qcbc:
+            return render_template('jogo_qcbc.html', messagem=f"Fase {fase} bloqueada! Complete a fase {fase_desbloqueada_qcbc} antes.")
+
+        questao = int(request.args.get('questao'))
 
     if request.method == 'GET':
         questao = int(request.args.get('questao'))
@@ -134,14 +152,16 @@ def Questoes_qcbc():
             pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
             img=fases_qcbc[fase-1][questao]['img'],
             opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
-            mensagem=''))
+            mensagem='',
+            fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
 
         else:
             response = make_response(render_template(
                 'questoes_qcbc.html',
                 pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
                 opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
-                mensagem=''))
+                mensagem='',
+                fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
         # Define cookies com expiração de 30 dias
         expires = datetime.now() + timedelta(days=30)
         response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
@@ -162,7 +182,8 @@ def Questoes_qcbc():
                 questao_atual=questao,
                 resposta=acertou,
                 fase=fase,
-                msg_resposta='Parabens! Resposta Correta!'))
+                msg_resposta='Parabens! Resposta Correta!',
+                fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
 
             response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
 
@@ -207,7 +228,8 @@ def Questoes_qcbc():
                     fase=fase,
                     msg_trofeu=msg_trofeu,
                     msg_resposta=msg_resposta,
-                    trofeu=trofeu))
+                    trofeu=trofeu,
+                    fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
                 response.set_cookie('trofeu_qcbc', str(trofeu_qcbc + 1), expires=expires)
 
                 # Atualiza a fase desbloqueada
@@ -220,7 +242,8 @@ def Questoes_qcbc():
                     questao_atual=questao,
                     resposta=acertou,
                     fase=fase, 
-                    msg_resposta='Parabéns você passou de fase do Quebra-Cabeça!'))
+                    msg_resposta='Parabéns você passou de fase do Quebra-Cabeça!',
+                    fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
 
             # Atualiza a fase desbloqueada
             response.set_cookie('fase_desbloqueada_qcbc', str(fase + 1), expires=expires)
@@ -232,7 +255,8 @@ def Questoes_qcbc():
                 questao_atual=questao,
                 resposta=acertou,
                 fase=fase, 
-                msg_resposta='Ops! Resposta incorreta.. Tente novamente!'))
+                msg_resposta='Ops! Resposta incorreta.. Tente novamente!',
+                fase_desbloqueada_qcbc=fase_desbloqueada_qcbc))
             expires = datetime.now() + timedelta(days=30)
             response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
             return response

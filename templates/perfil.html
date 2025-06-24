@@ -21,7 +21,6 @@
                     {% if current_user.is_authenticated %}
                     <p>Nome: {{current_user['nome']}}</p>
                     <p>Email: {{current_user['email']}}</p>
-                    <p>Pontos:</p>
                     {% else %}
                     <p style="margin-top: 20px; color: red; font-size: 22px;">Você ainda não possui cadastro ou não fez login</p>
                     {% endif %}

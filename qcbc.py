@@ -102,52 +102,52 @@ fases_qcbc = [
             ],
             [
                 {
-                    "pergunta": "1+1?",
+                    "pergunta": "4+1?",
                     "opcoes": ["1", "2", "3", "4"],
                     "resposta": "2"
                 },
                 {
-                    "pergunta": "1+2?",
+                    "pergunta": "8+2?",
                     "opcoes": ["1", "3", "2", "5"],
                     "resposta": "3"
                 },
                 {
-                    "pergunta": "1+3?",
+                    "pergunta": "9+3?",
                     "opcoes": ["1", "3", "4", "5"],
                     "resposta": "4"
                 },
                 {
-                    "pergunta": "1+4?",
+                    "pergunta": "3+4?",
                     "opcoes": ["1", "3", "2", "5"],
                     "resposta": "5"
                 },
                 {
-                    "pergunta": "1+5?",
+                    "pergunta": "7+5?",
                     "opcoes": ["1", "6", "2", "5"],
                     "resposta": "6"
                 },
                 {
-                    "pergunta": "1+6?",
+                    "pergunta": "5+6?",
                     "opcoes": ["7", "3", "2", "5"],
                     "resposta": "7"
                 },
                 {
-                    "pergunta": "1+7?",
+                    "pergunta": "6+7?",
                     "opcoes": ["1", "8", "2", "5"],
                     "resposta": "8"
                 },
                 {
-                    "pergunta": "1+8?",
+                    "pergunta": "10+8?",
                     "opcoes": ["1", "3", "2", "9"],
                     "resposta": "9"
                 },
                 {
-                    "pergunta": "1+9?",
+                    "pergunta": "2+9?",
                     "opcoes": ["1", "3", "10", "5"],
                     "resposta": "10"
                 },
                 {
-                    "pergunta": "1+10?",
+                    "pergunta": "3+10?",
                     "opcoes": ["11", "3", "2", "5"],
                     "resposta": "11"
                 }

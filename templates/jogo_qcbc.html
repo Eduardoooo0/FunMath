@@ -31,7 +31,6 @@
         text-align: center;
         color: red;
         font-weight: bold;
-        margin-top: 10px;
     }
 </style>
 {% endblock %}
@@ -59,26 +58,29 @@
                 </div>
             </div>
         {% endif %}
-
+        <button onclick="navegarFase('anterior')" class="botao-seta-esquerda">⟨⟨</button>
         <div id="box_inicial_jg_qcbc">
             <div id="div_inicial_jg">
                 <h1 id="titulo-jogo">QUEBRA-CABEÇA</h1>
             </div>
             <div id="quad1_qcbc">
-                <form class="quest_qcbc" action="{{ url_for('Questoes_qcbc') }}" method="get">
+                <form id="form_quest" class="quest_qcbc" action="{{ url_for('Questoes_qcbc') }}" method="get">
                     {% for i in range(9) %}
                         <input class="button_quest bt-{{fase}}-{{i}}" name="questao" value="{{i}}" type="submit" id="bt-{{fase}}-{{i}}">
                     {% endfor %}
                 </form>
+
+                <div id="overlay-mensagem" style="display:none;">
+                    <div id="mensagem-bloqueio">
+                        Esta fase está bloqueada! Complete a fase anterior para desbloquear.
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Botões de navegação entre fases -->
-        <div class="botoes-fase">
-            <button onclick="navegarFase('anterior')" class="botao-seta-esquerda">⟨⟨</button>
-            <button onclick="navegarFase('proxima')" class="botao-seta-direita">⟩⟩</button>
-        </div>
-        <p id="mensagem_navegacao" class="mensagem-navegacao"></p>
+        <button onclick="navegarFase('proxima')" class="botao-seta-direita">⟩⟩</button>
+        <!-- <p id="mensagem_navegacao" class="mensagem-navegacao"></p> -->
     </div>
 </div>
 {% endblock %}
@@ -89,24 +91,57 @@
     var resposta = "{{ resposta|default('') }}";
     var fase = parseInt("{{ fase|default(1) }}");
     var fase_desbloqueada_qcbc = parseInt("{{ fase_desbloqueada_qcbc|default(1) }}");
+    
 
     let cookie_tabuleiro = getCookie('tabuleiro-' + fase);
     var tabuleiro = [];
 
-    const imagens = [
-        "{{ url_for('static', filename='imgs/img_colorida/img1_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img2_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img3_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img4_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img5_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img6_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img7_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img8_qcbc.png') }}",
-        "{{ url_for('static', filename='imgs/img_colorida/img9_qcbc.png') }}"
-    ];
+    let imagens = [];
+
+    if (fase === 1) {
+        imagens = [
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img1_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img2_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img3_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img4_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img5_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img6_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img7_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img8_qcbc.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc1/img9_qcbc.png') }}"
+        ];
+    }
+    else if (fase === 2) {
+        imagens = [
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img1_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img2_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img3_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img4_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img5_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img6_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img7_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img8_qcbc2.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc2/img9_qcbc2.png') }}"
+        ];
+    }
+
+    else if (fase === 3) {
+        imagens = [
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img1_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img2_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img3_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img4_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img5_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img6_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img7_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img8_qcbc3.png') }}",
+            "{{ url_for('static', filename='imgs/img_colorida/qcbc3/img9_qcbc3.png') }}"
+        ];
+    }
+
 
     if (!cookie_tabuleiro) {
-        for (let j = 0; j < 9; j++) {
+        for (let j = 0; j < 3; j++) {
             tabuleiro.push({
                 "img": imagens[j],
                 "bloqueado": true
@@ -161,9 +196,11 @@
 
     function navegarFase(direcao) {
         let novaFase = fase;
+        const totalFases = 3;
+
         if (direcao === 'anterior' && fase > 1) {
             novaFase = fase - 1;
-        } else if (direcao === 'proxima' && fase < fase_desbloqueada_qcbc) {
+        } else if (direcao === 'proxima' && fase < totalFases) {
             novaFase = fase + 1;
         } else {
             document.getElementById('mensagem_navegacao').innerText =
@@ -172,6 +209,7 @@
         }
         window.location.href = "{{ url_for('Qcbc_jogo') }}?fase=" + novaFase;
     }
+
 
     function mostrarDiv() {
         let trofeu = "{{ trofeu|default('') }}";
@@ -209,6 +247,20 @@
     window.onload = function () {
         carregarSelecoes();
         mostrarDiv();
+
+        const overlay = document.getElementById('overlay-mensagem');
+        const quad1 = document.getElementById('quad1_qcbc');
+
+        if (fase > fase_desbloqueada_qcbc) {
+            overlay.style.display = 'flex'; // mostra mensagem bloqueio
+            quad1.classList.add('bloqueado'); // desativa e deixa com opacidade os botões
+        } else {
+            overlay.style.display = 'none'; // esconde se desbloqueada
+            quad1.classList.remove('bloqueado');
+        }
     };
+
+
+
 </script>
 {% endblock %}
