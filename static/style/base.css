@@ -1798,26 +1798,25 @@ input[type="button"] {
     border: 5px solid #fff;
 }
 
-#overlay-mensagem {
+#quad-mensagem {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 8px;
-    z-index: 10;
-    font-weight: bold;
-    color: #b22222;
-    text-align: center;
+    z-index: 10; /* precisa ser maior que os botões */
+    background: transparent; /* sem fundo */
+    pointer-events: none; /* permite clique nos botões se quiser */
 }
 
-
 #mensagem-bloqueio {
-  background: #fff;
-  padding: 20px 30px;
-  border-radius: 8px;
-  color: #ff0000;
-  font-weight: bold;
-  text-align: center;
+    background-color: transparent;
+    color: #b22222;
+    background-color: wheat;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: center;
 }
 
 /* deixa o form com opacidade menor e sem clique quando bloqueado */

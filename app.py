@@ -125,7 +125,6 @@ def Qcbc_jogo():
             fase=fase,
             fase_desbloqueada_qcbc=fase_desbloqueada_qcbc,
             fase_bloqueada=fase_bloqueada,
-            msg_resposta=f"Fase Bloqueada! Complete o {fase_desbloqueada_qcbc}º Quebra-Cabeça!" if fase_bloqueada else ""
         ))
         response.set_cookie('fase_atual_qcbc', str(fase))
         return response

@@ -70,17 +70,14 @@
                     {% endfor %}
                 </form>
 
-                <div id="overlay-mensagem" style="display:none;">
+                <div id="quad-mensagem" style="display:none;">
                     <div id="mensagem-bloqueio">
                         Esta fase está bloqueada! Complete a fase anterior para desbloquear.
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Botões de navegação entre fases -->
         <button onclick="navegarFase('proxima')" class="botao-seta-direita">⟩⟩</button>
-        <!-- <p id="mensagem_navegacao" class="mensagem-navegacao"></p> -->
     </div>
 </div>
 {% endblock %}
@@ -141,7 +138,7 @@
 
 
     if (!cookie_tabuleiro) {
-        for (let j = 0; j < 3; j++) {
+        for (let j = 0; j < 9; j++) {
             tabuleiro.push({
                 "img": imagens[j],
                 "bloqueado": true
@@ -248,14 +245,14 @@
         carregarSelecoes();
         mostrarDiv();
 
-        const overlay = document.getElementById('overlay-mensagem');
-        const quad1 = document.getElementById('quad1_qcbc');
+        const overlay = document.getElementById('quad-mensagem');
+        const quad1 = document.getElementById('form_quest');
 
         if (fase > fase_desbloqueada_qcbc) {
-            overlay.style.display = 'flex'; // mostra mensagem bloqueio
-            quad1.classList.add('bloqueado'); // desativa e deixa com opacidade os botões
+            overlay.style.display = 'flex';
+            quad1.classList.add('bloqueado'); // bloqueia clique nos botões
         } else {
-            overlay.style.display = 'none'; // esconde se desbloqueada
+            overlay.style.display = 'none';
             quad1.classList.remove('bloqueado');
         }
     };
