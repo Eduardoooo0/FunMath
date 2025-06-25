@@ -301,3 +301,5 @@ def verificar_resultado(pontuacao: int, fase_atual: int, fase_desbloqueada: int,
     app.config['pontuacao'] = 0
     app.config['pergunta_atual'] = 0
     return finalizar
+
+

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* static/style.css */
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+button {
+    margin: 10px 5px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crie seu próprio Quiz!</h1>
+
+        <form id="quiz-form">
+            <div id="perguntas"></div>
+            <button type="button" onclick="adicionarPergunta()">Adicionar Pergunta</button>
+            <button type="submit">Gerar Código</button>
+        </form>
+
+        <div id="resultado"></div>
+
+        <hr>
+
+        <h2>Responder Quiz</h2>
+        <input type="text" id="codigo-input" placeholder="Digite o código do quiz">
+        <button onclick="carregarQuiz()">Acessar Quiz</button>
+
+        <form id="form-resposta" style="display:none">
+            <div id="quiz-carregado"></div>
+            <button type="submit">Enviar Respostas</button>
+        </form>
+
+        <div id="resultado-final"></div>
+    </div>
+
+    <script>
+        let count = 0;
+
+function adicionarPergunta() {
+    const div = document.createElement('div');
+    div.className = 'pergunta-box';
+    div.innerHTML = `
+        <input type="text" name="pergunta" placeholder="Pergunta ${count + 1}" required>
+        <input type="text" name="opcao1" placeholder="Opção 1" required>
+        <input type="text" name="opcao2" placeholder="Opção 2" required>
+        <input type="text" name="opcao3" placeholder="Opção 3" required>
+        <input type="text" name="opcao4" placeholder="Opção 4" required>
+        <input type="number" name="correta" placeholder="Número da opção correta (1-4)" min="1" max="4" required>
+        <hr>
+    `;
+    document.getElementById("perguntas").appendChild(div);
+    count++;
+}
+
+document.getElementById("quiz-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const boxes = document.querySelectorAll(".pergunta-box");
+    const perguntas = [];
+
+    boxes.forEach(box => {
+        const inputs = box.querySelectorAll("input");
+        const pergunta = inputs[0].value;
+        const opcoes = [inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value];
+        const correta = parseInt(inputs[5].value);
+
+        perguntas.push({ pergunta, opcoes, correta });
+    });
+
+    fetch("/criar-quiz", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({perguntas})
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("resultado").innerText = `Compartilhe este código: ${data.codigo}`;
+    });
+});
+
+function carregarQuiz() {
+    const codigo = document.getElementById("codigo-input").value;
+    fetch(`/quiz/${codigo}`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.erro) {
+                document.getElementById("quiz-carregado").innerText = data.erro;
+                return;
+            }
+            let html = '';
+            data.perguntas.forEach((p, index) => {
+                html += `<div><p><strong>${index + 1}. ${p.pergunta}</strong></p>`;
+                p.opcoes.forEach((op, i) => {
+                    html += `
+                        <label>
+                            <input type="radio" name="resposta${index}" value="${i+1}" required>
+                            ${i + 1}) ${op}
+                        </label><br>
+                    `;
+                });
+                html += '</div><hr>';
+            });
+            document.getElementById("quiz-carregado").innerHTML = html;
+            document.getElementById("form-resposta").style.display = 'block';
+            document.getElementById("form-resposta").dataset.codigo = codigo;
+            window.quizAtual = data;
+        });
+}
+
+document.getElementById("form-resposta").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const respostas = [];
+    window.quizAtual.perguntas.forEach((_, i) => {
+        const selecionada = document.querySelector(`input[name='resposta${i}']:checked`);
+        respostas.push(parseInt(selecionada?.value || 0));
+    });
+
+    let acertos = 0;
+    respostas.forEach((resposta, i) => {
+        if (resposta === window.quizAtual.perguntas[i].correta) {
+            acertos++;
+        }
+    });
+
+    document.getElementById("resultado-final").innerText = `Você acertou ${acertos} de ${respostas.length} perguntas.`;
+});
+
+    </script>
+</body>
+</html>

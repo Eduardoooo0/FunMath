@@ -9,6 +9,8 @@ from quiz import fases, obter_resposta_usuario,fase_inicial,exibir_fase,resposta
 from trilha import fases_trilha
 from qcbc import fases_qcbc
 
+import uuid
+
 import json
 
 app = Flask(__name__)
@@ -17,6 +19,8 @@ app.config['tempo_de_expiracao_quiz'] = 60 # 1 minuto
 app.config['pergunta_atual'] = 0
 app.config['pontuacao'] = 0
 app.config['trofeu_quiz'] = 0
+
+quiz_storage = {}  # Ex: {"abc123": {"perguntas": [...], "expira_em": datetime}}
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -541,3 +545,35 @@ def Logout():
 
     logout_user()
     return response
+
+
+
+# daqui p frente são rotas teste para testar a parte do professor criar suas proprias questões
+@app.route("/teste_quiz")
+def teste():
+    return render_template("teste.html")
+
+@app.route("/criar-quiz", methods=["POST"])
+def criar_quiz():
+    data = request.get_json()
+    perguntas = data.get("perguntas", [])
+    codigo = str(uuid.uuid4())[:6]
+    quiz_storage[codigo] = {
+        "perguntas": perguntas,
+        "expira_em": datetime.now() + timedelta(hours=2)
+    }
+    return jsonify({"codigo": codigo})
+
+@app.route("/quiz/<codigo>")
+def obter_quiz(codigo):
+    quiz = quiz_storage.get(codigo)
+    if not quiz or datetime.now() > quiz["expira_em"]:
+        return jsonify({"erro": "Quiz expirado ou inexistente"}), 404
+    return jsonify({"perguntas": quiz["perguntas"]})
+
+@app.route("/quiz-personalizado")
+def quiz_personalizado():
+    return render_template("quiz_personalizado.html")
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

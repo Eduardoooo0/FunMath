@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Personalizado</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Responder Quiz Personalizado</h1>
+
+        <input type="text" id="codigo-input" placeholder="Digite o código do quiz">
+        <button onclick="carregarQuiz()">Carregar Quiz</button>
+
+        <form id="form-resposta" style="display:none">
+            <div id="quiz-carregado"></div>
+            <button type="submit">Enviar Respostas</button>
+        </form>
+
+        <div id="resultado-final"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
