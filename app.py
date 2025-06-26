@@ -556,8 +556,15 @@ def teste():
 @app.route("/criar-quiz", methods=["POST"])
 def criar_quiz():
     data = request.get_json()
+
+    # Obtém a lista de perguntas do JSON recebido, ou uma lista vazia se não existir
     perguntas = data.get("perguntas", [])
+
+    # Gera um código único para identificar o quiz (usando UUID e pegando os 6 primeiros caracteres)
     codigo = str(uuid.uuid4())[:6]
+
+    # Armazena o quiz no dicionário 'quiz_storage' usando o código gerado como chave
+    # Guarda as perguntas e uma data de expiração (2 horas a partir do momento atual)
     quiz_storage[codigo] = {
         "perguntas": perguntas,
         "expira_em": datetime.now() + timedelta(hours=2)
@@ -567,9 +574,14 @@ def criar_quiz():
 @app.route("/quiz/<codigo>")
 def obter_quiz(codigo):
     quiz = quiz_storage.get(codigo)
-    if not quiz or datetime.now() > quiz["expira_em"]:
-        return jsonify({"erro": "Quiz expirado ou inexistente"}), 404
-    return jsonify({"perguntas": quiz["perguntas"]})
+    if not quiz:
+        return jsonify({"erro": "Quiz não encontrado"}), 404
+
+    return jsonify({
+        "titulo": quiz.get("titulo", "Quiz Personalizado"),
+        "perguntas": quiz["perguntas"]
+    })
+
 
 @app.route("/quiz-personalizado")
 def quiz_personalizado():

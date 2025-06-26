@@ -1,159 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        /* static/style.css */
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+{% extends 'template_base.html' %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/base.css') }}">
+<style>
+    #quad1_quiz {
+    width: 95%;
+    height: auto;
+    background-color: white;
+    border: 1px solid rgb(173, 173, 173);
     padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
+.pergunta-box {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 16px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }
 
-button {
-    margin: 10px 5px;
-    padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-}
-
-input[type="text"] {
-    padding: 8px;
+.pergunta-box input {
+    display: block;
     width: 100%;
     margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #999;
 }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Crie seu próprio Quiz!</h1>
 
-        <form id="quiz-form">
-            <div id="perguntas"></div>
-            <button type="button" onclick="adicionarPergunta()">Adicionar Pergunta</button>
-            <button type="submit">Gerar Código</button>
-        </form>
+#bt_adicionar, #bt_gerar {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: #00AEEF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
 
-        <div id="resultado"></div>
+#bt_adicionar:hover, #bt_gerar:hover {
+    background-color: #007bb5;
+}
 
-        <hr>
+#codigo-gerado {
+    font-size: 18px;
+    font-weight: bold;
+    color: green;
+    margin-top: 20px;
+}
 
-        <h2>Responder Quiz</h2>
-        <input type="text" id="codigo-input" placeholder="Digite o código do quiz">
-        <button onclick="carregarQuiz()">Acessar Quiz</button>
+</style>
+{% endblock %}
 
-        <form id="form-resposta" style="display:none">
-            <div id="quiz-carregado"></div>
-            <button type="submit">Enviar Respostas</button>
-        </form>
-
-        <div id="resultado-final"></div>
+{% block section %}
+<div id="section_inicial_jg">
+    <div id="box_voltar">
+        <a href="{{ url_for('index') }}"><button id="bt_voltar">Voltar</button></a>
     </div>
+    <div class="box_inicial_jg">
+        <div id="div_inicial_jg">
+            <h1 id="titulo-jogo">CRIAR QUIZ PERSONALIZADO</h1>
+        </div>
 
-    <script>
-        let count = 0;
+        <div id="quad1_quiz">
+            <form id="quiz-form">
+                <div id="perguntas"></div>
 
-function adicionarPergunta() {
-    const div = document.createElement('div');
-    div.className = 'pergunta-box';
-    div.innerHTML = `
-        <input type="text" name="pergunta" placeholder="Pergunta ${count + 1}" required>
-        <input type="text" name="opcao1" placeholder="Opção 1" required>
-        <input type="text" name="opcao2" placeholder="Opção 2" required>
-        <input type="text" name="opcao3" placeholder="Opção 3" required>
-        <input type="text" name="opcao4" placeholder="Opção 4" required>
-        <input type="number" name="correta" placeholder="Número da opção correta (1-4)" min="1" max="4" required>
-        <hr>
-    `;
-    document.getElementById("perguntas").appendChild(div);
-    count++;
-}
+                <button type="button" id="bt_adicionar" onclick="adicionarPergunta()">+ Adicionar Pergunta</button>
+                <button type="submit" id="bt_gerar">🎲 Gerar Código</button>
+            </form>
 
-document.getElementById("quiz-form").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const boxes = document.querySelectorAll(".pergunta-box");
-    const perguntas = [];
+            <div id="codigo-gerado"></div>
+        </div>
 
-    boxes.forEach(box => {
-        const inputs = box.querySelectorAll("input");
-        const pergunta = inputs[0].value;
-        const opcoes = [inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value];
-        const correta = parseInt(inputs[5].value);
+    </div>
+</div>
+{% endblock %}
 
-        perguntas.push({ pergunta, opcoes, correta });
-    });
+{% block js %}
+<script>
+    let count = 0;
 
-    fetch("/criar-quiz", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({perguntas})
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("resultado").innerText = `Compartilhe este código: ${data.codigo}`;
-    });
-});
+    function adicionarPergunta() {
+        const div = document.createElement('div');
+        div.className = 'pergunta-box';
+        div.innerHTML = `
+            <input type="text" name="pergunta" placeholder="Pergunta ${count + 1}" required>
+            <input type="text" name="opcao1" placeholder="Opção 1" required>
+            <input type="text" name="opcao2" placeholder="Opção 2" required>
+            <input type="text" name="opcao3" placeholder="Opção 3" required>
+            <input type="text" name="opcao4" placeholder="Opção 4" required>
+            <input type="number" name="correta" placeholder="Número da opção correta (1-4)" min="1" max="4" required>
+        `;
+        document.getElementById("perguntas").appendChild(div);
+        count++;
+    }
 
-function carregarQuiz() {
-    const codigo = document.getElementById("codigo-input").value;
-    fetch(`/quiz/${codigo}`)
+    document.getElementById("quiz-form").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const boxes = document.querySelectorAll(".pergunta-box");
+        const perguntas = [];
+
+        boxes.forEach(box => {
+            const inputs = box.querySelectorAll("input");
+            const pergunta = inputs[0].value;
+            const opcoes = [inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value];
+            const correta = parseInt(inputs[5].value);
+
+            perguntas.push({ pergunta, opcoes, correta });
+        });
+
+        fetch("/criar-quiz", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ perguntas })
+        })
         .then(res => res.json())
         .then(data => {
-            if(data.erro) {
-                document.getElementById("quiz-carregado").innerText = data.erro;
-                return;
-            }
-            let html = '';
-            data.perguntas.forEach((p, index) => {
-                html += `<div><p><strong>${index + 1}. ${p.pergunta}</strong></p>`;
-                p.opcoes.forEach((op, i) => {
-                    html += `
-                        <label>
-                            <input type="radio" name="resposta${index}" value="${i+1}" required>
-                            ${i + 1}) ${op}
-                        </label><br>
-                    `;
-                });
-                html += '</div><hr>';
-            });
-            document.getElementById("quiz-carregado").innerHTML = html;
-            document.getElementById("form-resposta").style.display = 'block';
-            document.getElementById("form-resposta").dataset.codigo = codigo;
-            window.quizAtual = data;
+            document.getElementById("codigo-gerado").innerText = `Código do seu quiz: ${data.codigo}`;
         });
-}
-
-document.getElementById("form-resposta").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const respostas = [];
-    window.quizAtual.perguntas.forEach((_, i) => {
-        const selecionada = document.querySelector(`input[name='resposta${i}']:checked`);
-        respostas.push(parseInt(selecionada?.value || 0));
     });
-
-    let acertos = 0;
-    respostas.forEach((resposta, i) => {
-        if (resposta === window.quizAtual.perguntas[i].correta) {
-            acertos++;
-        }
-    });
-
-    document.getElementById("resultado-final").innerText = `Você acertou ${acertos} de ${respostas.length} perguntas.`;
-});
-
-    </script>
-</body>
-</html>
+</script>
+{% endblock %}

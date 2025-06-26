@@ -1,25 +1,69 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Quiz Personalizado</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Responder Quiz Personalizado</h1>
+{% extends 'template_base.html' %}
 
-        <input type="text" id="codigo-input" placeholder="Digite o código do quiz">
-        <button onclick="carregarQuiz()">Carregar Quiz</button>
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/base.css') }}">
+<style>
+    #quad1_quiz {
+    width: 95%;
+    background-color: white;
+    border: 1px solid rgb(173, 173, 173);
+    padding: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
 
-        <form id="form-resposta" style="display:none">
-            <div id="quiz-carregado"></div>
-            <button type="submit">Enviar Respostas</button>
-        </form>
+#quad1_quiz input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+}
 
-        <div id="resultado-final"></div>
+#bt_gerar {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    background-color: #00AEEF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+#bt_gerar:hover {
+    background-color: #007bb5;
+}
+
+</style>
+{% endblock %}
+
+{% block section %}
+<div id="section_inicial_jg">
+    <div id="box_voltar">
+        <a href="{{ url_for('index') }}"><button id="bt_voltar">Voltar</button></a>
     </div>
+    <div class="box_inicial_jg">
+        <div id="div_inicial_jg">
+            <h1 id="titulo-jogo">QUIZ PERSONALIZADO</h1>
+        </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+        <div id="quad1_quiz">
+            <label for="codigo-input"><strong>Digite o código do quiz:</strong></label>
+            <input type="text" id="codigo-input" placeholder="Ex: abc123" />
+            <button onclick="carregarQuiz()" id="bt_gerar">Carregar Quiz</button>
+
+            <div id="quiz-carregado" style="margin-top: 20px;"></div>
+        </div>
+
+        <div id="resposta" style="display:none">
+            <p id="mensagem-resposta"></p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='scripts/quiz_personalizado.js') }}"></script>
+{% endblock %}

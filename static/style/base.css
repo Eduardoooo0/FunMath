@@ -20,7 +20,7 @@ html, body {
 body {
     height: 100%;
     width: 100%;
-    overflow-y: auto; /* permite rolagem */
+    overflow-y: hidden; /* permite rolagem */
     overflow-x: hidden;    /* Esconde a barra horizontal */
     scroll-behavior: smooth; /* rolagem suave */
     font-family: Arial, sans-serif;
@@ -53,9 +53,8 @@ header {
 /* Estiliza a área para os logotipos dentro do cabeçalho */
 .logo {
     display: flex;              /* Define o layout da área dos logotipos como flexbox */
-    flex-direction: row;        /* Organiza os logotipos em uma linha */
     height: 100%;               /* Define a altura da área dos logotipos como 100% da altura do cabeçalho */
-    width: 20%;                 /* Define a largura da área dos logotipos como 20% da largura do cabeçalho */
+    width: 50%;                 /* Define a largura da área dos logotipos como 20% da largura do cabeçalho */
     margin-left: 1%;
 }
 
@@ -77,7 +76,6 @@ header {
 /* Estilo dos itens de navegação */
 #bt_home, #jogos, #bt_sobre, #bt_ajuda, #bt_login {
     width: 90px;                     /* Define a largura dos itens de navegação */
-    margin-right: 70px;
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre os itens */
     font-size: 15px;
     background-color: transparent;
@@ -145,6 +143,7 @@ a {
 }
 .links-button {
     height: 100%;
+    
 }
 
 .botoes {
@@ -154,8 +153,7 @@ a {
     width: 50%; 
     height: 50px; 
     font-size: 18px;
-    padding: 1rem;
-    margin-left: 40%;
+    
 }
 
 .botao-jogo {
@@ -207,12 +205,14 @@ a {
 /* Estiliza os itens do menu */
 .menu-items {
     display: flex;  /* Define o layout dos itens do menu como flexbox */
+    position: fixed;
     flex-direction: row;  /* Organiza os itens do menu em uma linha */
     align-items: center;  /* Alinha os itens do menu verticalmente ao centro */
     justify-content: space-between;  /* Distribui os itens do menu com espaço igual entre eles */
-    width: 50%;  /* Define a largura dos itens do menu como 100% da largura do seu elemento pai */
+    width: 30%;  /* Define a largura dos itens do menu como 100% da largura do seu elemento pai */
     height: 40px;  /* Define a altura dos itens do menu como 40 pixels */
     font-size: 18px;  /* Define o tamanho da fonte dos itens do menu como 18 pixels */
+    margin-left: 15%;
     
 }
 
@@ -233,7 +233,7 @@ a {
     color: white;
     text-align: center;
     padding: 0 20px;
-    overflow: hidden;
+
     /* border-top: 1px solid rgb(197, 197, 197); */
 }
 
@@ -256,6 +256,7 @@ a {
 
 /* Botão de chamada para ação */
 .cta-button {
+    animation: pulsar 1.5s infinite ease-in-out;
     background-color: orange;
     color: black;
     font-size: 18px;
@@ -270,6 +271,15 @@ a {
 .cta-button:hover {
     background-color: black;
     color: orange;
+}
+
+@keyframes pulsar {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 /* Seção dos jogos */
@@ -656,7 +666,7 @@ input[type="button"] {
     margin-top: 12vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
-    background-color: #92aeb2; /* Cor de fundo azul claro */
+   background: linear-gradient(0deg,#3461a0 0%, #89acd6 100%);
     padding: 1%;
     border-top: 1px solid rgb(197, 197, 197);
 }
@@ -1108,6 +1118,7 @@ input[type="button"] {
     border: 1px solid rgb(173, 173, 173); /* Borda cinza clara ao redor do bloco */
     padding: 20px; /* Espaçamento interno ao redor do conteúdo */
     margin-top: 20px; /* Espaço acima da área de resposta */
+    overflow: auto;
 }
 
 /* Estilo para o temporizador */
@@ -1359,10 +1370,11 @@ input[type="button"] {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 90vh;
+    height: 92vh;
     padding: 5px;
     overflow: hidden;
-    background-color: rgb(219, 219, 219);
+    /* background: linear-gradient(0deg,#2457a0 0%,  #051731 100%); */
+    background-color: rgb(238, 236, 236);
     border-top: 1px solid rgb(197, 197, 197);
     margin-top: 4.5%;
 }
@@ -1371,18 +1383,19 @@ input[type="button"] {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     width: 80vw;
     height: 70vh;
 }
 
 .aside_perfil {
     display: flex;              /* Define o layout do aside como flexbox */
-    background-color: white;
+    background: linear-gradient(0deg,#163258 0%, #89acd6 100%);
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     align-items: center;
     width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 100%;  
-    color: black;   
+    height: 80%;  
+    color: white;   
     padding: 1%;
     margin: 10px;
     box-shadow: 0 6px 12px rgba(26, 25, 25, 0.945);
@@ -1428,7 +1441,7 @@ input[type="button"] {
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
     align-items: center;        /* Alinha os itens da seção ao centro */
     width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 100%;  
+    height: 80%;  
     color: black;
     margin: 10px;
     margin-left: 40px;
@@ -1440,12 +1453,13 @@ input[type="button"] {
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color:white;
+    background: linear-gradient(0deg,#163258 0%, #89acd6 100%);
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
     box-shadow: 0 6px 12px rgba(26, 25, 25, 0.945);
     border-radius: 20px;
+    overflow-y: auto;
 }
 
 .container_trf {
@@ -1824,3 +1838,23 @@ input[type="button"] {
   pointer-events: none;
 }
 
+
+#btn-topo {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 12px 16px;
+  font-size: 20px;
+  background-color: #00AEEF;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none; /* Começa invisível */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+#btn-topo:hover {
+  background-color: #007bb5;
+}

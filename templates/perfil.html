@@ -21,8 +21,14 @@
                     {% if current_user.is_authenticated %}
                     <p>Nome: {{current_user['nome']}}</p>
                     <p>Email: {{current_user['email']}}</p>
+                    
+                    <form class="links" action="{{ url_for('Logout') }}" method="post" onsubmit="return confirmLogout(event);">
+                        <input type="hidden" name="user_choice" id="user_choice" value="">
+                        <button class="links-button" style="width: 90px; height: 40px; color: red; border: 1px solid white;">Sair</button>
+                    </form>
                     {% else %}
-                    <p style="margin-top: 20px; color: red; font-size: 22px;">Você ainda não possui cadastro ou não fez login</p>
+                    <p style="margin-top: 20px; color: rgb(240, 201, 149); font-size: 22px;">Você ainda não possui cadastro ou não fez login!</p>
+                    
                     {% endif %}
                 </div>
             
@@ -52,7 +58,7 @@
             <section class="section_perfil">
             
                 <div class="box_perfil">
-                    <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px; text-align: center;">
+                    <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px; text-align: center; color: white;">
                         {% set trofeus_existentes = trofeu_quiz or trofeu_qcbc or trofeu_trilha %}
                         
                         {% if trofeu_quiz %}
@@ -91,10 +97,10 @@
                         {% if not trofeus_existentes %}
                             
                             <div id="title_trf">
-                                <img src="../static/imgs/sem_trofeus.png" alt="" style="border-radius: 150px; width: 280px; height: 280px; margin-top: 10px;">
-                                <p style="color: red; font-size: 30px; margin-top: 20px;">Você ainda não possui troféus!</p>
-                                <p style="margin-top: 20px; font-size: 20px;">Que tal começar um desafio e conquistar o seu primeiro?</p>
-                                <button class="cta-button" onclick="abriuModalJogos()" style="margin-top: 20px;">Jogar Agora</button>
+                                <img src="../static/imgs/sem_trofeus.png" alt="" style="width: 210px; height: 210px; margin-top: 30px;">
+                                <p style="color: rgb(240, 201, 149); font-size: 25px; margin-top: 20px;">Você ainda não possui troféus!</p>
+                                <p style="margin-top: 20px; font-size: 19px; color: white;">Que tal começar um desafio e conquistar o seu primeiro?</p>
+                                <button class="cta-button" onclick="abriuModalJogos()" style="margin-top: 20px; margin-left: -10px;">Jogar Agora</button>
 
                             </div>
 
