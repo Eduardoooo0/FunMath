@@ -1,63 +1,327 @@
-// Recebe o número passado pelo Flask
-        //var questao = `{questao }}`; // Usando tojson para garantir a segurança
-        var q = 'url(../static/imgs/trilha_jogo2.png)';
-        // Função para alterar o estilo da div com base no número
-        function fn_questao(questao) {
-            var div = document.getElementById("pergunta_trilha");
+{% extends 'template_base.html' %}
+    {% block style %}
+        <link rel="stylesheet" href="static/style/base.css">
+    {% endblock %}
 
-            // Define a imagem de fundo usando a URL da questao
-            div.style.backgroundImage = questao;
+    {% block section %}
+        <div id="section_fases">
+            <div id="box_voltar_fases">
+                <a href="{{ url_for('Trilha' ) }}"><button id="bt_voltar">Voltar</button></a>
+            </div>
+        
+            <br>
+            {% if msg_trofeu %}
+            <div class="message_resp_trofeu msg_tf_trilha">{{ msg_trofeu }}</div>
+            {% elif msg_resp %}
+            <div class="message_resp">{{ msg_resp }}</div>
+            {% endif %}
+    
+            <div class="box_conteudo_fases">
 
-        }
+                 
+               {% if concluido %}
+                    <div id="box_concluido">
+                        <div id="div_inicial_jg">
+                            <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                        </div>
+                        <div id="div_concluido">
+                            <p id="mensagem_concluido">Parabéns, você concluiu a trilha!</p>
+                            <a href="{{ url_for('Trilha_reiniciar') }}">
+                                <button id="botao-concluido">Reiniciar a Trilha</button>
+                            </a>
+                            <a href="{{ url_for('index') }}">
+                                <button id="botao-concluido">Voltar para a Página Inicial</button>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
 
-        // Chama a função passando o número recebido
-        fn_questao(questao);
+                <div id="box_inicial_jg_trilha">
+                    <div id="div_inicial_jg">
+                        <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                    </div>
+                    <div id="quad1_jogo_trilha">
+                        <div id="fases_trilha">
+                            <form class="forms_fases_trilha" action="{{url_for('Questoes_trilha')}}" method="get">
+                                <input class="button_fases_trilha t1" name="fase" value="1" type="submit">
+                                <input class="button_fases_trilha t2" name="fase" value="2" type="submit">
+                                <input class="button_fases_trilha t3" name="fase" value="3" type="submit">
+                                <input class="button_fases_trilha t4" name="fase" value="4" type="submit">
+                                <input class="button_fases_trilha t5" name="fase" value="5" type="submit">
+                                <input class="button_fases_trilha t6" name="fase" value="6" type="submit">
+                                <input class="button_fases_trilha t7" name="fase" value="7" type="submit">
+                                <input class="button_fases_trilha t8" name="fase" value="8" type="submit">
+                                <input class="button_fases_trilha t9" name="fase" value="9" type="submit">
+                            </form>
+                            <img src="/static/imgs/raposa_trilha.png" class="img_fase_trilha" id="img_trilha_raposa" alt="Imagem da raposinha">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
 
-        fn_questao({{ questao }})
-        console.log(questao)
+
+        </div>
+
+    {% endblock %}
+
+    {% block js %}
+        <script src="static/scripts/fases_trilha.js"></script>
+        <script>
+            
+            // Função para mostrar a div e depois o conteúdo
+           function mostrarDiv() {
+                const concluido = '{{ concluido }}' === 'True';
+
+                console.log('concluido '+concluido)
+                const div = document.getElementById('box_concluido');
+                const conteudo = document.getElementById('box_inicial_jg_trilha');
+                if (concluido) {
+                    conteudo.style.display = 'none';
+                    div.style.display = 'flex'; // Mostra a div
+                } else {
+                    conteudo.style.display = 'flex';
+                }
+            }
+        
+            // Chama a função para mostrar a div após o carregamento da página
+            window.onload = mostrarDiv;
 
 
+            setTimeout(() => {
+            const message = document.querySelector('.message_resp');
+            if (message) {
+                message.style.display = 'none';
+            }
+            }, 5000);
+
+            var faseAtual = parseInt('{{fase}}', 10);
+            console.log(faseAtual)
+
+            // Mova a imagem com base na fase atual
+            const imagem = document.querySelector('.img_fase_trilha');
+            const posicoes = [
+                { top: '50%', left: '6%' },
+                { top: '45%', left: '16%' },
+                { top: '33%', left: '24%' },
+                { top: '27%', left: '33%' },
+                { top: '33%', left: '44%' },
+                { top: '45%', left: '53%' },
+                { top: '50%', left: '63%' },
+                { top: '45%', left: '73%' },
+                { top: '33%', left: '84%' },
+            ];
+            
+            imagem.style.top = posicoes[faseAtual-1].top;
+            imagem.style.left = posicoes[faseAtual-1].left;
 
 
-        <!-- <input type="hidden" id="meu-input" value="{{ questao }}" readonly> -->
-                        {% if questao %}
-                        <div id="pt-{{questao}}"></div>
-                        {% endif %}
+            // Pega as informações do localStorage
+            let Color = localStorage.getItem('selectedColor') || '#00AEEF';
+            let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
+            // Função para carregar a seleção salva ao iniciar a página
+            function carregarSelecoes() {
+                const perfilAvatar = document.getElementById('perfilAvatar');
+
+                perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
+                perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
+            }
+
+            // Chame a função ao carregar a página
+            window.onload = carregarSelecoes;
+
+        </script>
+    {% endblock %}
 
 
-
-
-
-@app.route('/questoes_qcbc', methods=['POST', 'GET'])
-def Questoes_qcbc():
-    fase = int(request.cookies.get('fase_atual_qcbc', 1))
-    fase_desbloqueada_qcbc = int(request.cookies.get('fase_desbloqueada_qcbc', 1))
-
+------------------------------------------------------------------------
+    
+@app.route('/fases_trilha', methods=['POST', 'GET'])
+def Fases_trilha():
     if request.method == 'GET':
-        questao = int(request.args.get('questao'))
-        if 'img' in fases_qcbc[fase-1][questao]:
-            response = make_response(render_template(
-            'questoes_qcbc.html',
-            pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
-            img=fases_qcbc[fase-1][questao]['img'],
-            opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
-            mensagem=''))
+        # Lê o cookie e converte para booleano
+        trilha_concluida = request.cookies.get('trilha_concluida', 'False') == 'True'
+        fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 1))
+
+        if fase_desbloqueada > 9:
+                trilha_concluida = True
+        # Retorna o template com o estado da trilha
+        return render_template('fases_trilha.html', fase=fase_desbloqueada, concluido=trilha_concluida)
+    else:
+        response = make_response(render_template('fases_trilha.html', fase=1, concluido=False))       
+        response.set_cookie('trilha_concluida', 'False')
+        response.set_cookie('trilha_desbloqueada', '1')  # Atualiza o cookie
+        return response 
+
+@app.route('/trilha_jogo')
+def Trilha_jogo():
+    return render_template('jogo_trilha.html')
+
+# mostrar a questão da trilha e ver se estar correta
+@app.route('/questoes_trilha', methods=['POST', 'GET'])
+def Questoes_trilha():
+    trilha_concluida = str(request.cookies.get('trilha_concluida', False))
+    fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 1))
+    trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
+    if request.method == 'GET':  # Mostrar a questão
+        fase_get = request.args.get('fase')
+    
+        if fase_get is not None:  # Verifica se o parâmetro 'fase' existe
+            fase = int(fase_get)
+        else:
+            return render_template('fases_trilha.html', fase=fase_desbloqueada)
+        if fase <= fase_desbloqueada: 
+            response = make_response(render_template('jogo_trilha.html', questao=fases_trilha[fase - 1]['pergunta'], mensagem=''))
+            response.set_cookie('questao_atual_trilha', str(fase)) 
+            return response
+        else:
+            mensagem = f'A fase {fase} não foi desbloqueada! Responda corretamente a fase {fase_desbloqueada}!'
+            return render_template('fases_trilha.html', msg_resp=mensagem)
+        
+    else:  # Verificar se a resposta está correta ou não
+        resposta = str(request.form.get('resp_trilha'))
+        fase = int(request.cookies.get('questao_atual_trilha', 1))
+        if resposta == fases_trilha[fase-1]['resposta']:
+
+            mensagem = f"Parabéns você acertou a fase {fase}. Pode avançar de fase."
+            if fase == 3:    
+                msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
+            elif fase == 6:
+                msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
+            elif fase == 9:
+                msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
+                trilha_concluida = True
+            else:
+                msg_trofeu = f""
+
+            if fase == fase_desbloqueada:  # Se a fase respondida for a fase desbloqueada
+                if msg_trofeu != '':
+                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase+1, msg_trofeu=msg_trofeu, concluido=trilha_concluida))
+                    if trilha_concluida == True:
+                        response.set_cookie('trilha_concluida', str(True))
+                        response.set_cookie('trofeu_trilha', str(trofeu_trilha + 1))
+                        response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
+                        
+                    else:
+                        response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
+                        response.set_cookie('trofeu_trilha', str(trofeu_trilha + 1))
+                    
+                else:
+                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase+1, concluido=trilha_concluida))
+                    response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
+                
+            else:
+                response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta!', fase=fase))
+            return response
 
         else:
-            response = make_response(render_template(
-                'questoes_qcbc.html',
-                pergunta=fases_qcbc[fase - 1][questao]['pergunta'],
-                opcoes=fases_qcbc[fase - 1][questao]['opcoes'],
-                mensagem=''))
-        # Define cookies com expiração de 30 dias
-        expires = datetime.now() + timedelta(days=30)
-        response.set_cookie('questao_atual_qcbc', str(questao), expires=expires)
-        return response
+            # Mensagem de erro
+            if fase == fase_desbloqueada:
+                response = make_response(render_template('fases_trilha.html', msg_resp='Resposta errada! Tente novamente para passar de fase!', fase=fase))
+            else:
+                response = make_response(render_template('fases_trilha.html', msg_resp='Resposta errada!', fase=fase)) 
+            response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada))  # Mantém o cookie
+            return response
+        
+@app.route('/trilha_reiniciar')
+def Trilha_reiniciar():
+    response = make_response(render_template('fases_trilha.html', fase=1, msg_resp='Trilha reiniciada!')) 
+    response.set_cookie('trilha_desbloqueada', str(1))
+    response.set_cookie('trilha_concluida', str(False))
+    response.set_cookie('trofeu_trilha', str(0))
+    
+    return response
 
-    else:
-        trofeu_qcbc = int(request.cookies.get('trofeu_qcbc', 0))
-        resposta = request.form.get('resposta')
-        questao = int(request.cookies.get('questao_atual_qcbc', 0))
-        acertou = resposta == fases_qcbc[fase - 1][questao]['resposta']
 
-        # Se a resposta estiver correta
+--------------------------------------------
+
+.img_fase_trilha {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%; /* Pode ser ajustado conforme necessário */
+    left: 6%; /* Pode ser ajustado conforme necessário */
+    animation: subirDescer 2s infinite;
+}
+
+@keyframes subirDescer {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+--------------------------------
+
+
+/*------ div trilha concluido ------------*/
+
+#box_concluido {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 0px; /* Aumentado para melhorar o espaçamento */
+    display: flex;
+    flex-direction: column; /* Alinha os itens verticalmente */
+    align-items: center; /* Centraliza os itens */
+    max-width: 400px;
+    width: 100%;
+    height: 50%; /* Ajusta a altura automaticamente */
+}
+
+#div_concluido {
+    padding: 10%;
+    height: 80%; /* Ajusta automaticamente a altura */
+    width: 100%; /* Largura total */
+    display: flex;
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    align-items: center; /* Centraliza os elementos */
+}
+
+
+#mensagem_concluido {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+#botao-concluido {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#botao-concluido:hover {
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+#botao-concluido:active {
+    transform: scale(0.95);
+}
+---------------------------------------
+
+
+#box_concluido {
+    display: none; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    align-items: center;
+    justify-content: center; /* Alinha os itens horizontalmente ao centro */
+    width: 60%; /* Largura da caixa central */
+    max-width: 1000px; /* Largura máxima da caixa central */
+    margin: 0 auto; /* Centraliza a caixa horizontalmente */
+    background-color: white; 
+    }
+
