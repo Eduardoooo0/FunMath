@@ -27,7 +27,7 @@
                         <button class="links-button" style="width: 90px; height: 40px; color: red; border: 1px solid white;">Sair</button>
                     </form>
                     {% else %}
-                    <p style="margin-top: 20px; color: rgb(240, 201, 149); font-size: 22px;">Você ainda não possui cadastro ou não fez login!</p>
+                    <p style="margin-top: 20px; color: red; font-size: 22px;">Você ainda não possui cadastro ou não fez login!</p>
                     
                     {% endif %}
                 </div>
@@ -35,14 +35,18 @@
                 <div id="modal" style="display:none;">
                     <div id="modal_content" style="color: black;">
                         <span onclick="fecharModal()" style="cursor:pointer; font-size: 30px;">&times;</span>
-                        <h3>Escolha seu Avatar</h3>
+                        <br>
+                        <h3>Escolha seu Avatar:</h3>
+                        <br>
                         <div class="avatar-selection" onclick="window.location.reload()">
                             <div class="avatar" onclick="selectAvatar('🐶')">🐶</div>
                             <div class="avatar" onclick="selectAvatar('🐱')">🐱</div>
                             <div class="avatar" onclick="selectAvatar('🐻')">🐻</div>
                             <div class="avatar" onclick="selectAvatar('🐢')">🐢</div>
                         </div>
-                        <h3>Escolha a Cor</h3>
+                        <br>
+                        <h3>Cor de fundo:</h3>
+                        <br>
                         <div class="color-selection" onclick="window.location.reload()">
                             <div class="color" style="background-color: #FF5733;" onclick="selectColor(this)"></div>
                             <div class="color" style="background-color: #33FF57;" onclick="selectColor(this)"></div>
@@ -50,6 +54,8 @@
                             <div class="color" style="background-color: #FF33A8;" onclick="selectColor(this)"></div>
                             <div class="color" style="background-color: #fffc33;" onclick="selectColor(this)"></div>
                             <div class="color" style="background-color: #dc85ff;" onclick="selectColor(this)"></div>
+                            <div class="color" style="background-color: #ffffff;" onclick="selectColor(this)"></div>
+                            <div class="color" style="background-color: #000000;" onclick="selectColor(this)"></div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +64,7 @@
             <section class="section_perfil">
             
                 <div class="box_perfil">
-                    <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px; text-align: center; color: white;">
+                    <div class="box_trf" style="width: 100%; height: auto; margin-bottom: 15px; text-align: center;">
                         {% set trofeus_existentes = trofeu_quiz or trofeu_qcbc or trofeu_trilha %}
                         
                         {% if trofeu_quiz %}
@@ -97,10 +103,10 @@
                         {% if not trofeus_existentes %}
                             
                             <div id="title_trf">
-                                <img src="../static/imgs/sem_trofeus.png" alt="" style="width: 210px; height: 210px; margin-top: 30px;">
-                                <p style="color: rgb(240, 201, 149); font-size: 25px; margin-top: 20px;">Você ainda não possui troféus!</p>
-                                <p style="margin-top: 20px; font-size: 19px; color: white;">Que tal começar um desafio e conquistar o seu primeiro?</p>
-                                <button class="cta-button" onclick="abriuModalJogos()" style="margin-top: 20px; margin-left: -10px;">Jogar Agora</button>
+                                <img src="../static/imgs/sem_trofeus.png" alt="" style="width: 160px; height: 160px; margin-top: 30px;">
+                                <p style="color: red; font-size: 25px; margin-top: 20px;">Você ainda não possui troféus!</p>
+                                <p style="margin-top: 20px; font-size: 19px;">Que tal começar um desafio e conquistar o seu primeiro?</p>
+                                <button class="button_jg_perfil" onclick="abriuModalJogos()" style="margin-top: 20px; margin-left: -10px;">Jogar Agora</button>
 
                             </div>
 

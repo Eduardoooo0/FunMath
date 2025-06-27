@@ -452,8 +452,8 @@ a {
     flex-direction: column;
     align-items: center;
     width: 100%;                      /* Define a largura da seção como 100% da largura da viewport */
-    height: 89vh;                      /* Define a altura da seção como 80% da altura da viewport */
-    background-color: rgb(219, 219, 219);
+    height: 90vh;                      /* Define a altura da seção como 80% da altura da viewport */
+    background-color: white;
     padding: 1%;
     margin-top: 5%;
 }
@@ -466,10 +466,7 @@ a {
     justify-content: center;
     width: 70%;                       /* Define a largura da área como 70% da largura da seção */
     height: 80%;                      /* Define a altura da área como 90% da altura da seção */
-    background: linear-gradient(100deg, white, #2c569b, #05142b);        /* Define a cor de fundo da área como branca */
     margin-top: 3%;
-    box-shadow: 0 12px 12px rgb(43, 42, 42);
-    border-radius: 20px;
 }
 
 .login-cadastro img{
@@ -484,12 +481,15 @@ a {
     flex-direction: column;           /* Organiza os itens da caixa em uma coluna */
     align-items: center;             /* Alinha os itens ao centro horizontalmente */
     justify-content: center;         /* Centraliza os itens verticalmente */
-    width: 50%;                       /* Define a largura da caixa como 50% da largura da área */
-    height: 100%;                     /* Define a altura da caixa como 100% da altura da área */
+    width: 40%;                       /* Define a largura da caixa como 50% da largura da área */
+    height: 80%;                     /* Define a altura da caixa como 100% da altura da área */
     font-family: Arial;              /* Define a fonte do texto na caixa */
     font-size: 20px;
     color: white;
     margin-right: -5%;
+    background: linear-gradient(100deg, #2c569b, #05142b);        /* Define a cor de fundo da área como branca */
+    box-shadow: 0 12px 12px rgb(43, 42, 42);
+    border-radius: 20px;
 }
 
 /* Estilo dos formulários */
@@ -521,15 +521,16 @@ a {
 /* Estilo dos campos de entrada */
 #input_login {
     padding: 10px;                   /* Adiciona preenchimento interno aos campos de entrada */
-    background-color: rgb(224, 223, 223); /* Define a cor de fundo dos campos de entrada */
+    background: transparent; /* Define a cor de fundo dos campos de entrada */
     color: black;                     /* Define a cor do texto nos campos de entrada */
     margin-bottom: 10px;             /* Adiciona uma margem inferior aos campos de entrada */
     border-radius: 10px;              /* Adiciona bordas arredondadas aos campos de entrada */
     outline: none;                   /* Remove o contorno padrão dos campos de entrada */
     height: 50px;
+    border: 1px solid rgb(175, 175, 175);
 }
 #input_login::placeholder {
-    color: gray;                     /* Define a cor do texto de espaço reservado (placeholder) como cinza */
+    color: white;                     /* Define a cor do texto de espaço reservado (placeholder) como cinza */
     font-size: 17px;
 }
 input[type="button"] {
@@ -542,7 +543,7 @@ input[type="button"] {
 #entrar_login {
     padding: 8px;
     height: 50px;
-    width: 40%;
+    width: 30%;
     border-radius: 20px;
     font-size: 18px;
     background-color: orange;
@@ -563,7 +564,7 @@ input[type="button"] {
     width: 100%;                   /* Define a distância da parte inferior da página */
     right: 2px;                      /* Define a distância da borda direita da página */
     font-family: Arial;              /* Define a fonte do texto na opção */
-    font-size: 20px;                 /* Define o tamanho da fonte do texto na opção */
+    font-size: 16px;                 /* Define o tamanho da fonte do texto na opção */
 }
 
 .cadastrar #link-cadastro{
@@ -572,9 +573,10 @@ input[type="button"] {
     padding: 10px;                    /* Adiciona preenchimento interno ao botão de cadastro */
     border-radius: 20px;             /* Adiciona bordas arredondadas ao botão de cadastro */
     margin-left: 22%;               /* Adiciona uma margem esquerda ao botão de cadastro */
-    margin-top: -6px;                /* Adiciona uma margem superior negativa ao botão de cadastro */
+    margin-top: -10px;                /* Adiciona uma margem superior negativa ao botão de cadastro */
     border: 1px solid orange;        /* Adiciona uma borda laranja ao botão de cadastro */
     cursor: pointer;                /* Define o cursor como ponteiro ao passar sobre o botão */
+
 }
 
 
@@ -582,16 +584,7 @@ input[type="button"] {
 /* Estiliza a seção principal da página */
 
 
-#section_fases {
-    display: flex;  /* Define o layout da seção como flexbox */
-    flex-direction: column;  /* Organiza os itens da seção em uma coluna */
-    align-items: center;
-    width: 100%;  /* Define a largura da seção como 100% da largura da viewport */
-    height: 100vh;  /* Define a altura da seção como 900 pixels */
-    overflow-y: auto;  /* Adiciona uma barra de rolagem vertical se o conteúdo exceder a altura da seção */
-    background-color: #92aeb2;  /* Define a cor de fundo da seção como um azul claro */
-    border-top: 1px solid rgb(197, 197, 197);
-}
+/*  */
 /* Estiliza o container de fases */
 .fases {
     display: flex;  /* Define o layout do container de fases como flexbox */
@@ -666,7 +659,7 @@ input[type="button"] {
     margin-top: 12vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
-   background: linear-gradient(0deg,#3461a0 0%, #89acd6 100%);
+    background: linear-gradient(0deg,#3461a0 0%, #05172c 100%);
     padding: 1%;
     border-top: 1px solid rgb(197, 197, 197);
 }
@@ -677,12 +670,13 @@ input[type="button"] {
     display: flex; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
-    width: 100%; /* Largura da caixa central */
-    height: 80vh;
+    width: 70vw; /* Largura da caixa central */
+    height: 75vh;
     max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     margin-top: 0;
-    background-color: white; /* Cor de fundo branca */
+    background-color: white;
+    border-radius: 20px;
 }
 
 /* Estilo para a caixa central de conteúdo */
@@ -703,6 +697,7 @@ input[type="button"] {
     padding: 15px; /* Espaçamento interno ao redor do título */
     text-align: center; /* Alinha o texto ao centro */
 }
+
 
 /* Estiliza o quadrado do jogo com imagem de fundo */
 #quad1_inicial_cbc {
@@ -731,7 +726,6 @@ input[type="button"] {
     margin: 20px;  /* Adiciona uma margem de 20 pixels ao redor do botão jogar */
     cursor: pointer;  /* Define o cursor como ponteiro quando sobre o botão jogar */
     border-radius: 50px;  /* Define bordas arredondadas no botão jogar para criar um formato circular */
-
     background-image: url(../imgs/botao-play.svg);  /* Define a imagem de fundo do botão jogar */
 }
 
@@ -740,6 +734,8 @@ input[type="button"] {
 #div_inicial_jg {
     width: 100%; /* Largura do contêiner do quiz */
     background-color: rgb(255, 203, 106); /* Cor de fundo cinza claro */
+    font-size: 25px;
+    border-radius: 20px 20px 0px 0px;
 }
 
 /* Estilo para o segundo bloco de conteúdo */
@@ -793,6 +789,8 @@ input[type="button"] {
     background-position: center;  /* Centraliza a imagem de fundo */
     margin: 10px;  /* Adiciona uma margem de 10 pixels ao redor do quadrado */
     border: 1px solid rgb(173, 173, 173);  /* Adiciona uma borda sólida cinza ao quadrado */
+    border-radius: 20px;
+    
 }
 
 /* ---------- JOGOS ----------  */
@@ -1137,7 +1135,7 @@ input[type="button"] {
     align-items: center;
     width: 100%;
     height: 90%;
-    margin-top: 7vh;
+    margin-top: 1%;
 }
 
 #quad1_jogo_trilha {
@@ -1370,13 +1368,13 @@ input[type="button"] {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 92vh;
+    height: 88vh;
     padding: 5px;
     overflow: hidden;
     /* background: linear-gradient(0deg,#2457a0 0%,  #051731 100%); */
-    background-color: rgb(238, 236, 236);
+    background: linear-gradient(0deg,#3461a0 0%, #05172c 100%);
     border-top: 1px solid rgb(197, 197, 197);
-    margin-top: 4.5%;
+    margin-top: 12vh;
 }
 
 .box_conteudo_perfil {
@@ -1390,12 +1388,12 @@ input[type="button"] {
 
 .aside_perfil {
     display: flex;              /* Define o layout do aside como flexbox */
-    background: linear-gradient(0deg,#163258 0%, #89acd6 100%);
+    background-color:  white;
     flex-direction: column;        /* Organiza os itens do aside em uma linha */
     align-items: center;
     width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 80%;  
-    color: white;   
+    height: 70%;  
+    color: black;   
     padding: 1%;
     margin: 10px;
     box-shadow: 0 6px 12px rgba(26, 25, 25, 0.945);
@@ -1404,7 +1402,7 @@ input[type="button"] {
 
 #box_avatar {
     text-align: center;
-    margin-top: 60px;
+    margin-top: 35px;
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -1441,7 +1439,7 @@ input[type="button"] {
     flex-direction: column;     /* Organiza os itens da seção em uma coluna */
     align-items: center;        /* Alinha os itens da seção ao centro */
     width: 30vw;                /* Define a largura do aside como 100% da largura da viewport */
-    height: 80%;  
+    height: 70%;  
     color: black;
     margin: 10px;
     margin-left: 40px;
@@ -1453,13 +1451,25 @@ input[type="button"] {
     align-items: center;
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg,#163258 0%, #89acd6 100%);
+    background-color: white;
+    color: black;
     padding: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
     box-shadow: 0 6px 12px rgba(26, 25, 25, 0.945);
     border-radius: 20px;
     overflow-y: auto;
+}
+.button_jg_perfil {
+    background-color: orange;
+    color: black;
+    font-size: 18px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px gray;
 }
 
 .container_trf {
@@ -1538,7 +1548,7 @@ input[type="button"] {
     display: none; /* Utiliza flexbox para layout */
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
-    width: 85%; /* Largura da caixa central */
+    width: 70%; /* Largura da caixa central */
     max-width: 1000px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
     background-color: white; /* Cor de fundo branca */
@@ -1661,12 +1671,14 @@ input[type="button"] {
     border-radius: 5px;
     text-align: center;
     font-size: 17px;
-    width: 400px;
+    width: 500px;
 }
 .avatar-selection .avatar {
     font-size: 70px;
     cursor: pointer;
     margin: 5px;
+    display: inline-block;
+    flex-direction: row;
 }
 .color-selection .color {
     width: 50px;
@@ -1674,14 +1686,14 @@ input[type="button"] {
     display: inline-block;
     margin: 5px;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 1px solid gray;
 }
 .color-selection .color:hover {
     border: 2px solid black;
 }
 .preview {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -1697,7 +1709,7 @@ input[type="button"] {
 #bt_trocar_foto{
     position: absolute; 
     top: 30px; 
-    right: 17px; 
+    right: 6px; 
     width: 40px;
     height: 40px;
     background: white; 
