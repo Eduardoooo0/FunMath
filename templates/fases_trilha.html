@@ -18,19 +18,23 @@
     
             <div class="box_conteudo_fases">
 
-                {% if trofeu: %}
-            
-                <div id="box_trofeu">
-                    <div id="div_inicial_jg">
-                        <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                 
+               {% if concluido %}
+                    <div id="box_concluido">
+                        <div id="div_inicial_jg">
+                            <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
+                        </div>
+                        <div id="div_concluido">
+                            <h4 id="mensagem_concluido">Parabéns, você concluiu a trilha!</h4>
+                            <a href="{{ url_for('Trilha_reiniciar') }}">
+                                <button id="botao-concluido">Reiniciar a Trilha</button>
+                            </a>
+                            <a href="{{ url_for('index') }}">
+                                <button id="botao-concluido">Voltar para a Página Inicial</button>
+                            </a>
+                        </div>
                     </div>
-                    <div id="div_img_trofeu">
-                        <img src= "{{ trofeu }}" alt="">
-                    </div>
-                </div>
                 {% endif %}
-
-    
 
                 <div class="box_inicial_jg">
                     <div id="div_inicial_jg">
@@ -52,7 +56,7 @@
                             <img src="/static/imgs/raposa_trilha.png" class="img_fase_trilha" id="img_trilha_raposa" alt="Imagem da raposinha">
                         </div>
                     </div>
-                </div>
+                </div>            
             </div>
 
 
@@ -63,24 +67,20 @@
     {% block js %}
         <script src="static/scripts/fases_trilha.js"></script>
         <script>
+            
             // Função para mostrar a div e depois o conteúdo
-            function mostrarDiv() {
-                let trofeu = '{{trofeu}}'
-                const div = document.getElementById('box_trofeu');
-                const conteudo = document.getElementById('box_inicial_jg_trilha');
-                if (trofeu){
+           function mostrarDiv() {
+                const concluido = '{{ concluido }}' === 'True';
+
+                console.log('concluido '+concluido)
+                const div = document.getElementById('box_concluido');
+                const conteudo = document.querySelector('.box_inicial_jg');
+                if (concluido) {
                     conteudo.style.display = 'none';
                     div.style.display = 'flex'; // Mostra a div
-                }else{
-                    conteudo.style.display = 'flex'
+                } else {
+                    conteudo.style.display = 'flex';
                 }
-                
-        
-                // Esconde a div após 5 segundos e mostra o conteúdo
-                setTimeout(() => {
-                    div.style.display = 'none'; // Esconde a div
-                    conteudo.style.display = 'flex'; // Mostra o conteúdo
-                }, 3000);
             }
         
             // Chama a função para mostrar a div após o carregamento da página
@@ -92,62 +92,42 @@
             if (message) {
                 message.style.display = 'none';
             }
-        }, 5000);
+            }, 5000);
 
-        var faseAtual = parseInt('{{fase}}', 10);
-        console.log(faseAtual)
+            var faseAtual = parseInt('{{fase}}', 10);
+            console.log(faseAtual)
 
-        // Mova a imagem com base na fase atual
-        const imagem = document.querySelector('.img_fase_trilha');
-        const posicoes = [
-            { top: '50%', left: '6%' },
-            { top: '45%', left: '16%' },
-            { top: '33%', left: '24%' },
-            { top: '27%', left: '33%' },
-            { top: '33%', left: '44%' },
-            { top: '45%', left: '53%' },
-            { top: '50%', left: '63%' },
-            { top: '45%', left: '73%' },
-            { top: '33%', left: '84%' },
-        ];
-        
-        imagem.style.top = posicoes[faseAtual-1].top;
-        imagem.style.left = posicoes[faseAtual-1].left;
+            // Mova a imagem com base na fase atual
+            const imagem = document.querySelector('.img_fase_trilha');
+            const posicoes = [
+                { top: '50%', left: '6%' },
+                { top: '45%', left: '16%' },
+                { top: '33%', left: '24%' },
+                { top: '27%', left: '33%' },
+                { top: '33%', left: '44%' },
+                { top: '45%', left: '53%' },
+                { top: '50%', left: '63%' },
+                { top: '45%', left: '73%' },
+                { top: '33%', left: '84%' },
+            ];
+            
+            imagem.style.top = posicoes[faseAtual-1].top;
+            imagem.style.left = posicoes[faseAtual-1].left;
 
-        const img = document.getElementById('img_trilha_raposa');
-        const deslocamento = 12; // Deslocamento em pixels
-        let animacaoAtiva = false;
 
-        setInterval(() => {
-            if (!animacaoAtiva) {
-                animacaoAtiva = true;
+            // Pega as informações do localStorage
+            let Color = localStorage.getItem('selectedColor') || '#00AEEF';
+            let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
+            // Função para carregar a seleção salva ao iniciar a página
+            function carregarSelecoes() {
+                const perfilAvatar = document.getElementById('perfilAvatar');
 
-                // Mover para cima
-                img.style.top = `${parseFloat(posicoes[faseAtual - 1].top) - (deslocamento / window.innerHeight * 100)}%`;
-
-                setTimeout(() => {
-                    // Volta para a posição inicial
-                    img.style.top = posicoes[faseAtual - 1].top;
-                    animacaoAtiva = false;
-
-                }, 500); // Tempo para voltar
+                perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
+                perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
             }
-        }, 2000); // Intervalo de 2 segundos
 
-
-        // Pega as informações do localStorage
-        let Color = localStorage.getItem('selectedColor') || '#00AEEF';
-        let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
-        // Função para carregar a seleção salva ao iniciar a página
-        function carregarSelecoes() {
-            const perfilAvatar = document.getElementById('perfilAvatar');
-
-            perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
-            perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
-        }
-
-        // Chame a função ao carregar a página
-        window.onload = carregarSelecoes;
+            // Chame a função ao carregar a página
+            window.onload = carregarSelecoes;
 
         </script>
     {% endblock %}

@@ -270,45 +270,28 @@ def Questoes_qcbc():
 def Inicial_quiz():
     return render_template('inicial_quiz.html')
 
-@app.route('/fases_quiz')
-def Fases_quiz():
-    app.config['pergunta_atual'] = 0
-    response = make_response(render_template('fases_quiz.html'))
-    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
-    return response
-
-@app.route('/tempo_restante')
-def Tempo_restante():
-    tempo_de_inicio = request.cookies.get('tempo_de_inicio_quiz')
-    if tempo_de_inicio is not None:
-        tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
-        tempo_restante = app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds()
-        if tempo_restante <= 0:
-            tempo_restante = 0
-        return jsonify({'tempo_restante_em_segundos': int(tempo_restante)})
-    else:
-        return jsonify({'tempo_restante_em_segundos': app.config['tempo_de_expiracao_quiz']})
 
 @app.route('/trilha')
 def Trilha():
     return render_template ('inicial_trilha.html')
 
 
-
-
 @app.route('/fases_trilha', methods=['POST', 'GET'])
 def Fases_trilha():
     if request.method == 'GET':
-        trilha_concluida = str(request.cookies.get('trilha_concluida', False))
+        # Lê o cookie e converte para booleano
+        trilha_concluida = request.cookies.get('trilha_concluida', 'False') == 'True'
         fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 1))
+
+        if fase_desbloqueada > 9:
+                trilha_concluida = True
+        # Retorna o template com o estado da trilha
         return render_template('fases_trilha.html', fase=fase_desbloqueada, concluido=trilha_concluida)
     else:
         response = make_response(render_template('fases_trilha.html', fase=1, concluido=False))       
-        response.set_cookie('trilha_concluida', str(False))
-        response.set_cookie('trilha_desbloqueada', str(1))  # Atualiza o cookie
-        return response
-
-
+        response.set_cookie('trilha_concluida', 'False')
+        response.set_cookie('trilha_desbloqueada', '1')  # Atualiza o cookie
+        return response 
 
 @app.route('/trilha_jogo')
 def Trilha_jogo():
@@ -317,7 +300,7 @@ def Trilha_jogo():
 # mostrar a questão da trilha e ver se estar correta
 @app.route('/questoes_trilha', methods=['POST', 'GET'])
 def Questoes_trilha():
-    trilha_concluida = False
+    trilha_concluida = str(request.cookies.get('trilha_concluida', False))
     fase_desbloqueada = int(request.cookies.get('trilha_desbloqueada', 1))
     trofeu_trilha = int(request.cookies.get('trofeu_trilha', 0))
     if request.method == 'GET':  # Mostrar a questão
@@ -342,25 +325,23 @@ def Questoes_trilha():
 
             mensagem = f"Parabéns você acertou a fase {fase}. Pode avançar de fase."
             if fase == 3:    
-                trofeu = "/static/imgs/trofeus/trofeu1_trilha.svg"
                 msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
             elif fase == 6:
-                trofeu = "/static/imgs/trofeu2.png"
                 msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
             elif fase == 9:
-                trofeu = "/static/imgs/trofeu3.png"
                 msg_trofeu = f" Você ganhou um trófeu por completar a fase {fase}! Você tem {1+trofeu_trilha} trofeus do trilha!"
                 trilha_concluida = True
             else:
-                trofeu = ''
                 msg_trofeu = f""
 
             if fase == fase_desbloqueada:  # Se a fase respondida for a fase desbloqueada
-                if trofeu != '':
-                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase+1, msg_trofeu=msg_trofeu, trofeu=trofeu, concluido=trilha_concluida))
+                if msg_trofeu != '':
+                    response = make_response(render_template('fases_trilha.html', msg_resp='Resposta correta! Parabéns você passou de fase!', fase=fase+1, msg_trofeu=msg_trofeu, concluido=trilha_concluida))
                     if trilha_concluida == True:
                         response.set_cookie('trilha_concluida', str(True))
                         response.set_cookie('trofeu_trilha', str(trofeu_trilha + 1))
+                        response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
+                        
                     else:
                         response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada + 1))  # Atualiza o cookie
                         response.set_cookie('trofeu_trilha', str(trofeu_trilha + 1))
@@ -381,7 +362,16 @@ def Questoes_trilha():
                 response = make_response(render_template('fases_trilha.html', msg_resp='Resposta errada!', fase=fase)) 
             response.set_cookie('trilha_desbloqueada', str(fase_desbloqueada))  # Mantém o cookie
             return response
+        
+@app.route('/trilha_reiniciar')
+def Trilha_reiniciar():
+    response = make_response(render_template('fases_trilha.html', fase=1, msg_resp='Trilha reiniciada!')) 
+    response.set_cookie('trilha_desbloqueada', str(1))
+    response.set_cookie('trilha_concluida', str(False))
+    response.set_cookie('trofeu_trilha', str(0))
     
+    return response
+
 
 @app.route('/ajuda')
 def Ajuda():
