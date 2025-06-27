@@ -270,6 +270,24 @@ def Questoes_qcbc():
 def Inicial_quiz():
     return render_template('inicial_quiz.html')
 
+@app.route('/fases_quiz')
+def Fases_quiz():
+    app.config['pergunta_atual'] = 0
+    response = make_response(render_template('fases_quiz.html'))
+    response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
+    return response
+
+@app.route('/tempo_restante')
+def Tempo_restante():
+    tempo_de_inicio = request.cookies.get('tempo_de_inicio_quiz')
+    if tempo_de_inicio is not None:
+        tempo_de_inicio = datetime.strptime(tempo_de_inicio, '%Y-%m-%d %H:%M:%S.%f')
+        tempo_restante = app.config['tempo_de_expiracao_quiz'] - (datetime.now() - tempo_de_inicio).total_seconds()
+        if tempo_restante <= 0:
+            tempo_restante = 0
+        return jsonify({'tempo_restante_em_segundos': int(tempo_restante)})
+    else:
+        return jsonify({'tempo_restante_em_segundos': app.config['tempo_de_expiracao_quiz']})
 
 @app.route('/trilha')
 def Trilha():

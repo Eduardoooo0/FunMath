@@ -741,7 +741,7 @@ input[type="button"] {
 /* Estilo para o segundo bloco de conteúdo */
 #quad2_inicial_jg {
     display: flex; /* Utiliza flexbox para layout */
-    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    flex-direction: row; /* Organiza o conteúdo em uma coluna */
     width: 90%; /* Largura do bloco de conteúdo */
     height: 20%;
     margin-top: 20px; /* Espaço acima do bloco de conteúdo */
