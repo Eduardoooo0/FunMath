@@ -1,6 +1,66 @@
 {% extends 'template_base.html' %}
     {% block style %}
         <link rel="stylesheet" href="static/style/base.css">
+        <style>
+        .oculto {
+        display: none;
+        }
+
+        /* Troféu no centro da tela */
+        #trofeu-gif {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        }
+
+        #trofeu-gif img {
+        width: 250px;
+        animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+        }
+
+        /* Confetes */
+        #confetes-container {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 9998;
+        }
+
+        .confete {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        opacity: 0.8;
+        animation: cairConfete 3s linear forwards;
+        }
+
+        @keyframes cairConfete {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+        }
+        </style>
+
     {% endblock %}
 
     {% block section %}
@@ -12,12 +72,14 @@
             <br>
             {% if msg_trofeu %}
             <div class="message_resp_trofeu msg_tf_trilha">{{ msg_trofeu }}</div>
+
+            <!-- Contêiner dos confetes -->
+            <div id="confetes-container"></div>
             {% elif msg_resp %}
             <div class="message_resp">{{ msg_resp }}</div>
             {% endif %}
     
             <div class="box_conteudo_fases">
-
                  
                {% if concluido %}
                     <div id="box_concluido">
@@ -41,6 +103,7 @@
                         <h1 id="titulo-jogo">TRILHA DA RAPOSA</h1>
                     </div>
                     <div id="quad1_jogo_trilha">
+
                         <div id="fases_trilha">
                             <form class="forms_fases_trilha" action="{{url_for('Questoes_trilha')}}" method="get">
                                 <input class="button_fases_trilha t1" name="fase" value="1" type="submit">
@@ -67,67 +130,105 @@
     {% block js %}
         <script src="static/scripts/fases_trilha.js"></script>
         <script>
-            
-            // Função para mostrar a div e depois o conteúdo
-           function mostrarDiv() {
+            function mostrarDiv() {
                 const concluido = '{{ concluido }}' === 'True';
+                console.log('concluido ' + concluido);
 
-                console.log('concluido '+concluido)
                 const div = document.getElementById('box_concluido');
                 const conteudo = document.querySelector('.box_inicial_jg');
+
                 if (concluido) {
                     conteudo.style.display = 'none';
-                    div.style.display = 'flex'; // Mostra a div
+                    div.style.display = 'flex';
+                    onConcluirTrilha(); // Confetes na conclusão da trilha
                 } else {
                     conteudo.style.display = 'flex';
                 }
             }
-        
-            // Chama a função para mostrar a div após o carregamento da página
-            window.onload = mostrarDiv;
 
-
-            setTimeout(() => {
-            const message = document.querySelector('.message_resp');
-            if (message) {
-                message.style.display = 'none';
-            }
-            }, 5000);
-
-            var faseAtual = parseInt('{{fase}}', 10);
-            console.log(faseAtual)
-
-            // Mova a imagem com base na fase atual
-            const imagem = document.querySelector('.img_fase_trilha');
-            const posicoes = [
-                { top: '50%', left: '6%' },
-                { top: '45%', left: '16%' },
-                { top: '33%', left: '24%' },
-                { top: '27%', left: '33%' },
-                { top: '33%', left: '44%' },
-                { top: '45%', left: '53%' },
-                { top: '50%', left: '63%' },
-                { top: '45%', left: '73%' },
-                { top: '33%', left: '84%' },
-            ];
-            
-            imagem.style.top = posicoes[faseAtual-1].top;
-            imagem.style.left = posicoes[faseAtual-1].left;
-
-
-            // Pega as informações do localStorage
-            let Color = localStorage.getItem('selectedColor') || '#00AEEF';
-            let Avatar = localStorage.getItem('selectedAvatar') || '🐶'; // Avatar padrão
-            // Função para carregar a seleção salva ao iniciar a página
             function carregarSelecoes() {
+                const Color = localStorage.getItem('selectedColor') || '#00AEEF';
+                const Avatar = localStorage.getItem('selectedAvatar') || '🐶';
                 const perfilAvatar = document.getElementById('perfilAvatar');
 
-                perfilAvatar.textContent = Avatar; // Atualiza o avatar do perfil
-                perfilAvatar.style.backgroundColor = Color; // Atualiza a cor do fundo
+                perfilAvatar.textContent = Avatar;
+                perfilAvatar.style.backgroundColor = Color;
             }
 
-            // Chame a função ao carregar a página
-            window.onload = carregarSelecoes;
+            function soltarConfetes(quantidade = 100) {
+                const container = document.getElementById('confetes-container');
+                const cores = ['#ff0', '#f00', '#0f0', '#0ff', '#f0f', '#00f', '#ffa500'];
 
+                for (let i = 0; i < quantidade; i++) {
+                    const confete = document.createElement('div');
+                    confete.classList.add('confete');
+                    confete.style.left = Math.random() * 100 + 'vw';
+                    confete.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+                    confete.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    const tamanho = Math.random() * 8 + 4;
+                    confete.style.width = tamanho + 'px';
+                    confete.style.height = tamanho + 'px';
+                    container.appendChild(confete);
+                }
+            }
+
+            function limparConfetes() {
+                document.getElementById('confetes-container').innerHTML = '';
+            }
+
+            function soltarConfetesPorTempo(tempo = 5000, quantidade = 400) {
+                soltarConfetes(quantidade);
+                setTimeout(() => {
+                    limparConfetes();
+                }, tempo);
+            }
+
+            function onGanharTrofeu() {
+                soltarConfetesPorTempo();
+            }
+
+            function onConcluirTrilha() {
+                soltarConfetesPorTempo();
+            }
+
+            window.onload = function () {
+                mostrarDiv();
+                carregarSelecoes();
+
+                // Se a página tiver msg_trofeu, dispara confetes
+                const temTrofeu = '{{ msg_trofeu|default("") }}' !== '';
+                if (temTrofeu) {
+                    onGanharTrofeu();
+                }
+
+                // Ocultar mensagens após 5s
+                setTimeout(() => {
+                    const message = document.querySelector('.message_resp');
+                    if (message) {
+                        message.style.display = 'none';
+                    }
+                }, 5000);
+
+                // Posicionar imagem da trilha
+                const faseAtual = parseInt('{{fase}}', 10);
+                console.log(faseAtual);
+                const imagem = document.querySelector('.img_fase_trilha');
+                const posicoes = [
+                    { top: '50%', left: '6%' },
+                    { top: '45%', left: '16%' },
+                    { top: '33%', left: '24%' },
+                    { top: '27%', left: '33%' },
+                    { top: '33%', left: '44%' },
+                    { top: '45%', left: '53%' },
+                    { top: '50%', left: '63%' },
+                    { top: '45%', left: '73%' },
+                    { top: '33%', left: '84%' },
+                ];
+                imagem.style.top = posicoes[faseAtual - 1].top;
+                imagem.style.left = posicoes[faseAtual - 1].left;
+            };
         </script>
+
+
+
     {% endblock %}

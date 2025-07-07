@@ -14,16 +14,10 @@ html, body {
     height: 100vh;
     box-sizing: border-box; /* Inclui padding e bordas na largura e altura dos elementos */
     scroll-behavior: smooth;
-}
-
-/* Estiliza o corpo da página, centralizando seu conteúdo */
-body {
     height: 100%;
     width: 100%;
-    overflow-y: hidden; /* permite rolagem */
-    overflow-x: hidden;    /* Esconde a barra horizontal */
-    scroll-behavior: smooth; /* rolagem suave */
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
 /* Estiliza o contêiner principal que ocupa toda a tela */
@@ -31,7 +25,6 @@ body {
     display: flex;
     flex-direction: column;
     width: 100vw;
-
     min-height: 100vh; /* permite crescer conforme o conteúdo */
 }
 
@@ -60,9 +53,10 @@ header {
 
 /* Estiliza o primeiro logotipo */
 .logo a img{
-    width: 100%;               /* Define a largura do primeiro logotipo */
-    height: 100%;              /* Define a altura do primeiro logotipo */
-    margin-left: 15%;          /* Adiciona uma margem esquerda ao logotipo */
+    width: 90%;               /* Define a largura do primeiro logotipo */
+    height: 80%;              /* Define a altura do primeiro logotipo */
+    margin-left: 10%;          /* Adiciona uma margem esquerda ao logotipo */
+    margin-top: 2%;
 }
 
 /* Estilo dos links de navegação */
@@ -81,6 +75,7 @@ header {
     background-color: transparent;
     color: white;
     border: 1px solid white;
+    border-radius: 10px;
 }
 #bt_home:hover, #jogos:hover, #bt_sobre:hover, #bt_ajuda:hover, #bt_login:hover {
     color: orange;
@@ -172,12 +167,13 @@ a {
     background-color:#071932;
     color: white;
     border: 1px solid white;
+    border-radius: 10px;
 }
 
 .bt_jogo a {
     text-decoration: none;
     color: black;
-
+border-radius: 10px;
 }
 
 .bt_jogo:hover {
@@ -192,7 +188,6 @@ a {
     margin-top: 40px;
     position: absolute;
     flex-direction: column;
-    background-color: palegoldenrod;
 }
 
 /* Estiliza as imagens de perfil */
@@ -218,15 +213,18 @@ a {
 
 /* -------- PAGINA INICIAL --------- */
 
+aside {
+    margin-top: 12vh;
+}
+
 /* SEÇÃO HERO (semelhante à imagem da Intelipost) */
 .aside_inicial {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: 91vh;
-    margin-top: 5%;
     background-image: url('../imgs/img_aside_inicial2.png');
     background-size: cover;
     background-position: center;
@@ -289,6 +287,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 /* Layout dos jogos */
@@ -656,7 +655,6 @@ input[type="button"] {
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     width: 100%; /* Largura da seção é 100% da largura disponível */
     height: 88vh;
-    margin-top: 12vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
     background: linear-gradient(0deg,#3461a0 0%, #05172c 100%);
@@ -1447,7 +1445,7 @@ input[type="button"] {
     /* background: linear-gradient(0deg,#2457a0 0%,  #051731 100%); */
     background: linear-gradient(0deg,#3461a0 0%, #05172c 100%);
     border-top: 1px solid rgb(197, 197, 197);
-    margin-top: 12vh;
+
 }
 
 .box_conteudo_perfil {
@@ -1943,3 +1941,67 @@ input[type="button"] {
 #btn-topo:hover {
   background-color: #007bb5;
 }
+
+
+
+
+
+
+
+
+
+#trofeu-gif {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#trofeu-gif img {
+  width: 250px;
+  animation: pulse 1s infinite;
+}
+.oculto {
+  display: none;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+#confetes-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9998;
+}
+
+.confete {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  opacity: 0.8;
+  animation: cairConfete 3s linear forwards;
+}
+
+@keyframes cairConfete {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+
