@@ -100,7 +100,7 @@ a {
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
-    margin-left: 20px;
+    margin: 4px;
     cursor: pointer;
     border: 1px solid rgb(201, 201, 201);
 }
@@ -121,7 +121,7 @@ a {
     width: 5%;
     height: 5%;
     margin-left: -92%;
-    margin-top: 1.5%;
+    margin-top: 1%;
 }
 
 
@@ -224,7 +224,7 @@ aside {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 91vh;
+    height: 40vh;
     background-image: url('../imgs/img_aside_inicial2.png');
     background-size: cover;
     background-position: center;
@@ -254,7 +254,7 @@ aside {
 
 /* Botão de chamada para ação */
 .cta-button {
-    animation: pulsar 1.5s infinite ease-in-out;
+    animation: pulsar 2s infinite ease-in-out;
     background-color: orange;
     color: black;
     font-size: 18px;
@@ -283,7 +283,7 @@ aside {
 /* Seção dos jogos */
 #section_inicial {
     background-color: #f4f4f4;
-    padding: 60px 20px;
+    padding: 62px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -320,22 +320,22 @@ aside {
 #trilha img, #quebra-cabeca img, #quiz img {
     width: 170px;
     height: 170px;
-    margin-bottom: 15px;
-    border-radius: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
     transition: 0.3s ease;
 }
 
 
 /* Título e descrição dos jogos */
 #trilha h2, #quebra-cabeca h2, #quiz h2 {
-    color: #333;
+    color: #0f3891;
     margin-bottom: 10px;
 }
 
 #box-texto {
     color: #666;
-    font-size: 17px;
-    margin-top: 10px;
+    font-size: 15px;
+    margin-bottom: 20px;
 }
 
 /* Responsividade */
@@ -581,7 +581,23 @@ input[type="button"] {
 
 /* ---------- PAGINA DAS FASES ----------  */
 /* Estiliza a seção principal da página */
+#section_fases {
+    display: flex; /* Utiliza flexbox para layout */
+    flex-direction: column; /* Organiza o conteúdo em uma coluna */
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Largura da seção é 100% da largura disponível */
+    height: 88vh;
+    flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
+    background: linear-gradient(0deg,#3461a0 0%, #05172c 100%);
+    padding: 1%;
+    border-top: 1px solid rgb(197, 197, 197);
+    color: white;
+}
 
+#section_fases h2{
+    margin-top: -18px;
+}
 
 /*  */
 /* Estiliza o container de fases */
@@ -590,42 +606,53 @@ input[type="button"] {
     flex-wrap: wrap;  /* Permite que os itens dentro do container de fases quebrem linha */
     flex-direction: row;  /* Organiza os itens do container de fases em uma linha */
     flex-grow: 0.5;  /* Permite que o container de fases cresça, mas não mais que 0.5 vezes seu tamanho original */
-    width: 65%;  /* Define a largura do container de fases como 50% da largura do seu elemento pai */
-    height: 65%;  /* Define a altura do container de fases como 55% da altura do seu elemento pai */
-    margin-top: 4%;  /* Adiciona uma margem superior de 5% da altura do seu elemento pai */
+    width: 60%;  /* Define a largura do container de fases como 50% da largura do seu elemento pai */
+    height: 100%;  /* Define a altura do container de fases como 55% da altura do seu elemento pai */
     justify-content: space-between;  /* Distribui os itens dentro do container de fases com espaço igual entre eles */
+    margin-top: 10px;
 }
 
 /* Estiliza os botões de fases */
-.button_fases {
-    display: flex;  /* Define o layout dos botões de fases como flexbox */
-    align-items: center;  /* Alinha o conteúdo dos botões de fases verticalmente ao centro */
-    justify-content: center;  /* Centraliza o conteúdo dos botões de fases horizontalmente */
-    width: 20%;  /* Define a largura dos botões de fases como 20% da largura do container de fases */
-    height: 15%;  /* Define a altura dos botões de fases como 15% da altura do container de fases */
-    margin: 5%;  /* Adiciona uma margem de 5% ao redor dos botões de fases */
-    border-radius: none;  /* Remove qualquer arredondamento das bordas dos botões de fases */
-    background-image: url(../imgs/fase1.png);
-    background-size: cover;
-    border: black solid 1px;  /* Adiciona uma borda sólida preta de 1 pixel aos botões de fases */
-    font-weight: 700;
-    font-size: 18px;
-    font-family: 'Courier New', Courier, monospace;
-}
+
 .button_fases_quiz {
     display: flex;  /* Define o layout dos botões de fases como flexbox */
     align-items: center;  /* Alinha o conteúdo dos botões de fases verticalmente ao centro */
     justify-content: center;  /* Centraliza o conteúdo dos botões de fases horizontalmente */
-    width: 20%;  /* Define a largura dos botões de fases como 20% da largura do container de fases */
-    height: 15%;  /* Define a altura dos botões de fases como 15% da altura do container de fases */
-    margin: 5%;  /* Adiciona uma margem de 5% ao redor dos botões de fases */
-    border-radius: none;  /* Remove qualquer arredondamento das bordas dos botões de fases */
-    background-image: url(../imgs/fase2.png);
+    width: 24%;  /* Define a largura dos botões de fases como 20% da largura do container de fases */
+    height: 20%;  /* Define a altura dos botões de fases como 15% da altura do container de fases */
+    margin: 2%;  /* Adiciona uma margem de 5% ao redor dos botões de fases */
+    border-radius: 10px;
     background-size: cover;
     border: black solid 1px;  /* Adiciona uma borda sólida preta de 1 pixel aos botões de fases */
     font-weight: 700;
     font-size: 18px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    background: white;
+}
+
+.button_fases_quiz:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Status: concluída */
+.fase_concluida .fase-card {
+  background-color: #d4f5d4;
+  color: #2a7d2a;
+}
+
+/* Status: atual */
+.fase_atual .fase-card {
+  background-color: #d4dff5;
+  color: #2a4a7d;
+  font-weight: bold;
+}
+
+/* Status: bloqueada */
+.fase_bloqueada .fase-card {
+  background-color: #f0f0f0;
+  color: #999;
 }
 
 .button_fases_trilha {
@@ -642,10 +669,50 @@ input[type="button"] {
     font-weight: 700;
     font-size: 18px;
     font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
 }
 .button_fases_trilha:hover{
     background-color: orange;
 }
+
+.fase-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin: 10px;
+  max-width: 300px;
+  font-family: Arial, sans-serif;
+}
+
+.fase-card .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fase-card h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.status {
+  background-color: #d4f5d4;
+  color: #2a7d2a;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 10px;
+}
+
+.checkmark {
+  font-size: 18px;
+}
+
 
 /* ---------- PAGINAS INICIAIS ----------  */
 /* INICIAL QUEBRA-CABEÇA */

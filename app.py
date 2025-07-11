@@ -273,7 +273,20 @@ def Inicial_quiz():
 @app.route('/fases_quiz')
 def Fases_quiz():
     app.config['pergunta_atual'] = 0
-    response = make_response(render_template('fases_quiz.html'))
+    fase_desbloqueada = int(request.cookies.get('fase_desbloqueada', 1))
+    fases_info = []
+
+    for i in range(1, 10):
+        if i < fase_desbloqueada:
+            status = 'concluida'
+        elif i == fase_desbloqueada:
+            status = 'atual'
+        else:
+            status = 'bloqueada'
+
+        fases_info.append({'numero': i, 'status': status})
+
+    response = make_response(render_template('fases_quiz.html', fases_info=fases_info))
     response.set_cookie('tempo_de_inicio_quiz', str(datetime.now()))
     return response
 

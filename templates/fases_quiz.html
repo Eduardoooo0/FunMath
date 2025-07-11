@@ -11,19 +11,34 @@
             {% if messagem %}
             <h2>{{ messagem }}</h2>
             {% else %}
-             <h2>Fases do Quiz</h2>
+             <h2>Fases do Quiz Matemático</h2>
+             <p>Ganhe um troféu a cada 3 fases respondida corretamente.</p>
             {% endif %}
-            <form class="fases" action="{{url_for('Quiz')}}" method="get">
-                <input class="button_fases_quiz" name="fase"  value="1" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="2" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="3" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="4" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="5" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="6" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="7" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="8" type="submit">
-                <input class="button_fases_quiz" name="fase"  value="9" type="submit">
+            <form class="fases" action="{{ url_for('Quiz') }}" method="get">
+                {% for fase in fases_info %}
+                {% set classe_extra = 'fase_' ~ fase.status %}
+                <button class="button_fases_quiz {{ classe_extra }}" name="fase" value="{{ fase.numero }}" type="submit" {% if fase.status == 'bloqueada' %} disabled {% endif %}>
+                    <div class="fase-card completa">
+                        <div class="header">
+                            <h3>Fase {{ fase.numero }}</h3>
+                            <span class="status">
+                                {% if fase.status == 'concluida' %}
+                                    Concluída <span class="checkmark">✔</span>
+                                {% elif fase.status == 'bloqueada' %}
+                                    Bloqueada 🔒
+                                {% else %}
+                                    Andamento..
+                                {% endif %}
+                            </span>
+                        </div>
+                        <p class="descricao">{{ fase.descricao }}</p>
+                    </div>
+                </button>
+                {% endfor %}
             </form>
+
+
+
         </div>
 
     {% endblock %}
