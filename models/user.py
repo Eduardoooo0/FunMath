@@ -1,10 +1,6 @@
 from flask_login import UserMixin
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy.orm import DeclarativeBase
-
-
-class Base(DeclarativeBase):
-    pass
+from models import Base
 
 class User(Base, UserMixin):
     __tablename__ = 'users'
