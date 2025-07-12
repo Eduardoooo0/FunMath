@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from database import session
 from werkzeug.security import generate_password_hash, check_password_hash                    
 from models.user import User
+from models.quiz import Quiz_tb, Pergunta
 
 from quiz import fases, obter_resposta_usuario,fase_inicial,exibir_fase,resposta_none,resposta_correta,resposta_incorreta, tempo_esgotado, verificar_resultado
 from trilha import fases_trilha
@@ -574,23 +575,33 @@ def Logout():
 def teste():
     return render_template("teste.html")
 
-@app.route("/criar-quiz", methods=["POST"])
+@app.route("/criar-quiz", methods=["GET","POST"])
 def criar_quiz():
-    data = request.get_json()
+    if request.method == 'POST':
+        perguntas = request.form.getlist('pergunta[]')
+        op1 = request.form.getlist("opcao1[]")
+        op2 = request.form.getlist("opcao2[]")
+        op3 = request.form.getlist("opcao3[]")
+        op4 = request.form.getlist("opcao4[]")
+        corretas = request.form.getlist("correta[]")
 
-    # Obtém a lista de perguntas do JSON recebido, ou uma lista vazia se não existir
-    perguntas = data.get("perguntas", [])
+        novo_quiz = Quiz_tb()
+        session.add(novo_quiz)
+        session.commit()
 
-    # Gera um código único para identificar o quiz (usando UUID e pegando os 6 primeiros caracteres)
-    codigo = str(uuid.uuid4())[:6]
+        id_quiz = session.query(Quiz_tb).order_by(Quiz_tb.id.desc()).first()
 
-    # Armazena o quiz no dicionário 'quiz_storage' usando o código gerado como chave
-    # Guarda as perguntas e uma data de expiração (2 horas a partir do momento atual)
-    quiz_storage[codigo] = {
-        "perguntas": perguntas,
-        "expira_em": datetime.now() + timedelta(hours=2)
-    }
-    return jsonify({"codigo": codigo})
+        for i in range(len(perguntas)):
+            pergunta = Pergunta(
+                titulo=perguntas[i],
+                opcoes=json.dumps([op1[i], op2[i], op3[i], op4[i]]),
+                resposta=int(corretas[i]),
+                quiz_id=id_quiz.id
+            )
+            session.add(pergunta)
+        session.commit()
+        return 'adicionado'
+    return render_template("teste.html")
 
 @app.route("/quiz/<codigo>")
 def obter_quiz(codigo):

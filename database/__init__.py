@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from models.user import User,Base
+from models import Base, quiz, user
+
 
 # cria a engine
 engine = create_engine('sqlite:///database/database.db')

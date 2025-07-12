@@ -67,11 +67,13 @@
         </div>
 
         <div id="quad1_quiz">
-            <form id="quiz-form">
+            <form id="quiz-form" action="{{url_for('criar_quiz')}}" method="post" >
+                
                 <div id="perguntas"></div>
 
                 <button type="button" id="bt_adicionar" onclick="adicionarPergunta()">+ Adicionar Pergunta</button>
-                <button type="submit" id="bt_gerar">🎲 Gerar Código</button>
+                <input type="submit" id="bt_gerar" value="Criar quiz">
+
             </form>
 
             <div id="codigo-gerado"></div>
@@ -89,41 +91,15 @@
         const div = document.createElement('div');
         div.className = 'pergunta-box';
         div.innerHTML = `
-            <input type="text" name="pergunta" placeholder="Pergunta ${count + 1}" required>
-            <input type="text" name="opcao1" placeholder="Opção 1" required>
-            <input type="text" name="opcao2" placeholder="Opção 2" required>
-            <input type="text" name="opcao3" placeholder="Opção 3" required>
-            <input type="text" name="opcao4" placeholder="Opção 4" required>
-            <input type="number" name="correta" placeholder="Número da opção correta (1-4)" min="1" max="4" required>
+            <input type="text" name="pergunta[]" placeholder="Pergunta ${count + 1}" required>
+            <input type="text" name="opcao1[]" placeholder="Opção 1" required>
+            <input type="text" name="opcao2[]" placeholder="Opção 2" required>
+            <input type="text" name="opcao3[]" placeholder="Opção 3" required>
+            <input type="text" name="opcao4[]" placeholder="Opção 4" required>
+            <input type="number" name="correta[]" placeholder="Número da opção correta (1-4)" min="1" max="4" required>
         `;
         document.getElementById("perguntas").appendChild(div);
         count++;
     }
-
-    document.getElementById("quiz-form").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const boxes = document.querySelectorAll(".pergunta-box");
-        const perguntas = [];
-
-        boxes.forEach(box => {
-            const inputs = box.querySelectorAll("input");
-            const pergunta = inputs[0].value;
-            const opcoes = [inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].value];
-            const correta = parseInt(inputs[5].value);
-
-            perguntas.push({ pergunta, opcoes, correta });
-        });
-
-        fetch("/criar-quiz", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({ perguntas })
-        })
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById("codigo-gerado").innerText = `Código do seu quiz: ${data.codigo}`;
-        });
-    });
 </script>
 {% endblock %}
