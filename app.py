@@ -10,7 +10,8 @@ from quiz import fases, obter_resposta_usuario,fase_inicial,exibir_fase,resposta
 from trilha import fases_trilha
 from qcbc import fases_qcbc
 
-import uuid
+import qrcode
+
 
 import json
 
@@ -21,7 +22,6 @@ app.config['pergunta_atual'] = 0
 app.config['pontuacao'] = 0
 app.config['trofeu_quiz'] = 0
 
-quiz_storage = {}  # Ex: {"abc123": {"perguntas": [...], "expira_em": datetime}}
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -570,10 +570,6 @@ def Logout():
 
 
 
-# daqui p frente são rotas teste para testar a parte do professor criar suas proprias questões
-@app.route("/teste_quiz")
-def teste():
-    return render_template("teste.html")
 
 @app.route("/criar-quiz", methods=["GET","POST"])
 def criar_quiz():
@@ -600,24 +596,20 @@ def criar_quiz():
             )
             session.add(pergunta)
         session.commit()
-        return 'adicionado'
-    return render_template("teste.html")
+        data = f'http://192.168.3.16:5000/quiz_personalizado/{id_quiz.id}'
 
-@app.route("/quiz/<codigo>")
-def obter_quiz(codigo):
-    quiz = quiz_storage.get(codigo)
-    if not quiz:
-        return jsonify({"erro": "Quiz não encontrado"}), 404
+        qr = qrcode.make(data)
 
-    return jsonify({
-        "titulo": quiz.get("titulo", "Quiz Personalizado"),
-        "perguntas": quiz["perguntas"]
-    })
+        qr.save(f'static/imgs/qrcodes/qrcode_quiz_{id_quiz.id}.png')
+        return redirect(url_for('quiz_personalizado',id=id_quiz.id))
+    return render_template("criar_quiz.html")
 
 
-@app.route("/quiz-personalizado")
-def quiz_personalizado():
-    return render_template("quiz_personalizado.html")
+@app.route("/quiz_personalizado/<id>")
+def quiz_personalizado(id):
+    img = f'qrcode_quiz_{id}.png'
+    return render_template('quiz_personalizado.html',img=img,cod=id)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
