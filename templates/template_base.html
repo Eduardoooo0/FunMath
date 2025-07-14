@@ -53,13 +53,83 @@
 
                     <!-- Botão para a seção de ajuda -->
                     
-                        <a class="links"  href="{{url_for('Ajuda')}}">
-                            <button class="links-button" id="bt_ajuda">Ajuda</button>
+                        <a class="links" onclick="abrirAjuda()">
+                            <button class="links-button" id="bt_ajuda" >Ajuda</button>
                         </a>
+                        <div id="modal_ajuda" class="modal" style="display: none;">
+                            <div id="modal_content" style="color: black; background-color: white; padding: 20px; border-radius: 10px; max-width: 600px; margin: 5% auto; position: relative;">
+                                <span onclick="fecharAjuda()" style="cursor:pointer; font-size: 30px; position: absolute; top: 10px; right: 15px;">&times;</span>
+                                <h2>Perguntas Frequentes</h2>
+                                <hr>
+                                <p><strong>1. Como jogar os jogos?</strong><br>
+                                - Trilha: responda certo para a raposa avançar as casas.<br>
+                                - Quebra-cabeça: cada acerto revela uma peça.<br>
+                                - Quiz: estilo kahoot com tempo.</p>
+                                <p><strong>2. Preciso me cadastrar?</strong><br>
+                                - Não necessariamente, mas você perde o seu progresso.</p>
+                                <p><strong>3. E se eu tiver um problema técnico?</strong><br>
+                                - Atualize a página. Se o erro continuar, entre em contato.</p>
+
+                            </div>
+                        </div>
+
                         {% if not current_user.is_authenticated %}
-                            <a class="links"  href="{{url_for('Login')}}">
+                            <a class="links" onclick="abrirLogin()">
                                 <button class="links-button" id="bt_login">Login</button>
                             </a>
+                            <div id="modal_login" class="modal" style="display: none;">
+                                <div class="modal_content">
+                                    <span onclick="fecharLogin()" class="fechar">&times;</span>
+
+                                    <!-- LOGIN -->
+
+                                    <div id="login_form">
+                                        <h2>Login</h2>
+                                        <div class="form_login">
+                                            <form id="login" action="{{url_for('Login')}}" method="post">
+                                                <input id="input_login" type="email" name="email" id="emailId" placeholder="Email" required>
+                                                <input id="input_login" type="password" name="senha" id="senhaId" placeholder="Senha" required>
+                                                {% with messages = get_flashed_messages() %}
+                                                    {% if messages %}
+                                                        <p style="color: red;" >{{messages[0]}}</p>
+                                                    {% endif %}
+                                                {% endwith %}
+                                                <input id="entrar_login" type="submit" value="Entrar">
+                                            </form>
+                                            <div class="cadastrar">
+                                                <h4>Ainda não tem uma conta?</h4>
+                                                <a id="link-cadastro" onclick="mostrarCadastro()">Cadastre-se</a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <!-- CADASTRO -->
+                                    <div id="cadastro_form" style="display: none;">
+                                        <h1>Cadastro</h1>
+                                        <div class="form_login">
+                                            <form id="login" action="{{url_for('Cadastro')}}" method="post">
+                                                <input id="input_login" type="text" name="nome" placeholder="Nome">
+                                                <input id="input_login" type="email" name="email" id="emailId" placeholder="Email">
+                                                <input id="input_login" type="password" name="senha" id="senhaId" placeholder="Senha">
+                                                {% with messages = get_flashed_messages() %}
+                                                    {% if messages %}
+                                                        <p style="color: red;">{{messages[0]}}</p>
+                                                    {% endif %}
+                                                {% endwith %}
+                                                <input id="entrar_login" type="submit" value="Enviar">
+                                            </form>
+                                            <div class="cadastrar">
+                                                <h4>Já possui uma conta?</h4>
+                                                <a id="link-cadastro" onclick="mostrarLogin()" style="margin-left: 43%;">Login</a>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         {% endif %}
                         <!-- Seção de perfil com a imagem de perfil -->
                         <a href="{{ url_for('Perfil') }}" class="perfil">
@@ -164,6 +234,35 @@
                 function voltarAoTopo() {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                 }
+
+            function abrirAjuda() {
+            document.getElementById("modal_ajuda").style.display = "block";
+            }
+
+            function fecharAjuda() {
+            document.getElementById("modal_ajuda").style.display = "none";
+            }
+
+            function abrirLogin() {
+            document.getElementById("modal_login").style.display = "block";
+            mostrarLogin()
+            }
+
+            function fecharLogin() {
+            document.getElementById("modal_login").style.display = "none";
+            }
+
+            function mostrarCadastro() {
+            document.getElementById("login_form").style.display = "none";
+            document.getElementById("cadastro_form").style.display = "block";
+            }
+
+            function mostrarLogin() {
+            document.getElementById("cadastro_form").style.display = "none";
+            document.getElementById("login_form").style.display = "block";
+            }
+
+
 
         </script>
         {% endblock %}

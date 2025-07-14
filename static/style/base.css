@@ -225,7 +225,7 @@ aside {
     align-items: center;
     width: 100%;
     height: 40vh;
-    background-image: url('../imgs/img_aside_inicial2.png');
+    background-image: url('../imgs/aside_inicial.png');
     background-size: cover;
     background-position: center;
     color: white;
@@ -253,23 +253,7 @@ aside {
 }
 
 /* Botão de chamada para ação */
-.cta-button {
-    animation: pulsar 2s infinite ease-in-out;
-    background-color: orange;
-    color: black;
-    font-size: 18px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 0 10px gray;
-}
 
-.cta-button:hover {
-    background-color: black;
-    color: orange;
-}
 
 @keyframes pulsar {
   0%, 100% {
@@ -288,6 +272,7 @@ aside {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 48vh;
 }
 
 /* Layout dos jogos */
@@ -444,57 +429,38 @@ aside {
 
 /* ---------- PAGINA DE LOGIN ----------  */
 
-/* Estilo da seção principal */
-
-#section_login {
-    display: flex;                    /* Define o layout da seção como flexbox */
-    flex-direction: column;
-    align-items: center;
-    width: 100%;                      /* Define a largura da seção como 100% da largura da viewport */
-    height: 90vh;                      /* Define a altura da seção como 80% da altura da viewport */
-    background-color: white;
-    padding: 1%;
-    margin-top: 5%;
-}
-
-/* Estilo da área de login e cadastro */
-.login-cadastro {
-    display: flex;                    /* Define o layout da área como flexbox */
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 70%;                       /* Define a largura da área como 70% da largura da seção */
-    height: 80%;                      /* Define a altura da área como 90% da altura da seção */
-    margin-top: 3%;
-}
-
-.login-cadastro img{
-    width: 30%;
-    height: 65%;
-    margin-right: 10%;
-}
-
 /* Estilo da segunda metade da área de login e cadastro */
-#box2_login {
+#login_form {
     display: flex;                    /* Define o layout da caixa como flexbox */
     flex-direction: column;           /* Organiza os itens da caixa em uma coluna */
     align-items: center;             /* Alinha os itens ao centro horizontalmente */
     justify-content: center;         /* Centraliza os itens verticalmente */
-    width: 40%;                       /* Define a largura da caixa como 50% da largura da área */
-    height: 80%;                     /* Define a altura da caixa como 100% da altura da área */
+    text-align: center;
+    width: 100%;                       /* Define a largura da caixa como 50% da largura da área */
+    height: 500px;
     font-family: Arial;              /* Define a fonte do texto na caixa */
     font-size: 20px;
-    color: white;
-    margin-right: -5%;
-    background: linear-gradient(100deg, #2c569b, #05142b);        /* Define a cor de fundo da área como branca */
-    box-shadow: 0 12px 12px rgb(43, 42, 42);
-    border-radius: 20px;
+    color: #0e3064;
 }
+
+#cadastro_form {
+    display: flex;                    /* Define o layout da caixa como flexbox */
+    flex-direction: column;           /* Organiza os itens da caixa em uma coluna */
+    align-items: center;             /* Alinha os itens ao centro horizontalmente */
+    justify-content: center;         /* Centraliza os itens verticalmente */
+    text-align: center;
+    width: 100%;                       /* Define a largura da caixa como 50% da largura da área */
+    height: 500px;
+    font-family: Arial;              /* Define a fonte do texto na caixa */
+    font-size: 20px;
+    color: #0e3064;
+}
+
 
 /* Estilo dos formulários */
 .form_login {
     height: 60%;                     /* Define a altura do formulário como 60% da altura da caixa */
-    width: 90%;                      /* Define a largura do formulário como 80% da largura da caixa */
+    width: 100%;                      /* Define a largura do formulário como 80% da largura da caixa */
     display: flex;                   /* Define o layout do formulário como flexbox */
     flex-direction: column;          /* Organiza os itens do formulário em uma coluna */
     align-items: center;             /* Alinha os itens ao centro horizontalmente */
@@ -503,7 +469,6 @@ aside {
     padding: 5%;
 }
 
-/* Estilo do bloco de login */
 #login {
     display: flex;                    /* Define o layout do bloco de login como flexbox */
     flex-direction: column;           /* Organiza os itens do bloco de login em uma coluna */
@@ -514,7 +479,6 @@ aside {
     width: 100%;                    /* Define a largura do bloco de login */
     height: 400px;                   /* Define a altura do bloco de login */
     margin-bottom: 170px;            /* Adiciona uma margem inferior ao bloco de login */
-    
 }
 
 /* Estilo dos campos de entrada */
@@ -526,10 +490,10 @@ aside {
     border-radius: 10px;              /* Adiciona bordas arredondadas aos campos de entrada */
     outline: none;                   /* Remove o contorno padrão dos campos de entrada */
     height: 50px;
-    border: 1px solid rgb(175, 175, 175);
+    border: 1px solid #0c2a58;
 }
 #input_login::placeholder {
-    color: white;                     /* Define a cor do texto de espaço reservado (placeholder) como cinza */
+    color: #0e3064;                    /* Define a cor do texto de espaço reservado (placeholder) como cinza */
     font-size: 17px;
 }
 input[type="button"] {
@@ -724,7 +688,8 @@ input[type="button"] {
     height: 88vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
-    background: linear-gradient(0deg,#3461a0 0%, #05172c 100%);
+    /* background: linear-gradient(0deg,#3461a0 0%, #05172c 100%); */
+    background-image: url(../imgs/section.png);
     padding: 1%;
     border-top: 1px solid rgb(197, 197, 197);
 }
@@ -750,11 +715,12 @@ input[type="button"] {
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     align-items: center; /* Alinha os itens horizontalmente ao centro */
     width: 80%; /* Largura da caixa central */
-    height: 80vh;
+    height: 75vh;
     max-width: 1200px; /* Largura máxima da caixa central */
     margin: 0 auto; /* Centraliza a caixa horizontalmente */
-    margin-top: 0;
+    margin-bottom: 35px;
     background-color: white; /* Cor de fundo branca */
+    border-radius: 20px;
 }
 
 /* Estilo para o título do jogo */
@@ -768,7 +734,6 @@ input[type="button"] {
 #quad1_inicial_cbc {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
     height: 100%;  /* Define a altura do quadrado como 400 pixels */
-    position: relative;  /* Define a posição do quadrado como relativa */
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
     justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
@@ -829,7 +794,6 @@ input[type="button"] {
 #quad1_inicial_quiz {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
     height: 90%;  /* Define a altura do quadrado como 400 pixels */
-    position: relative;  /* Define a posição do quadrado como relativa */
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
     justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
@@ -845,7 +809,6 @@ input[type="button"] {
 #quad1_inicial_trilha {
     width: 95%;  /* Define a largura do quadrado como 95% da largura do seu elemento pai */
     height: 90%;  /* Define a altura do quadrado como 400 pixels */
-    position: relative;  /* Define a posição do quadrado como relativa */
     display: flex;  /* Define o layout do quadrado como flexbox */
     align-items: center;  /* Alinha o conteúdo do quadrado verticalmente ao centro */
     justify-content: center;  /* Centraliza o conteúdo do quadrado horizontalmente */
@@ -880,7 +843,7 @@ input[type="button"] {
 
 .button_quest {
     width: 33%;
-    height: 29.5%;
+    height: 32.5%;
     border: 1px solid black;
     cursor: pointer;
     margin-bottom: 3px;
@@ -1803,6 +1766,48 @@ input[type="button"] {
     justify-content: center;
     align-items: center;
 }
+
+#modal_ajuda {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+#modal_login {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
+
+#modal_login .modal_content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  position: relative;
+  color: black;
+}
+
+.fechar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+
 #modal_content {
     background: white;
     padding: 20px;
