@@ -79,7 +79,7 @@
                             </a>
                             <div id="modal_login" class="modal" style="display: none;">
                                 <div class="modal_content">
-                                    <span onclick="fecharLogin()" class="fechar">&times;</span>
+                                    <span onclick="fecharLogin()" style="cursor:pointer; font-size: 30px; position: absolute; top: 10px; right: 15px;">&times;</span>
 
                                     <!-- LOGIN -->
 
@@ -236,7 +236,7 @@
                 }
 
             function abrirAjuda() {
-            document.getElementById("modal_ajuda").style.display = "block";
+            document.getElementById("modal_ajuda").style.display = "flex";
             }
 
             function fecharAjuda() {
@@ -244,7 +244,7 @@
             }
 
             function abrirLogin() {
-            document.getElementById("modal_login").style.display = "block";
+            document.getElementById("modal_login").style.display = "flex";
             mostrarLogin()
             }
 
@@ -261,6 +261,49 @@
             document.getElementById("cadastro_form").style.display = "none";
             document.getElementById("login_form").style.display = "block";
             }
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const slides = document.getElementById('carrosselSlides');
+                const totalSlides = slides.querySelectorAll('.slide').length;
+                let indexCarrossel = 0;
+
+                let autoPlayInterval;
+                let pauseTimeout;
+
+                // Função principal para mover o carrossel
+                function atualizarSlide() {
+                    slides.style.transform = `translateX(-${indexCarrossel * 100}%)`;
+                }
+
+                // Função global para avançar ou voltar
+                window.moverCarrossel = function (direcao) {
+                    indexCarrossel += direcao;
+                    if (indexCarrossel < 0) indexCarrossel = totalSlides - 1;
+                    if (indexCarrossel >= totalSlides) indexCarrossel = 0;
+
+                    atualizarSlide();
+                    pausarAutoPlay();  // Pausa quando usuário clica
+                };
+
+                // Inicia o carrossel automático
+                function iniciarAutoPlay() {
+                    autoPlayInterval = setInterval(() => {
+                        indexCarrossel = (indexCarrossel + 1) % totalSlides;
+                        atualizarSlide();
+                    }, 3000); // troca a cada 3 segundos
+                }
+
+                // Pausa o autoplay por 10 segundos
+                function pausarAutoPlay() {
+                    clearInterval(autoPlayInterval);
+                    clearTimeout(pauseTimeout);
+                    pauseTimeout = setTimeout(iniciarAutoPlay, 6000); // pausa por 10s
+                }
+
+                // Inicia ao carregar a página
+                iniciarAutoPlay();
+            });
+
 
 
 

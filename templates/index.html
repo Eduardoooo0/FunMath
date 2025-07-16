@@ -6,20 +6,23 @@
 
     {% block aside %}
         <div class="aside_inicial" id="hero">
-            <!-- <div class="slides">
-                <div class="slide">
-                    <img src="../static/imgs/img_aside_inicial2.png" alt="Imagem 1">
+            <div class="carrossel-container">
+                <button class="botao esquerda" onclick="moverCarrossel(-1)">&#10094;</button>
+
+                <div class="slides" id="carrosselSlides">
+                    <div class="slide"><img src="{{ url_for('static', filename='imgs/img_aside_inicial2.png') }}" alt="Info 1"></div>
+                    <div class="slide"><img src="{{ url_for('static', filename='imgs/imgTrilha_aside_inicial2.png') }}" alt="Info 2"></div>
                 </div>
-                <div class="slide">
-                    <img src="../static/imgs/imgTrilha_aside_inicial2.png" alt="Imagem 2">
-                </div>
+
+                <button class="botao direita" onclick="moverCarrossel(1)">&#10095;</button>
             </div>
-            <button class="anterior">&#10094;</button>
-            <button class="proximo">&#10095;</button> -->
-            <div class="hero-content">
+
+
+
+            <!-- <div class="hero-content">
                 <h1>Aprenda Matemática Brincando</h1>
                 <p>Explore jogos interativos que tornam a matemática divertida.</p>
-            </div>
+            </div> -->
         </div>
 
     {% endblock %}
@@ -63,4 +66,3 @@
             <button id="btn-topo" onclick="voltarAoTopo()" title="Voltar ao topo">↑</button>
         </div>
     {% endblock %}
-

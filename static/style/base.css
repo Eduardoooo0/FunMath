@@ -31,7 +31,7 @@ html, body {
 /* Estiliza o cabeçalho da página */
 header {
     display: flex;              /* Define o layout do cabeçalho como flexbox */
-    position: relative;
+    position: fixed;
     flex-direction: row;        /* Organiza os itens do cabeçalho em uma linha */
     align-items: center;        /* Alinha os itens do cabeçalho verticalmente ao centro */
     background: linear-gradient(0deg,#05142b 0%,  #071932 100%);
@@ -39,7 +39,8 @@ header {
     width: 100%;                /* Define a largura do cabeçalho como 100% da largura da viewport */
     height: 12vh;                /* Define a altura do cabeçalho como 12% da altura da viewport */
     padding: 10px;
-    z-index: 1000;
+    z-index: 10;
+    pointer-events: all;
 }
 
 
@@ -174,7 +175,7 @@ a {
 .bt_jogo a {
     text-decoration: none;
     color: black;
-border-radius: 10px;
+    border-radius: 10px;
 }
 
 .bt_jogo:hover {
@@ -221,85 +222,81 @@ border-radius: 10px;
 .aside_inicial {
     display: flex;
     position: relative;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 40vh;
-    background-size: cover;
-    background-position: center;
-    color: white;
-    text-align: center;
-    background-color: #00AEEF;
+    height: 45vh;
+    margin-top: 12vh;
+    padding: 0;
+    background-color: #f4f4f4;
     z-index: 1;
 }
 
-
-/* Conteúdo centralizado acima da imagem */
-.aside_inicial .hero-content {
-    max-width: 800px;
+.carrossel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
 }
 
-.aside_inicial h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-.aside_inicial p {
-    font-size: 1.3rem;
-    margin-bottom: 30px;
-}
-/* 
 .slides {
   display: flex;
-  position: relative;
-  z-index: 1;
-  width: 100%; /* 100% * número de slides */
-  /* height: 100%;
-  transition: transform 0.5s ease-in-out;
-  pointer-events: none;
-} */
-
-/* .slide {
   width: 100%;
-  flex-shrink: 0;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .slide img {
-  width: 100%; */
-  /* height: 40vh; /* ou ajuste conforme seu layout */
-  /* object-fit: cover;
-} */
-/* .anterior, .proximo {
-  position: absolute;
-  top: 30%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  font-size: 24px;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  z-index: 1;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cobre o espaço inteiro mantendo proporção */
+  display: block;
 }
 
-.anterior { left: 10px; }
-.proximo { right: 10px; }
+.botao {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 24px;
+  z-index: 2;
+}
 
-.anterior:hover, .proximo:hover {
-  background-color: rgba(0,0,0,0.8);
-} 
+.botao.esquerda {
+  left: 10px;
+}
+
+.botao.direita {
+  right: 10px;
+}
+
+
+
+
+
 /* Seção dos jogos */
 #section_inicial {
     background-color: #f4f4f4;
-    padding: 62px 20px;
+    padding: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 48vh;
+    height: 43vh;
 }
 
 /* Layout dos jogos */
@@ -308,7 +305,6 @@ border-radius: 10px;
     justify-content: center;
     gap: 40px;
     flex-wrap: wrap;
-    max-width: 1200px;
     width: 100%;
 }
 
@@ -580,6 +576,7 @@ input[type="button"] {
     justify-content: center;
     width: 100%; /* Largura da seção é 100% da largura disponível */
     height: 88vh;
+    margin-top: 12vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     background: linear-gradient(0deg,#3461a0 0%, #05172c 100%);
     padding: 1%;
@@ -714,6 +711,7 @@ input[type="button"] {
     flex-direction: column; /* Organiza o conteúdo em uma coluna */
     width: 100%; /* Largura da seção é 100% da largura disponível */
     height: 88vh;
+    margin-top: 12vh;
     flex: 1; /* Permite que a seção cresça para preencher o espaço disponível */
     overflow-y: hidden; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
     /* background: linear-gradient(0deg,#3461a0 0%, #05172c 100%); */
@@ -1499,6 +1497,7 @@ input[type="button"] {
     justify-content: center;
     width: 100%;
     height: 88vh;
+    margin-top: 12vh;
     padding: 5px;
     overflow: hidden;
     /* background: linear-gradient(0deg,#2457a0 0%,  #051731 100%); */
@@ -1604,11 +1603,11 @@ input[type="button"] {
 }
 
 .container_trf {
-     display: flex;
-     flex-direction: row;
-     justify-content: space-around;
-     width: 50%;
-     margin-left: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 50%;
+    margin-left: 25%;
 }
 
 #title_trf{
@@ -1785,57 +1784,43 @@ input[type="button"] {
     border: 2px solid #007BFF;
 }
 
-#modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#modal_ajuda {
-  position: absolute;
-  z-index: 9999;
-  left: 0;
-  top: 0;
+.modal {
+  position: fixed;       /* fixa na tela toda */
+  top: 0; left: 0;       /* cobre toda a viewport */
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0,0,0,0.5); /* fundo escuro transparente */
+  
+  display: none;         /* começa escondido */
+  justify-content: center; /* centraliza horizontalmente */
+  align-items: center;      /* centraliza verticalmente */
+  z-index: 9999;          /* fica acima de tudo */
 }
 
+#modal_ajuda,
 #modal_login {
-  position: absolute;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  /* herda .modal ou repita se preferir */
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
   display: none;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
-#modal_login .modal_content {
+#modal_content, .modal_content {
   background-color: white;
-  margin: 10% auto;
+  color: black;
   padding: 20px;
   border-radius: 10px;
-  max-width: 500px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto; /* rolagem interna se precisar */
+  box-sizing: border-box;
   position: relative;
-  color: black;
 }
 
-.fechar {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 28px;
-  cursor: pointer;
-}
 
 
 #modal_content {
